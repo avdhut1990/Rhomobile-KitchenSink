@@ -1,0 +1,13 @@
+ext/platform/android/generated/src/com/rho/chat/ChatBase.java
+ext/platform/android/generated/src/com/rho/chat/ChatFactorySingleton.java
+ext/platform/android/generated/src/com/rho/chat/ChatSingletonBase.java
+ext/platform/android/generated/src/com/rho/chat/IChat.java
+ext/platform/android/generated/src/com/rho/chat/IChatFactory.java
+ext/platform/android/generated/src/com/rho/chat/IChatSingleton.java
+ext/platform/android/src/com/rho/chat/Chat.java
+ext/platform/android/src/com/rho/chat/ChatFactory.java
+ext/platform/android/src/com/rho/chat/ChatSingleton.java
+
+ext/platform/android/src/com/rho/chat/FCMFacade.java
+ext/platform/android/src/com/rho/chat/FCMIntentService.java
+ext/platform/android/src/com/rho/chat/FCMTokenRefresherService.java

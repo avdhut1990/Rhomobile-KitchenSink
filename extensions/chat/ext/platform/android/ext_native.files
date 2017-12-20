@@ -1,0 +1,7 @@
+ext/platform/android/generated/jni/Chat.cpp
+ext/platform/android/generated/jni/chat_ruby_wrap.cpp
+ext/platform/android/generated/jni/chat_js_wrap.cpp
+ext/platform/android/jni/Chat_impl.cpp
+ext/shared/generated/chat_api_init.cpp
+ext/shared/generated/chat_js_api.cpp
+ext/shared/generated/chat_ruby_api.c

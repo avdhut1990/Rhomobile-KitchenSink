@@ -1,0 +1,55 @@
+<?xml version = "1.0"?>
+<?xml-stylesheet type="text/xsl" href="pb_help.xsl"?>
+<API>
+	<MODULE name="Chat" parent="Rho">
+		<HELP_OVERVIEW>Example extension api</HELP_OVERVIEW>
+		<MORE_HELP>This is example of API. Implementation contain in extension.</MORE_HELP>
+
+		<TEMPLATES>
+			<DEFAULT_INSTANCE/>
+			<PROPERTY_BAG/>
+		</TEMPLATES>
+
+		<PROPERTIES >
+			<DESC>list of properties supported by instance of object</DESC>
+			<PROPERTY name="simpleStringProperty" type="STRING" usePropertyBag="accessorsViaPropertyBag" >
+				<DESC>simple string property</DESC>
+			</PROPERTY>
+		</PROPERTIES>
+
+		<METHODS>
+
+			<METHOD name="enumerate" access="STATIC" hasCallback="optional">
+				<RETURN type="ARRAY">
+					<DESC>Array of Chat objects</DESC>
+					<PARAM type="SELF_INSTANCE"/>
+				</RETURN>
+			</METHOD>
+
+			<METHOD name="init">
+				<DESC>return summ of two params: a+b</DESC>
+				<PARAMS>
+					<PARAM name="google_api_key" type="STRING">
+					</PARAM>
+					<PARAM name="google_app_id" type="STRING">
+					</PARAM>
+					<PARAM name="gcm_sender_id" type="STRING">
+					</PARAM>
+					<PARAM name="google_project_id" type="STRING">
+					</PARAM>
+					<PARAM name="google_storage_bucket" type="STRING">
+					</PARAM>
+				</PARAMS>
+				<RETURN type="STRING"/>
+			</METHOD>
+
+		</METHODS>
+
+		<USER_OVERVIEW>
+		</USER_OVERVIEW>
+
+		<VER_INTRODUCED>1.0.0</VER_INTRODUCED>
+		<PLATFORM>
+		</PLATFORM>
+	</MODULE>
+</API>

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "188430455636",
+    "firebase_url": "https://kitchensink-1718a.firebaseio.com",
+    "project_id": "kitchensink-1718a",
+    "storage_bucket": "kitchensink-1718a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:188430455636:android:a6db880f1f885a6c",
+        "android_client_info": {
+          "package_name": "com.rhomobile.kitchensink"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "188430455636-2h9j62impl0vim7bfm0rtveelvpkuv4q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5ISHf11DwSlYPq-tDfClo-6A_tk9D6TQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

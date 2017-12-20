@@ -1,0 +1,22 @@
+entry: Init_Chat_extension
+javaentry: com.chat.Chat
+libraries: ["chat"]
+android:
+  adds: ext/platform/android/additional
+  source_list: ext/platform/android/ext_java.files
+  manifest_changes:
+  - ext/platform/android/AndroidManifest.rb
+  - ext/platform/android/ApplicationManifestAdds.erb
+  exttype: rakefile
+  library_deps: [extras/google/google_play_services/libproject/google-play-services_lib]
+  maven_deps:
+  - 'com.google.firebase:firebase-messaging:11.0.4'
+wp8:
+  csharp_impl: yes
+  root_namespace: rho
+
+project_paths:
+  wp8: ext/platform/wp8/ChatLib.vcxproj
+  wm: ext/platform/wm/Chat.vcproj
+  
+xml_api_paths: ext/Chat.xml
