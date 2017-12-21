@@ -15,6 +15,5 @@ class ChatController < Rho::RhoController
 		obj = objects[0]
 		res = obj.init("AIzaSyA5ISHf11DwSlYPq-tDfClo-6A_tk9D6TQ","1:188430455636:android:a6db880f1f885a6c","188430455636","kitchensink-1718a","kitchensink-1718a.appspot.com") 
 		Alert.show_popup "Rho::Chat.initreturn : #{res.to_s}"
-		render :action => '/app'
 	end
 end
