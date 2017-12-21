@@ -178,7 +178,7 @@ rho::String js_Chat_init(const rho::String& strObjID, rho::json::CJSONArray& arg
 
     if ( argc == 0 )
     {
-        oRes.setArgError( "Wrong number of arguments: " + convertToStringA(argc) + " instead of " + convertToStringA(5) );
+        oRes.setArgError( "Wrong number of arguments: " + convertToStringA(argc) + " instead of " + convertToStringA(7) );
         return oRes.toJSON();
     }
     
@@ -198,7 +198,7 @@ rho::String js_Chat_init(const rho::String& strObjID, rho::json::CJSONArray& arg
 
     if ( argc == 1 )
     {
-        oRes.setArgError( "Wrong number of arguments: " + convertToStringA(argc) + " instead of " + convertToStringA(5) );
+        oRes.setArgError( "Wrong number of arguments: " + convertToStringA(argc) + " instead of " + convertToStringA(7) );
         return oRes.toJSON();
     }
     
@@ -218,7 +218,7 @@ rho::String js_Chat_init(const rho::String& strObjID, rho::json::CJSONArray& arg
 
     if ( argc == 2 )
     {
-        oRes.setArgError( "Wrong number of arguments: " + convertToStringA(argc) + " instead of " + convertToStringA(5) );
+        oRes.setArgError( "Wrong number of arguments: " + convertToStringA(argc) + " instead of " + convertToStringA(7) );
         return oRes.toJSON();
     }
     
@@ -238,7 +238,7 @@ rho::String js_Chat_init(const rho::String& strObjID, rho::json::CJSONArray& arg
 
     if ( argc == 3 )
     {
-        oRes.setArgError( "Wrong number of arguments: " + convertToStringA(argc) + " instead of " + convertToStringA(5) );
+        oRes.setArgError( "Wrong number of arguments: " + convertToStringA(argc) + " instead of " + convertToStringA(7) );
         return oRes.toJSON();
     }
     
@@ -258,7 +258,7 @@ rho::String js_Chat_init(const rho::String& strObjID, rho::json::CJSONArray& arg
 
     if ( argc == 4 )
     {
-        oRes.setArgError( "Wrong number of arguments: " + convertToStringA(argc) + " instead of " + convertToStringA(5) );
+        oRes.setArgError( "Wrong number of arguments: " + convertToStringA(argc) + " instead of " + convertToStringA(7) );
         return oRes.toJSON();
     }
     
@@ -276,15 +276,55 @@ rho::String js_Chat_init(const rho::String& strObjID, rho::json::CJSONArray& arg
         }
     }
 
+    if ( argc == 5 )
+    {
+        oRes.setArgError( "Wrong number of arguments: " + convertToStringA(argc) + " instead of " + convertToStringA(7) );
+        return oRes.toJSON();
+    }
+    
+    rho::String arg5 = "";
+    if ( argc > 5 )
+    {
+        if ( argv[5].isString() )
+        {
+            arg5 = argv[5].getStringObject();
+        }
+        else if (!argv[5].isNull())
+        {
+            oRes.setArgError( "Type error: argument " "5" " should be " "string" );
+            return oRes.toJSON();
+        }
+    }
+
+    if ( argc == 6 )
+    {
+        oRes.setArgError( "Wrong number of arguments: " + convertToStringA(argc) + " instead of " + convertToStringA(7) );
+        return oRes.toJSON();
+    }
+    
+    rho::String arg6 = "";
+    if ( argc > 6 )
+    {
+        if ( argv[6].isString() )
+        {
+            arg6 = argv[6].getStringObject();
+        }
+        else if (!argv[6].isNull())
+        {
+            oRes.setArgError( "Type error: argument " "6" " should be " "string" );
+            return oRes.toJSON();
+        }
+    }
+
     if ( oRes.hasCallback() )
     {
-        pFunctor = rho_makeInstanceClassFunctor6( pObj, &rho::IChat::init, arg0, arg1, arg2, arg3, arg4,  oRes );
+        pFunctor = rho_makeInstanceClassFunctor8( pObj, &rho::IChat::init, arg0, arg1, arg2, arg3, arg4, arg5, arg6,  oRes );
         rho::CChatFactoryBase::getChatSingletonS()->addCommandToQueue( pFunctor );
     }
     else 
     {
 
-        pObj->init( arg0, arg1, arg2, arg3, arg4,  oRes );
+        pObj->init( arg0, arg1, arg2, arg3, arg4, arg5, arg6,  oRes );
     }
     
     return oRes.toJSON();

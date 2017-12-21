@@ -721,7 +721,7 @@ static rb_Chat_init_caller* our_Chat_init_caller = nil;
     CMethodResult* methodResult = caller_params.methodResult;
 
     
-    [objItem init:(NSString*)[params objectAtIndex:0] google_app_id:(NSString*)[params objectAtIndex:1] gcm_sender_id:(NSString*)[params objectAtIndex:2] google_project_id:(NSString*)[params objectAtIndex:3] google_storage_bucket:(NSString*)[params objectAtIndex:4] methodResult:methodResult ];
+    [objItem init:(NSString*)[params objectAtIndex:0] google_app_id:(NSString*)[params objectAtIndex:1] gcm_sender_id:(NSString*)[params objectAtIndex:2] google_project_id:(NSString*)[params objectAtIndex:3] google_storage_bucket:(NSString*)[params objectAtIndex:4] dialogflow_client_access_token:(NSString*)[params objectAtIndex:5] dialogflow_language:(NSString*)[params objectAtIndex:6] methodResult:methodResult ];
     [caller_params.methodResult release];
     [caller_params release];
 }
@@ -746,7 +746,7 @@ VALUE rb_Chat_init_Obj(int argc, VALUE *argv, id<IChat>objItem) {
 
     CMethodResult* methodResult = [[CMethodResult alloc] init];
 
-    NSObject* params[5+1];
+    NSObject* params[7+1];
     NSString* callbackURL = nil;
     unsigned long callbackMethod = 0;
     NSString* callbackParam = nil;
@@ -755,19 +755,19 @@ VALUE rb_Chat_init_Obj(int argc, VALUE *argv, id<IChat>objItem) {
     [methodResult setMethodSignature:@"Chat::init"];
 
     
-    BOOL is_factory_param[] = { NO, NO, NO, NO, NO, NO };
+    BOOL is_factory_param[] = { NO, NO, NO, NO, NO, NO, NO, NO };
 
     int i;
 
     // init
-    for (i = 0; i < (5); i++) {
+    for (i = 0; i < (7); i++) {
         params[i] = [NSNull null];
     }
 
     
 
     // enumerate params
-    for (int i = 0; i < (5); i++) {
+    for (int i = 0; i < (7); i++) {
         if (argc > i) {
             // we have a [i] param !
             if (is_factory_param[i]) {
@@ -779,15 +779,15 @@ VALUE rb_Chat_init_Obj(int argc, VALUE *argv, id<IChat>objItem) {
         }
     }
 
-    NSMutableArray* params_array = [NSMutableArray arrayWithCapacity:(5)];
-    for (i = 0 ; i < (5); i++) {
+    NSMutableArray* params_array = [NSMutableArray arrayWithCapacity:(7)];
+    for (i = 0 ; i < (7); i++) {
         [params_array addObject:params[i]];
     }
 
     
     // check callback
-    if (argc >= (5+1)) {
-        VALUE callback = argv[5];
+    if (argc >= (7+1)) {
+        VALUE callback = argv[7];
         if (rho_ruby_is_string(callback)) {
             callbackURL = [((NSString*)[CRubyConverter convertFromRuby:callback]) retain];
         }
@@ -796,8 +796,8 @@ VALUE rb_Chat_init_Obj(int argc, VALUE *argv, id<IChat>objItem) {
         }
     }
     // check callback param
-    if (argc >= (5+2)) {
-        VALUE callback_param = argv[5+1];
+    if (argc >= (7+2)) {
+        VALUE callback_param = argv[7+1];
         if (rho_ruby_is_string(callback_param)) {
             callbackParam = [((NSString*)[CRubyConverter convertFromRuby:callback_param]) retain];
         }

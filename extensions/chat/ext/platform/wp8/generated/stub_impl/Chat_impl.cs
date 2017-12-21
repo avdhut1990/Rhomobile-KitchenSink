@@ -32,7 +32,7 @@ namespace ChatImpl
             // implement this method in C# here
         }
 
-        public override void init(string google_api_key, string google_app_id, string gcm_sender_id, string google_project_id, string google_storage_bucket, IMethodResult oResult)
+        public override void init(string google_api_key, string google_app_id, string gcm_sender_id, string google_project_id, string google_storage_bucket, string dialogflow_client_access_token, string dialogflow_language, IMethodResult oResult)
         {
             // implement this method in C# here
         }

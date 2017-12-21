@@ -649,7 +649,7 @@ static Chat_init_caller* our_Chat_init_caller = nil;
     CMethodResult* methodResult = caller_params.methodResult;
 
     
-    [objItem init:(NSString*)[params objectAtIndex:0] google_app_id:(NSString*)[params objectAtIndex:1] gcm_sender_id:(NSString*)[params objectAtIndex:2] google_project_id:(NSString*)[params objectAtIndex:3] google_storage_bucket:(NSString*)[params objectAtIndex:4] methodResult:methodResult ];
+    [objItem init:(NSString*)[params objectAtIndex:0] google_app_id:(NSString*)[params objectAtIndex:1] gcm_sender_id:(NSString*)[params objectAtIndex:2] google_project_id:(NSString*)[params objectAtIndex:3] google_storage_bucket:(NSString*)[params objectAtIndex:4] dialogflow_client_access_token:(NSString*)[params objectAtIndex:5] dialogflow_language:(NSString*)[params objectAtIndex:6] methodResult:methodResult ];
     [caller_params.methodResult release];
     [caller_params release];
 }
@@ -675,7 +675,7 @@ rho::String js_Chat_init_Obj(rho::json::CJSONArray& argv, id<IChat>objItem, cons
 
     CMethodResult* methodResult = [[CMethodResult alloc] init];
 
-    NSObject* params[5+1];
+    NSObject* params[7+1];
     BOOL method_return_result = YES;
     BOOL method_receive_callback = NO;
     int argc = argv.getSize();
@@ -684,22 +684,22 @@ rho::String js_Chat_init_Obj(rho::json::CJSONArray& argv, id<IChat>objItem, cons
     [methodResult setMethodSignature:@"Chat::init"];
 
     
-    static RHO_API_PARAM rho_api_params[] = { {RHO_API_STRING, 0, "google_api_key", 0, 0 }, {RHO_API_STRING, 0, "google_app_id", 0, 0 }, {RHO_API_STRING, 0, "gcm_sender_id", 0, 0 }, {RHO_API_STRING, 0, "google_project_id", 0, 0 }, {RHO_API_STRING, 0, "google_storage_bucket", 0, 0 } };
+    static RHO_API_PARAM rho_api_params[] = { {RHO_API_STRING, 0, "google_api_key", 0, 0 }, {RHO_API_STRING, 0, "google_app_id", 0, 0 }, {RHO_API_STRING, 0, "gcm_sender_id", 0, 0 }, {RHO_API_STRING, 0, "google_project_id", 0, 0 }, {RHO_API_STRING, 0, "google_storage_bucket", 0, 0 }, {RHO_API_STRING, 0, "dialogflow_client_access_token", 0, 0 }, {RHO_API_STRING, 0, "dialogflow_language", 0, 0 } };
 
     
-    BOOL is_factory_param[] = { NO, NO, NO, NO, NO, NO };
+    BOOL is_factory_param[] = { NO, NO, NO, NO, NO, NO, NO, NO };
 
     int i;
 
     // init
-    for (i = 0; i < (5); i++) {
+    for (i = 0; i < (7); i++) {
         params[i] = [CJSConverter getObjectiveCNULL];
     }
 
     
 
     // enumerate params
-    for (int i = 0; i < (5); i++) {
+    for (int i = 0; i < (7); i++) {
         if (argc > i) {
             // we have a [i] param !
             if (is_factory_param[i]) {
@@ -718,8 +718,8 @@ rho::String js_Chat_init_Obj(rho::json::CJSONArray& argv, id<IChat>objItem, cons
         }
     }
 
-    NSMutableArray* params_array = [NSMutableArray arrayWithCapacity:(5)];
-    for (i = 0 ; i < (5); i++) {
+    NSMutableArray* params_array = [NSMutableArray arrayWithCapacity:(7)];
+    for (i = 0 ; i < (7); i++) {
         [params_array addObject:params[i]];
     }
 

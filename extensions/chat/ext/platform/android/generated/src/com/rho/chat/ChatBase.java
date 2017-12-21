@@ -84,6 +84,8 @@ public class ChatBase extends RhoApiObject {
         private String gcm_sender_id;
         private String google_project_id;
         private String google_storage_bucket;
+        private String dialogflow_client_access_token;
+        private String dialogflow_language;
         private IMethodResult mResult;
 
         public initTask(IChat obj, 
@@ -92,6 +94,8 @@ public class ChatBase extends RhoApiObject {
                 String gcm_sender_id, 
                 String google_project_id, 
                 String google_storage_bucket, 
+                String dialogflow_client_access_token, 
+                String dialogflow_language, 
                 IMethodResult result) {
             this.mApiObject = obj; 
             this.google_api_key = google_api_key;
@@ -99,6 +103,8 @@ public class ChatBase extends RhoApiObject {
             this.gcm_sender_id = gcm_sender_id;
             this.google_project_id = google_project_id;
             this.google_storage_bucket = google_storage_bucket;
+            this.dialogflow_client_access_token = dialogflow_client_access_token;
+            this.dialogflow_language = dialogflow_language;
             this.mResult = result;
         }
 
@@ -110,7 +116,9 @@ public class ChatBase extends RhoApiObject {
                     google_app_id, 
                     gcm_sender_id, 
                     google_project_id, 
-                    google_storage_bucket, mResult);
+                    google_storage_bucket, 
+                    dialogflow_client_access_token, 
+                    dialogflow_language, mResult);
             } catch (Throwable ex) {
                 mResult.set(ex);
             }

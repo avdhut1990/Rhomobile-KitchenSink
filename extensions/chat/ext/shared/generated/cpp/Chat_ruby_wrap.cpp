@@ -266,7 +266,7 @@ static VALUE _api_generator_Chat_init(int argc, VALUE *argv, rho::IChat* pObj)
     nCallbackArg = 1;
     if ( argc == 0 )
     {
-        oRes.setArgError("Wrong number of arguments: " + convertToStringA(argc) + " instead of " + convertToStringA(5) );
+        oRes.setArgError("Wrong number of arguments: " + convertToStringA(argc) + " instead of " + convertToStringA(7) );
         return oRes.toRuby();
     }
     rho::String arg0 = "";
@@ -286,7 +286,7 @@ static VALUE _api_generator_Chat_init(int argc, VALUE *argv, rho::IChat* pObj)
     nCallbackArg = 2;
     if ( argc == 1 )
     {
-        oRes.setArgError("Wrong number of arguments: " + convertToStringA(argc) + " instead of " + convertToStringA(5) );
+        oRes.setArgError("Wrong number of arguments: " + convertToStringA(argc) + " instead of " + convertToStringA(7) );
         return oRes.toRuby();
     }
     rho::String arg1 = "";
@@ -306,7 +306,7 @@ static VALUE _api_generator_Chat_init(int argc, VALUE *argv, rho::IChat* pObj)
     nCallbackArg = 3;
     if ( argc == 2 )
     {
-        oRes.setArgError("Wrong number of arguments: " + convertToStringA(argc) + " instead of " + convertToStringA(5) );
+        oRes.setArgError("Wrong number of arguments: " + convertToStringA(argc) + " instead of " + convertToStringA(7) );
         return oRes.toRuby();
     }
     rho::String arg2 = "";
@@ -326,7 +326,7 @@ static VALUE _api_generator_Chat_init(int argc, VALUE *argv, rho::IChat* pObj)
     nCallbackArg = 4;
     if ( argc == 3 )
     {
-        oRes.setArgError("Wrong number of arguments: " + convertToStringA(argc) + " instead of " + convertToStringA(5) );
+        oRes.setArgError("Wrong number of arguments: " + convertToStringA(argc) + " instead of " + convertToStringA(7) );
         return oRes.toRuby();
     }
     rho::String arg3 = "";
@@ -346,7 +346,7 @@ static VALUE _api_generator_Chat_init(int argc, VALUE *argv, rho::IChat* pObj)
     nCallbackArg = 5;
     if ( argc == 4 )
     {
-        oRes.setArgError("Wrong number of arguments: " + convertToStringA(argc) + " instead of " + convertToStringA(5) );
+        oRes.setArgError("Wrong number of arguments: " + convertToStringA(argc) + " instead of " + convertToStringA(7) );
         return oRes.toRuby();
     }
     rho::String arg4 = "";
@@ -363,21 +363,61 @@ static VALUE _api_generator_Chat_init(int argc, VALUE *argv, rho::IChat* pObj)
         }
     }
 
+    nCallbackArg = 6;
+    if ( argc == 5 )
+    {
+        oRes.setArgError("Wrong number of arguments: " + convertToStringA(argc) + " instead of " + convertToStringA(7) );
+        return oRes.toRuby();
+    }
+    rho::String arg5 = "";
+    if ( argc > 5 )
+    {
+        if ( rho_ruby_is_string(argv[5]) )
+        {
+            arg5 = getStringObjectFromValue(argv[5]);
+        }
+        else if (!rho_ruby_is_NIL(argv[5]))
+        {
+            oRes.setArgError("Type error: argument " "5" " should be " "string" );
+            return oRes.toRuby();
+        }
+    }
+
+    nCallbackArg = 7;
+    if ( argc == 6 )
+    {
+        oRes.setArgError("Wrong number of arguments: " + convertToStringA(argc) + " instead of " + convertToStringA(7) );
+        return oRes.toRuby();
+    }
+    rho::String arg6 = "";
+    if ( argc > 6 )
+    {
+        if ( rho_ruby_is_string(argv[6]) )
+        {
+            arg6 = getStringObjectFromValue(argv[6]);
+        }
+        else if (!rho_ruby_is_NIL(argv[6]))
+        {
+            oRes.setArgError("Type error: argument " "6" " should be " "string" );
+            return oRes.toRuby();
+        }
+    }
+
     if ( argc > nCallbackArg )
     {
 
-        oRes.setArgError("Wrong number of arguments: " + convertToStringA(argc) + " instead of " + convertToStringA(5) );
+        oRes.setArgError("Wrong number of arguments: " + convertToStringA(argc) + " instead of " + convertToStringA(7) );
         return oRes.toRuby();
     }
     if ( bUseCallback )
     {
-        pFunctor = rho_makeInstanceClassFunctor6( pObj, &rho::IChat::init, arg0, arg1, arg2, arg3, arg4,  oRes );
+        pFunctor = rho_makeInstanceClassFunctor8( pObj, &rho::IChat::init, arg0, arg1, arg2, arg3, arg4, arg5, arg6,  oRes );
         rho::CChatFactoryBase::getChatSingletonS()->addCommandToQueue( pFunctor );
     }
     else 
     {
 
-        pObj->init( arg0, arg1, arg2, arg3, arg4,  oRes );
+        pObj->init( arg0, arg1, arg2, arg3, arg4, arg5, arg6,  oRes );
     }
     
     return oRes.toRuby();

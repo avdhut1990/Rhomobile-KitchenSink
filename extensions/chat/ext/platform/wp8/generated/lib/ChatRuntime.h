@@ -14,7 +14,7 @@ namespace rhoruntime
 
         void getSimpleStringProperty(IMethodResult^ oResult);
         void setSimpleStringProperty(Platform::String^ simpleStringProperty, IMethodResult^ oResult);
-        void init(Platform::String^ google_api_key, Platform::String^ google_app_id, Platform::String^ gcm_sender_id, Platform::String^ google_project_id, Platform::String^ google_storage_bucket, IMethodResult^ oResult);
+        void init(Platform::String^ google_api_key, Platform::String^ google_app_id, Platform::String^ gcm_sender_id, Platform::String^ google_project_id, Platform::String^ google_storage_bucket, Platform::String^ dialogflow_client_access_token, Platform::String^ dialogflow_language, IMethodResult^ oResult);
         void getProperty(Platform::String^ propertyName, IMethodResult^ oResult);
         void getProperties(Windows::Foundation::Collections::IVectorView<Platform::String^>^ arrayofNames, IMethodResult^ oResult);
         void getAllProperties(IMethodResult^ oResult);

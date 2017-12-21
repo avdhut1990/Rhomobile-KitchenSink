@@ -13,7 +13,7 @@ class ChatController < Rho::RhoController
 	def init
 		objects = Rho::Chat.enumerate
 		obj = objects[0]
-		res = obj.init("AIzaSyA5ISHf11DwSlYPq-tDfClo-6A_tk9D6TQ","1:188430455636:android:a6db880f1f885a6c","188430455636","kitchensink-1718a","kitchensink-1718a.appspot.com") 
+		res = obj.init("AIzaSyA5ISHf11DwSlYPq-tDfClo-6A_tk9D6TQ","1:188430455636:android:a6db880f1f885a6c","188430455636","kitchensink-1718a","kitchensink-1718a.appspot.com","2e5449618aeb4756a64a09f413a16f87","en") 
 		Alert.show_popup "Rho::Chat.initreturn : #{res.to_s}"
 	end
 end

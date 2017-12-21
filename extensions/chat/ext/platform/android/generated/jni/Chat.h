@@ -248,6 +248,24 @@ public:
         jholder< jstring > jhgoogle_storage_bucket = 
             rho_cast< jstring >(env, argsAdapter[4]);
 
+        if(argsAdapter.size() <= 5)
+        {
+            LOG(ERROR) + "Wrong number of arguments: 'dialogflow_client_access_token' must be set ^^^";
+            result.setArgError("Wrong number of arguments: 'dialogflow_client_access_token' must be set");
+            return;
+        }
+        jholder< jstring > jhdialogflow_client_access_token = 
+            rho_cast< jstring >(env, argsAdapter[5]);
+
+        if(argsAdapter.size() <= 6)
+        {
+            LOG(ERROR) + "Wrong number of arguments: 'dialogflow_language' must be set ^^^";
+            result.setArgError("Wrong number of arguments: 'dialogflow_language' must be set");
+            return;
+        }
+        jholder< jstring > jhdialogflow_language = 
+            rho_cast< jstring >(env, argsAdapter[6]);
+
         jhobject jhTask = env->NewObject(s_clsinitTask, s_midinitTask,
                     jhObject.get(), 
                     jhgoogle_api_key.get(),
@@ -255,6 +273,8 @@ public:
                     jhgcm_sender_id.get(),
                     jhgoogle_project_id.get(),
                     jhgoogle_storage_bucket.get(),
+                    jhdialogflow_client_access_token.get(),
+                    jhdialogflow_language.get(),
                     static_cast<jobject>(result));
 
         run(env, jhTask.get(), result, rho::apiGenerator::NOT_FORCE_THREAD);

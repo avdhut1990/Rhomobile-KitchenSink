@@ -20,7 +20,7 @@ struct IChat
 
     virtual void getSimpleStringProperty(rho::apiGenerator::CMethodResult& oResult) = 0;
     virtual void setSimpleStringProperty( const rho::String& simpleStringProperty, rho::apiGenerator::CMethodResult& oResult) = 0;
-    virtual void init( const rho::String& google_api_key,  const rho::String& google_app_id,  const rho::String& gcm_sender_id,  const rho::String& google_project_id,  const rho::String& google_storage_bucket, rho::apiGenerator::CMethodResult& oResult) = 0;
+    virtual void init( const rho::String& google_api_key,  const rho::String& google_app_id,  const rho::String& gcm_sender_id,  const rho::String& google_project_id,  const rho::String& google_storage_bucket,  const rho::String& dialogflow_client_access_token,  const rho::String& dialogflow_language, rho::apiGenerator::CMethodResult& oResult) = 0;
     virtual void getProperty( const rho::String& propertyName, rho::apiGenerator::CMethodResult& oResult) = 0;
     virtual void getProperties( const rho::Vector<rho::String>& arrayofNames, rho::apiGenerator::CMethodResult& oResult) = 0;
     virtual void getAllProperties(rho::apiGenerator::CMethodResult& oResult) = 0;

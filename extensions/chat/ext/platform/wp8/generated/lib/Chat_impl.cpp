@@ -27,15 +27,17 @@ void CChatImpl::setSimpleStringProperty(const rho::String& simpleStringProperty,
     }
 }
 
-void CChatImpl::init(const rho::String& google_api_key, const rho::String& google_app_id, const rho::String& gcm_sender_id, const rho::String& google_project_id, const rho::String& google_storage_bucket, CMethodResult& oResult)
+void CChatImpl::init(const rho::String& google_api_key, const rho::String& google_app_id, const rho::String& gcm_sender_id, const rho::String& google_project_id, const rho::String& google_storage_bucket, const rho::String& dialogflow_client_access_token, const rho::String& dialogflow_language, CMethodResult& oResult)
 {
         Platform::String^ _google_api_key = rho::common::convertStringToWP8(google_api_key);
         Platform::String^ _google_app_id = rho::common::convertStringToWP8(google_app_id);
         Platform::String^ _gcm_sender_id = rho::common::convertStringToWP8(gcm_sender_id);
         Platform::String^ _google_project_id = rho::common::convertStringToWP8(google_project_id);
         Platform::String^ _google_storage_bucket = rho::common::convertStringToWP8(google_storage_bucket);
+        Platform::String^ _dialogflow_client_access_token = rho::common::convertStringToWP8(dialogflow_client_access_token);
+        Platform::String^ _dialogflow_language = rho::common::convertStringToWP8(dialogflow_language);
     try {
-        _runtime->init(_google_api_key, _google_app_id, _gcm_sender_id, _google_project_id, _google_storage_bucket, ref new CMethodResultImpl((int64)&oResult));
+        _runtime->init(_google_api_key, _google_app_id, _gcm_sender_id, _google_project_id, _google_storage_bucket, _dialogflow_client_access_token, _dialogflow_language, ref new CMethodResultImpl((int64)&oResult));
     } catch (Platform::Exception^ e) {
         LOG(ERROR) + rho::common::convertStringAFromWP8(e->ToString());
     }

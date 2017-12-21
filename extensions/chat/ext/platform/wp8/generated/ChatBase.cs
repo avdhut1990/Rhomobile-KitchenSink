@@ -72,7 +72,7 @@ namespace ChatImpl
 
         abstract public void getSimpleStringProperty(IMethodResult oResult);
         abstract public void setSimpleStringProperty(string simpleStringProperty, IMethodResult oResult);
-        abstract public void init(string google_api_key, string google_app_id, string gcm_sender_id, string google_project_id, string google_storage_bucket, IMethodResult oResult);
+        abstract public void init(string google_api_key, string google_app_id, string gcm_sender_id, string google_project_id, string google_storage_bucket, string dialogflow_client_access_token, string dialogflow_language, IMethodResult oResult);
     }
 
     abstract public class ChatSingletonBase : IChatSingletonImpl

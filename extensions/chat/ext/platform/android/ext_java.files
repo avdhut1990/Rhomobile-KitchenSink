@@ -11,3 +11,4 @@ ext/platform/android/src/com/rho/chat/ChatSingleton.java
 ext/platform/android/src/com/rho/chat/FCMFacade.java
 ext/platform/android/src/com/rho/chat/FCMIntentService.java
 ext/platform/android/src/com/rho/chat/FCMTokenRefresherService.java
+ext/platform/android/src/com/rho/chat/Dataflow.java

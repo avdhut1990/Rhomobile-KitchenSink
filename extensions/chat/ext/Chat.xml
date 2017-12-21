@@ -39,6 +39,10 @@
 					</PARAM>
 					<PARAM name="google_storage_bucket" type="STRING">
 					</PARAM>
+					<PARAM name="dialogflow_client_access_token" type="STRING">
+					</PARAM>
+					<PARAM name="dialogflow_language" type="STRING">
+					</PARAM>
 				</PARAMS>
 				<RETURN type="STRING"/>
 			</METHOD>

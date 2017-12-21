@@ -241,30 +241,30 @@ static VALUE Chat_init(int argc, VALUE *argv, const rho::String& id)
 
     ObjectProxy chat(id);
 
-    if((argc < 5) || (argc > 5))
+    if((argc < 7) || (argc > 7))
     {
         RAWLOG_ERROR1("Wrong number of arguments: %d ^^^", argc);
         result.setArgError("Wrong number of arguments");
         return CMethodResultConvertor().toRuby(result, false);
     }
     
-    unsigned realParamCount = (argc < 5) ? argc : 5;
+    unsigned realParamCount = (argc < 7) ? argc : 7;
     std::vector<VALUE> arguments(argv, argv + realParamCount);
     
     RAWTRACE1("Count of passed arguments: %d", arguments.size());
     
-    if(argc > 5)
+    if(argc > 7)
     {
-        if (rho_ruby_is_proc(argv[5]) || rho_ruby_is_method(argv[5]))
+        if (rho_ruby_is_proc(argv[7]) || rho_ruby_is_method(argv[7]))
         {
-            result.setRubyProcCallBack(argv[5]);
+            result.setRubyProcCallBack(argv[7]);
             RAWTRACE("Ruby proc callback is set");
         } else
         {
-            if(argc > 6)
-                result.setCallBack(argv[5], argv[6]);
+            if(argc > 8)
+                result.setCallBack(argv[7], argv[8]);
             else
-                result.setCallBack(argv[5]);
+                result.setCallBack(argv[7]);
             
             RAWTRACE("Callback URL is set");
         }

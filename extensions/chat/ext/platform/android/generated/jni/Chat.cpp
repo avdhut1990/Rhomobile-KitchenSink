@@ -188,7 +188,7 @@ JNIEnv* CChatBase::jniInit(JNIEnv* env)
         s_clsinitTask = loadClass(env, INIT_TASK_CLASS);
         if (!s_clsinitTask) return 0;
         s_midinitTask = env->GetMethodID(s_clsinitTask, "<init>",
-                        "(Lcom/rho/chat/IChat;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/rhomobile/rhodes/api/IMethodResult;)V");
+                        "(Lcom/rho/chat/IChat;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/rhomobile/rhodes/api/IMethodResult;)V");
         if(!s_midinitTask)
         {
             LOG(FATAL) + "Failed to get constructor for java class " + INIT_TASK_CLASS;

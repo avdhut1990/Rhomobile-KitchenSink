@@ -160,7 +160,7 @@ rho::String js_Chat_init(const rho::String& strObjID, rho::json::CJSONArray& arg
     ObjectProxy chat(strObjID);
 
     int argc = argv.getSize();
-    if((argc < 5) || (argc > 5))
+    if((argc < 7) || (argc > 7))
     {
         result.setArgError("Wrong number of arguments");
         RAWLOG_ERROR1("Wrong number of arguments: %d ^^^", argc);
