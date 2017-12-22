@@ -43,6 +43,16 @@ void CChatImpl::init(const rho::String& google_api_key, const rho::String& googl
     }
 }
 
+void CChatImpl::sendMessage(const rho::String& query, CMethodResult& oResult)
+{
+        Platform::String^ _query = rho::common::convertStringToWP8(query);
+    try {
+        _runtime->sendMessage(_query, ref new CMethodResultImpl((int64)&oResult));
+    } catch (Platform::Exception^ e) {
+        LOG(ERROR) + rho::common::convertStringAFromWP8(e->ToString());
+    }
+}
+
 
 class CChatSingleton: public CChatSingletonBase
 {

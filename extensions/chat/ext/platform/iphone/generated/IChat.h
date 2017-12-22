@@ -21,6 +21,9 @@
 /* return summ of two params: a+b */
 -(void) init:(NSString*)google_api_key google_app_id:(NSString*)google_app_id gcm_sender_id:(NSString*)gcm_sender_id google_project_id:(NSString*)google_project_id google_storage_bucket:(NSString*)google_storage_bucket dialogflow_client_access_token:(NSString*)dialogflow_client_access_token dialogflow_language:(NSString*)dialogflow_language methodResult:(id<IMethodResult>)methodResult;
 
+/* return summ of two params: a+b */
+-(void) sendMessage:(NSString*)query methodResult:(id<IMethodResult>)methodResult;
+
 /* This method will return the value of the propertyName that is passed in. The propertyName must be a valid property of the API class. */
 -(void) getProperty:(NSString*)propertyName methodResult:(id<IMethodResult>)methodResult;
 

@@ -15,4 +15,5 @@ public interface IChat extends IRhoApiObject, IRhoApiPropertyBag {
     void getSimpleStringProperty(IMethodResult result);
     void setSimpleStringProperty(String simpleStringProperty, IMethodResult result);
     void init(String google_api_key, String google_app_id, String gcm_sender_id, String google_project_id, String google_storage_bucket, String dialogflow_client_access_token, String dialogflow_language, IMethodResult result);
+    void sendMessage(String query, IMethodResult result);
 };

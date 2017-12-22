@@ -37,6 +37,9 @@
           // function(/* const rho::String& */ google_api_key, /* const rho::String& */ google_app_id, /* const rho::String& */ gcm_sender_id, /* const rho::String& */ google_project_id, /* const rho::String& */ google_storage_bucket, /* const rho::String& */ dialogflow_client_access_token, /* const rho::String& */ dialogflow_language, /* optional function */ oResult)
           { methodName: 'init', nativeName: 'init', valueCallbackIndex: 7 }
     
+          // function(/* const rho::String& */ query, /* optional function */ oResult)
+        , { methodName: 'sendMessage', nativeName: 'sendMessage', valueCallbackIndex: 1 }
+    
           // function(/* const rho::String& */ propertyName, /* optional function */ oResult)
         , { methodName: 'getProperty', nativeName: 'getProperty', persistentCallbackIndex: 1, valueCallbackIndex: 3 }
     
@@ -103,6 +106,9 @@
         
               // function(/* const rho::String& */ google_api_key, /* const rho::String& */ google_app_id, /* const rho::String& */ gcm_sender_id, /* const rho::String& */ google_project_id, /* const rho::String& */ google_storage_bucket, /* const rho::String& */ dialogflow_client_access_token, /* const rho::String& */ dialogflow_language, /* optional function */ oResult)
               { methodName: 'init', nativeName: 'init', valueCallbackIndex: 7 }
+        
+              // function(/* const rho::String& */ query, /* optional function */ oResult)
+            , { methodName: 'sendMessage', nativeName: 'sendMessage', valueCallbackIndex: 1 }
         
               // function(/* const rho::String& */ propertyName, /* optional function */ oResult)
             , { methodName: 'getProperty', nativeName: 'getProperty', persistentCallbackIndex: 1, valueCallbackIndex: 3 }

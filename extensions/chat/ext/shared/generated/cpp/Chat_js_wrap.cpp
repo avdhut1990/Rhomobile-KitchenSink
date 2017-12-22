@@ -331,6 +331,62 @@ rho::String js_Chat_init(const rho::String& strObjID, rho::json::CJSONArray& arg
 
 }
 
+rho::String js_Chat_sendMessage(const rho::String& strObjID, rho::json::CJSONArray& argv, const rho::String& strCallbackID, const rho::String& strJsVmID, const rho::String& strCallbackParam)
+{
+    RAWTRACE4("sendMessage(strObjID = %s, argc = %d, strCallbackID = %s, strJsVmID = %s)", strObjID.c_str(), argv.getSize(), strCallbackID.c_str(), strJsVmID.c_str());
+
+#ifdef OS_ANDROID
+    if ( jnienv() == 0 )
+    {
+        rho_nativethread_start();
+    }
+#endif
+
+    rho::apiGenerator::CMethodResult oRes;
+
+
+    oRes.setRequestedType(CMethodResult::eString);
+
+    rho::common::CInstanceClassFunctorBase<rho::apiGenerator::CMethodResult>* pFunctor = 0;
+    int argc = argv.getSize();
+
+    rho::IChat* pObj = rho::CChatFactoryBase::getInstance()->getModuleByID(strObjID);
+
+    if ( argc == 0 )
+    {
+        oRes.setArgError( "Wrong number of arguments: " + convertToStringA(argc) + " instead of " + convertToStringA(1) );
+        return oRes.toJSON();
+    }
+    
+    rho::String arg0 = "";
+    if ( argc > 0 )
+    {
+        if ( argv[0].isString() )
+        {
+            arg0 = argv[0].getStringObject();
+        }
+        else if (!argv[0].isNull())
+        {
+            oRes.setArgError( "Type error: argument " "0" " should be " "string" );
+            return oRes.toJSON();
+        }
+    }
+
+    if ( oRes.hasCallback() )
+    {
+        pFunctor = rho_makeInstanceClassFunctor2( pObj, &rho::IChat::sendMessage, arg0,  oRes );
+        rho::CChatFactoryBase::getChatSingletonS()->addCommandToQueue( pFunctor );
+    }
+    else 
+    {
+
+        pObj->sendMessage( arg0,  oRes );
+    }
+    
+    return oRes.toJSON();
+
+}
+
 rho::String js_Chat_getProperty(const rho::String& strObjID, rho::json::CJSONArray& argv, const rho::String& strCallbackID, const rho::String& strJsVmID, const rho::String& strCallbackParam)
 {
     RAWTRACE4("getProperty(strObjID = %s, argc = %d, strCallbackID = %s, strJsVmID = %s)", strObjID.c_str(), argv.getSize(), strCallbackID.c_str(), strJsVmID.c_str());

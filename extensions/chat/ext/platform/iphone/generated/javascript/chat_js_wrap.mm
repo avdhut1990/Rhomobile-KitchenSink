@@ -780,6 +780,198 @@ rho::String js_s_Chat_def_init(const rho::String& strObjID, rho::json::CJSONArra
 
 
 
+@interface Chat_sendMessage_caller_params : NSObject
+
+@property (nonatomic, copy) NSArray* params;
+@property (assign) id<IChat> item;
+@property (assign) CMethodResult* methodResult;
+
+-(void)dealloc;
+
++(Chat_sendMessage_caller_params*) makeParams:(NSArray*)_params _item:(id<IChat>)_item _methodResult:(CMethodResult*)_methodResult;
+
+@end
+
+@implementation Chat_sendMessage_caller_params
+
+@synthesize params,item,methodResult;
+
+-(void)dealloc {
+    [params release];
+    [super dealloc];
+}
+
++(Chat_sendMessage_caller_params*) makeParams:(NSArray*)_params _item:(id<IChat>)_item _methodResult:(CMethodResult*)_methodResult {
+    Chat_sendMessage_caller_params* par = [[[Chat_sendMessage_caller_params alloc] init] autorelease];
+    par.params = _params;
+    par.item = _item;
+    par.methodResult = [_methodResult retain];
+    return [par retain];
+}
+
+@end
+
+
+@interface Chat_sendMessage_caller : NSObject {
+
+}
++(Chat_sendMessage_caller*) getSharedInstance;
++(void) sendMessage:(Chat_sendMessage_caller_params*)caller_params;
++(void) sendMessage_in_thread:(Chat_sendMessage_caller_params*)caller_params;
++(void) sendMessage_in_UI_thread:(Chat_sendMessage_caller_params*)caller_params;
+
+@end
+
+static Chat_sendMessage_caller* our_Chat_sendMessage_caller = nil;
+
+@implementation Chat_sendMessage_caller
+
++(Chat_sendMessage_caller*) getSharedInstance {
+    if (our_Chat_sendMessage_caller == nil) {
+        our_Chat_sendMessage_caller = [[Chat_sendMessage_caller alloc] init];
+    }
+    return our_Chat_sendMessage_caller;
+}
+
+-(void) command_sendMessage:(Chat_sendMessage_caller_params*)caller_params {
+
+    NSArray* params = caller_params.params;
+
+    id<IChat> objItem = caller_params.item;
+    CMethodResult* methodResult = caller_params.methodResult;
+
+    
+    [objItem sendMessage:(NSString*)[params objectAtIndex:0] methodResult:methodResult ];
+    [caller_params.methodResult release];
+    [caller_params release];
+}
+
+
++(void) sendMessage:(Chat_sendMessage_caller_params*)caller_params {
+    [[Chat_sendMessage_caller getSharedInstance] command_sendMessage:caller_params];
+}
+
++(void) sendMessage_in_thread:(Chat_sendMessage_caller_params*)caller_params {
+    [[Chat_sendMessage_caller getSharedInstance] performSelectorInBackground:@selector(command_sendMessage:) withObject:caller_params];
+}
+
++(void) sendMessage_in_UI_thread:(Chat_sendMessage_caller_params*)caller_params {
+    [[Chat_sendMessage_caller getSharedInstance] performSelectorOnMainThread:@selector(command_sendMessage:) withObject:caller_params waitUntilDone:NO];
+}
+
+
+@end
+
+
+rho::String js_Chat_sendMessage_Obj(rho::json::CJSONArray& argv, id<IChat>objItem, const rho::String& strCallbackID, const rho::String& strJsVmID, const rho::String& strCallbackParam) {
+
+    CMethodResult* methodResult = [[CMethodResult alloc] init];
+
+    NSObject* params[1+1];
+    BOOL method_return_result = YES;
+    BOOL method_receive_callback = NO;
+    int argc = argv.getSize();
+
+
+    [methodResult setMethodSignature:@"Chat::sendMessage"];
+
+    
+    static RHO_API_PARAM rho_api_params[] = { {RHO_API_STRING, 0, "query", 0, 0 } };
+
+    
+    BOOL is_factory_param[] = { NO, NO };
+
+    int i;
+
+    // init
+    for (i = 0; i < (1); i++) {
+        params[i] = [CJSConverter getObjectiveCNULL];
+    }
+
+    
+
+    // enumerate params
+    for (int i = 0; i < (1); i++) {
+        if (argc > i) {
+            // we have a [i] param !
+            if (is_factory_param[i]) {
+                params[i] = Chat_makeInstanceByJSObject(argv.getItem(i).getString());
+            }
+            else {
+                rho::json::CJSONEntry entry = argv.getItem(i);
+                params[i] = [[CJSConverter convertFromJS:&entry rho_api_param:&(rho_api_params[i])] retain];
+            }
+            // TODO: Handle CMethodResultError
+            if (params[i] == nil) {
+                NSLog(@"Chat::sendMessage parameter %d is nil!", i);
+                rho::String resValue = rho::String("\"result\":null,\"error\":\"Method parameter is nil!\"");
+                return resValue;
+            }
+        }
+    }
+
+    NSMutableArray* params_array = [NSMutableArray arrayWithCapacity:(1)];
+    for (i = 0 ; i < (1); i++) {
+        [params_array addObject:params[i]];
+    }
+
+    
+        if (strCallbackID.size() > 0) {
+            method_receive_callback = YES;
+        }
+    
+
+    
+
+    if (method_receive_callback) {
+        // we have callback - method should not call setResult if method execute from current thread - only later or in UI or separated threads !!!
+        [methodResult setJSCallback:[NSString stringWithUTF8String:strCallbackID.c_str()] webViewUID:[NSString stringWithUTF8String:strJsVmID.c_str()]];
+        [methodResult setCallbackParam:[NSString stringWithUTF8String:strCallbackParam.c_str()]];
+        
+        [Chat_sendMessage_caller sendMessage_in_thread:[Chat_sendMessage_caller_params makeParams:params_array _item:objItem _methodResult:methodResult]];
+        
+
+        // FIXME: callback should not be retained, it must be saved outside of this call
+        [methodResult retain];
+    }
+    else {
+        // we do not have callback
+        
+        [Chat_sendMessage_caller sendMessage:[Chat_sendMessage_caller_params makeParams:params_array _item:objItem _methodResult:methodResult]];
+        
+    }
+    rho::String resValue = rho::String("\"result\":null");
+    if ((!method_receive_callback) && (method_return_result)) {
+        resValue = [[methodResult toJSON] UTF8String];
+    }
+    [methodResult release];
+    return resValue;
+}
+
+
+rho::String js_Chat_sendMessage(const rho::String& strObjID, rho::json::CJSONArray& argv, const rho::String& strCallbackID, const rho::String& strJsVmID, const rho::String& strCallbackParam) {
+
+    id<IChat> item = Chat_makeInstanceByJSObject(strObjID);
+    return js_Chat_sendMessage_Obj(argv, item, strCallbackID, strJsVmID, strCallbackParam);
+
+}
+
+rho::String js_s_Chat_def_sendMessage(const rho::String& strObjID, rho::json::CJSONArray& argv, const rho::String& strCallbackID, const rho::String& strJsVmID, const rho::String& strCallbackParam) {
+    id<IChatFactory> factory = [ChatFactorySingleton getChatFactoryInstance];
+    id<IChatSingleton> singleton = [factory getChatSingleton];
+
+    NSString* defID = [singleton getDefaultID];
+
+    id<IChat> item = [factory getChatByID:defID];
+    return js_Chat_sendMessage_Obj(argv, item, strCallbackID, strJsVmID, strCallbackParam);
+}
+
+
+
+
+
+
+
 @interface Chat_getProperty_caller_params : NSObject
 
 @property (nonatomic, copy) NSArray* params;

@@ -10,6 +10,8 @@ VALUE rb_s_Chat_def_setSimpleStringProperty(int argc, VALUE *argv);
 VALUE rb_s_Chat_enumerate(int argc, VALUE *argv);
 VALUE rb_Chat_init(int argc, VALUE *argv, VALUE obj);
 VALUE rb_s_Chat_def_init(int argc, VALUE *argv);
+VALUE rb_Chat_sendMessage(int argc, VALUE *argv, VALUE obj);
+VALUE rb_s_Chat_def_sendMessage(int argc, VALUE *argv);
 VALUE rb_Chat_getProperty(int argc, VALUE *argv, VALUE obj);
 VALUE rb_s_Chat_def_getProperty(int argc, VALUE *argv);
 VALUE rb_Chat_getProperties(int argc, VALUE *argv, VALUE obj);
@@ -72,6 +74,8 @@ void Init_RubyAPI_Chat(void)
     rb_define_singleton_method(rb_api_mChat, "enumerate", rb_s_Chat_enumerate, -1);
     rb_define_method(rb_api_mChat, "init", rb_Chat_init, -1);
     rb_define_singleton_method(rb_api_mChat, "init", rb_s_Chat_def_init, -1);
+    rb_define_method(rb_api_mChat, "sendMessage", rb_Chat_sendMessage, -1);
+    rb_define_singleton_method(rb_api_mChat, "sendMessage", rb_s_Chat_def_sendMessage, -1);
     rb_define_method(rb_api_mChat, "getProperty", rb_Chat_getProperty, -1);
     rb_define_singleton_method(rb_api_mChat, "getProperty", rb_s_Chat_def_getProperty, -1);
     rb_define_method(rb_api_mChat, "getProperties", rb_Chat_getProperties, -1);

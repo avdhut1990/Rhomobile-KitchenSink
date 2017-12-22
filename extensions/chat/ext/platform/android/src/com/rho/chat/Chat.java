@@ -10,6 +10,7 @@ import com.rho.chat.FCMFacade;
 
 public class Chat extends ChatBase implements IChat {
 	private static final String TAG = Chat.class.getSimpleName();
+	Dataflow aiObject;
 
 	public Chat(String id) {
 		super(id);
@@ -27,6 +28,13 @@ public class Chat extends ChatBase implements IChat {
 		
 		FCMFacade.initFireBase();
 		Dataflow.initDataflow(dialogflow_client_access_token, dialogflow_language);
+		aiObject = new Dataflow();
 		result.set(google_api_key+" | "+google_app_id+" | "+gcm_sender_id+" | "+google_project_id+" | "+google_storage_bucket);
+	}
+
+
+	@Override
+	public void sendMessage(String query, IMethodResult result) {
+		result.set(aiObject.execute(query));
 	}
 }

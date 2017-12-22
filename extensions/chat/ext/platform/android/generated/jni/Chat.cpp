@@ -59,6 +59,12 @@ const char* const CChatBase::INIT_TASK_CLASS =
 jclass CChatBase::s_clsinitTask = 0;
 jmethodID CChatBase::s_midinitTask;
 
+const char* const CChatBase::SENDMESSAGE_TASK_CLASS = 
+        "com.rho.chat.ChatBase$sendMessageTask";
+
+jclass CChatBase::s_clssendMessageTask = 0;
+jmethodID CChatBase::s_midsendMessageTask;
+
 const char* const CChatBase::GETPROPERTY_TASK_CLASS = 
         "com.rho.chat.ChatBase$getPropertyTask";
 
@@ -192,6 +198,16 @@ JNIEnv* CChatBase::jniInit(JNIEnv* env)
         if(!s_midinitTask)
         {
             LOG(FATAL) + "Failed to get constructor for java class " + INIT_TASK_CLASS;
+            return NULL;
+        }
+
+        s_clssendMessageTask = loadClass(env, SENDMESSAGE_TASK_CLASS);
+        if (!s_clssendMessageTask) return 0;
+        s_midsendMessageTask = env->GetMethodID(s_clssendMessageTask, "<init>",
+                        "(Lcom/rho/chat/IChat;Ljava/lang/String;Lcom/rhomobile/rhodes/api/IMethodResult;)V");
+        if(!s_midsendMessageTask)
+        {
+            LOG(FATAL) + "Failed to get constructor for java class " + SENDMESSAGE_TASK_CLASS;
             return NULL;
         }
 

@@ -862,6 +862,208 @@ VALUE rb_s_Chat_def_init(int argc, VALUE *argv) {
 
 
 
+@interface rb_Chat_sendMessage_caller_params : NSObject
+
+@property (nonatomic, copy) NSArray* params;
+@property (assign) id<IChat> item;
+@property (assign) CMethodResult* methodResult;
+
+-(void)dealloc;
+
++(rb_Chat_sendMessage_caller_params*) makeParams:(NSArray*)_params _item:(id<IChat>)_item _methodResult:(CMethodResult*)_methodResult;
+
+@end
+
+@implementation rb_Chat_sendMessage_caller_params
+
+@synthesize params,item,methodResult;
+
+-(void)dealloc {
+    [params release];
+    [super dealloc];
+}
+
++(rb_Chat_sendMessage_caller_params*) makeParams:(NSArray*)_params _item:(id<IChat>)_item _methodResult:(CMethodResult*)_methodResult {
+    rb_Chat_sendMessage_caller_params* par = [[[rb_Chat_sendMessage_caller_params alloc] init] autorelease];
+    par.params = _params;
+    par.item = _item;
+    par.methodResult = [_methodResult retain];
+    return [par retain];
+}
+
+@end
+
+
+@interface rb_Chat_sendMessage_caller : NSObject {
+
+}
++(rb_Chat_sendMessage_caller*) getSharedInstance;
++(void) sendMessage:(rb_Chat_sendMessage_caller_params*)caller_params;
++(void) sendMessage_in_thread:(rb_Chat_sendMessage_caller_params*)caller_params;
++(void) sendMessage_in_UI_thread:(rb_Chat_sendMessage_caller_params*)caller_params;
+
+@end
+
+static rb_Chat_sendMessage_caller* our_Chat_sendMessage_caller = nil;
+
+@implementation rb_Chat_sendMessage_caller
+
++(rb_Chat_sendMessage_caller*) getSharedInstance {
+    if (our_Chat_sendMessage_caller == nil) {
+        our_Chat_sendMessage_caller = [[rb_Chat_sendMessage_caller alloc] init];
+    }
+    return our_Chat_sendMessage_caller;
+}
+
+-(void) command_sendMessage:(rb_Chat_sendMessage_caller_params*)caller_params {
+
+    NSArray* params = caller_params.params;
+
+    id<IChat> objItem = caller_params.item;
+    CMethodResult* methodResult = caller_params.methodResult;
+
+    
+    [objItem sendMessage:(NSString*)[params objectAtIndex:0] methodResult:methodResult ];
+    [caller_params.methodResult release];
+    [caller_params release];
+}
+
++(void) sendMessage:(rb_Chat_sendMessage_caller_params*)caller_params {
+    [[rb_Chat_sendMessage_caller getSharedInstance] command_sendMessage:caller_params];
+}
+
++(void) sendMessage_in_thread:(rb_Chat_sendMessage_caller_params*)caller_params {
+    [[rb_Chat_sendMessage_caller getSharedInstance] performSelectorInBackground:@selector(command_sendMessage:) withObject:caller_params];
+}
+
++(void) sendMessage_in_UI_thread:(rb_Chat_sendMessage_caller_params*)caller_params {
+    [[rb_Chat_sendMessage_caller getSharedInstance] performSelectorOnMainThread:@selector(command_sendMessage:) withObject:caller_params waitUntilDone:NO];
+}
+
+
+@end
+
+
+VALUE rb_Chat_sendMessage_Obj(int argc, VALUE *argv, id<IChat>objItem) {
+
+    CMethodResult* methodResult = [[CMethodResult alloc] init];
+
+    NSObject* params[1+1];
+    NSString* callbackURL = nil;
+    unsigned long callbackMethod = 0;
+    NSString* callbackParam = nil;
+    BOOL method_return_result = YES;
+
+    [methodResult setMethodSignature:@"Chat::sendMessage"];
+
+    
+    BOOL is_factory_param[] = { NO, NO };
+
+    int i;
+
+    // init
+    for (i = 0; i < (1); i++) {
+        params[i] = [NSNull null];
+    }
+
+    
+
+    // enumerate params
+    for (int i = 0; i < (1); i++) {
+        if (argc > i) {
+            // we have a [i] param !
+            if (is_factory_param[i]) {
+                params[i] = Chat_makeInstanceByRubyObject(argv[i]);
+            }
+            else {
+                params[i] = [[CRubyConverter convertFromRuby:argv[i]] retain];
+            }
+        }
+    }
+
+    NSMutableArray* params_array = [NSMutableArray arrayWithCapacity:(1)];
+    for (i = 0 ; i < (1); i++) {
+        [params_array addObject:params[i]];
+    }
+
+    
+    // check callback
+    if (argc >= (1+1)) {
+        VALUE callback = argv[1];
+        if (rho_ruby_is_string(callback)) {
+            callbackURL = [((NSString*)[CRubyConverter convertFromRuby:callback]) retain];
+        }
+        else if (rho_ruby_is_proc(callback) || rho_ruby_is_method(callback)) {
+            callbackMethod = callback;
+        }
+    }
+    // check callback param
+    if (argc >= (1+2)) {
+        VALUE callback_param = argv[1+1];
+        if (rho_ruby_is_string(callback_param)) {
+            callbackParam = [((NSString*)[CRubyConverter convertFromRuby:callback_param]) retain];
+        }
+    }
+    
+
+    
+    
+
+
+    if ((callbackURL != nil) || (callbackMethod != 0)) {
+        // we have callback - method should not call setResult if method execute from current thread - only later or in UI or separated threads !!!
+        if (callbackURL != nil)
+            [methodResult setRubyCallback:callbackURL];
+        if (callbackMethod != 0)
+            [methodResult setRubyCallbackMethod:callbackMethod];
+        if (callbackParam != nil) {
+            [methodResult setCallbackParam:callbackParam];
+        }
+        
+        [rb_Chat_sendMessage_caller sendMessage_in_thread:[rb_Chat_sendMessage_caller_params makeParams:params_array _item:objItem _methodResult:methodResult]];
+        
+
+        // FIXME: callback should not be retained, it must be saved outside of this call
+        [methodResult retain];
+    }
+    else {
+        // we do not have callback
+        
+        [rb_Chat_sendMessage_caller sendMessage:[rb_Chat_sendMessage_caller_params makeParams:params_array _item:objItem _methodResult:methodResult]];
+        
+    }
+    VALUE resValue = rho_ruby_get_NIL();
+    if ((callbackURL == nil) && (callbackMethod == 0) && (method_return_result)) {
+        resValue = [methodResult toRuby];
+    }
+    [methodResult release];
+    return resValue;
+}
+
+
+VALUE rb_Chat_sendMessage(int argc, VALUE *argv, VALUE obj) {
+
+    id<IChat> item = Chat_makeInstanceByRubyObject(obj);
+    return rb_Chat_sendMessage_Obj(argc, argv, item);
+
+}
+
+VALUE rb_s_Chat_def_sendMessage(int argc, VALUE *argv) {
+    id<IChatFactory> factory = [ChatFactorySingleton getChatFactoryInstance];
+    id<IChatSingleton> singleton = [factory getChatSingleton];
+
+    NSString* defID = [singleton getDefaultID];
+
+    id<IChat> item = [factory getChatByID:defID];
+    return rb_Chat_sendMessage_Obj(argc, argv, item);
+}
+
+
+
+
+
+
+
 @interface rb_Chat_getProperty_caller_params : NSObject
 
 @property (nonatomic, copy) NSArray* params;

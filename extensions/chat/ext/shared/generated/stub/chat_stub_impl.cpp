@@ -46,6 +46,10 @@ namespace rho {
 
         } 
 
+        virtual void sendMessage( const rho::String& query, rho::apiGenerator::CMethodResult& oResult) {
+
+        } 
+
         virtual void getProperty( const rho::String& propertyName, rho::apiGenerator::CMethodResult& oResult) {
 
         } 

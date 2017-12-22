@@ -47,6 +47,15 @@
 				<RETURN type="STRING"/>
 			</METHOD>
 
+			<METHOD name="sendMessage">
+				<DESC>return summ of two params: a+b</DESC>
+				<PARAMS>
+					<PARAM name="query" type="STRING">
+					</PARAM>
+				</PARAMS>
+				<RETURN type="STRING"/>
+			</METHOD>
+
 		</METHODS>
 
 		<USER_OVERVIEW>

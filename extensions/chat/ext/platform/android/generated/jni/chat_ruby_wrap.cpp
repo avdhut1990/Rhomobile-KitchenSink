@@ -292,6 +292,72 @@ VALUE rb_s_Chat_def_init(int argc, VALUE *argv)
     rho::String id = ObjectProxy::getDefaultID();
     return Chat_init(argc, argv, id);
 }
+static VALUE Chat_sendMessage(int argc, VALUE *argv, const rho::String& id)
+{
+    RAWTRACE2("%s(id=%s)", __FUNCTION__, id.c_str());
+    MethodResultJni result(true);
+    if(!result)
+    {
+        RAWLOG_ERROR("JNI error: failed to initialize MethodResult java object ^^^");
+        result.setError("JNI error: failed to initialize MethodResult java object");
+        return CMethodResultConvertor().toRuby(result, false);
+    }
+    
+    RAWTRACE("MethodResultJni instance is created");
+
+    ObjectProxy chat(id);
+
+    if((argc < 1) || (argc > 1))
+    {
+        RAWLOG_ERROR1("Wrong number of arguments: %d ^^^", argc);
+        result.setArgError("Wrong number of arguments");
+        return CMethodResultConvertor().toRuby(result, false);
+    }
+    
+    unsigned realParamCount = (argc < 1) ? argc : 1;
+    std::vector<VALUE> arguments(argv, argv + realParamCount);
+    
+    RAWTRACE1("Count of passed arguments: %d", arguments.size());
+    
+    if(argc > 1)
+    {
+        if (rho_ruby_is_proc(argv[1]) || rho_ruby_is_method(argv[1]))
+        {
+            result.setRubyProcCallBack(argv[1]);
+            RAWTRACE("Ruby proc callback is set");
+        } else
+        {
+            if(argc > 2)
+                result.setCallBack(argv[1], argv[2]);
+            else
+                result.setCallBack(argv[1]);
+            
+            RAWTRACE("Callback URL is set");
+        }
+        if(!result.hasCallback())
+        {
+            RAWLOG_ERROR("Error setting callback ^^^");
+            return CMethodResultConvertor().toRuby(result, false);
+        }
+    }
+
+    chat.sendMessage(argumentsAdapter(arguments), result); 
+    RAWTRACE("Native metod has invoked, converting result");
+    VALUE res = CMethodResultConvertor().toRuby(result, false);
+    RAWTRACE(__FUNCTION__);
+    return res;
+}
+VALUE rb_Chat_sendMessage(int argc, VALUE *argv, VALUE obj)
+{
+    rho::String id = rho_ruby_get_object_id(obj);
+    return Chat_sendMessage(argc, argv, id);
+}
+
+VALUE rb_s_Chat_def_sendMessage(int argc, VALUE *argv)
+{
+    rho::String id = ObjectProxy::getDefaultID();
+    return Chat_sendMessage(argc, argv, id);
+}
 static VALUE Chat_getProperty(int argc, VALUE *argv, const rho::String& id)
 {
     RAWTRACE2("%s(id=%s)", __FUNCTION__, id.c_str());

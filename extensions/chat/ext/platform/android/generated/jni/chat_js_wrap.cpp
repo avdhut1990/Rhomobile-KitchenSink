@@ -178,6 +178,39 @@ rho::String js_Chat_init(const rho::String& strObjID, rho::json::CJSONArray& arg
     RAWTRACE2("%s(id=%s) end ^^^", __FUNCTION__, strObjID.c_str());
     return res;
 }
+rho::String js_Chat_sendMessage(const rho::String& strObjID, rho::json::CJSONArray& argv, const rho::String& strCallbackID, const rho::String& strJsVmID, const rho::String& strCallbackParam)
+{
+    RAWTRACE2("%s(id=%s)", __FUNCTION__, strObjID.c_str());
+
+    MethodResultJni result(false);
+    if(!result)
+    {
+        result.setError("JNI error: failed to initialize MethodResult java object");
+        RAWLOG_ERROR("JNI error: failed to initialize MethodResult java object ^^^");
+        return CMethodResultConvertor().toJSON(result);
+    }
+
+    ObjectProxy chat(strObjID);
+
+    int argc = argv.getSize();
+    if((argc < 1) || (argc > 1))
+    {
+        result.setArgError("Wrong number of arguments");
+        RAWLOG_ERROR1("Wrong number of arguments: %d ^^^", argc);
+        return CMethodResultConvertor().toJSON(result);
+    }
+    
+    if(strCallbackID.length() != 0)
+    {
+        result.setCallBack(strCallbackID, strCallbackParam);
+    }
+
+    chat.sendMessage(argumentsAdapter(argv), result); 
+    rho::String res = CMethodResultConvertor().toJSON(result);
+    RAWTRACE(res.c_str());
+    RAWTRACE2("%s(id=%s) end ^^^", __FUNCTION__, strObjID.c_str());
+    return res;
+}
 rho::String js_Chat_getProperty(const rho::String& strObjID, rho::json::CJSONArray& argv, const rho::String& strCallbackID, const rho::String& strJsVmID, const rho::String& strCallbackParam)
 {
     RAWTRACE2("%s(id=%s)", __FUNCTION__, strObjID.c_str());

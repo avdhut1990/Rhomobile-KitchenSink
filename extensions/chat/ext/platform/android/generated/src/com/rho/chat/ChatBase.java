@@ -125,6 +125,31 @@ public class ChatBase extends RhoApiObject {
         }
     }
 
+
+    public static class sendMessageTask implements Runnable {
+        private IChat mApiObject; 
+        private String query;
+        private IMethodResult mResult;
+
+        public sendMessageTask(IChat obj, 
+                String query, 
+                IMethodResult result) {
+            this.mApiObject = obj; 
+            this.query = query;
+            this.mResult = result;
+        }
+
+        @Override
+        public void run() {
+            try {
+                mApiObject.sendMessage(
+                    query, mResult);
+            } catch (Throwable ex) {
+                mResult.set(ex);
+            }
+        }
+    }
+
     public void getProperty(String propertyName, IMethodResult result) { 
         mPropertyBag.getProperty(propertyName, result);
     }

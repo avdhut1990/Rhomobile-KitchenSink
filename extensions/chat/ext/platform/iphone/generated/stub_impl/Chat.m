@@ -10,6 +10,10 @@
 
 }
 
+-(void) sendMessage:(NSString*)query methodResult:(id<IMethodResult>)methodResult {
+
+}
+
 
 
 

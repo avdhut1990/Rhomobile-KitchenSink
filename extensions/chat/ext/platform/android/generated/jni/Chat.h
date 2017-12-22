@@ -50,6 +50,9 @@ protected:
     static const char* const INIT_TASK_CLASS;
     static jclass s_clsinitTask;
     static jmethodID s_midinitTask;
+    static const char* const SENDMESSAGE_TASK_CLASS;
+    static jclass s_clssendMessageTask;
+    static jmethodID s_midsendMessageTask;
     static const char* const GETPROPERTY_TASK_CLASS;
     static jclass s_clsgetPropertyTask;
     static jmethodID s_midgetPropertyTask;
@@ -275,6 +278,42 @@ public:
                     jhgoogle_storage_bucket.get(),
                     jhdialogflow_client_access_token.get(),
                     jhdialogflow_language.get(),
+                    static_cast<jobject>(result));
+
+        run(env, jhTask.get(), result, rho::apiGenerator::NOT_FORCE_THREAD);
+        if(env->ExceptionCheck() == JNI_TRUE)
+        {
+            rho::String message = rho::common::clearException(env);
+            LOG(ERROR) + message;
+            result.setError(message);
+        }
+    }
+
+    void sendMessage(const T& argsAdapter, MethodResultJni& result)
+    {
+        LOG(TRACE) + "sendMessage";
+
+        JNIEnv *env = jniInit();
+        if (!env) {
+            LOG(FATAL) + "JNI initialization failed";
+            return;
+        }
+
+        jhobject jhObject = 
+            getObject(env); 
+
+        if(argsAdapter.size() <= 0)
+        {
+            LOG(ERROR) + "Wrong number of arguments: 'query' must be set ^^^";
+            result.setArgError("Wrong number of arguments: 'query' must be set");
+            return;
+        }
+        jholder< jstring > jhquery = 
+            rho_cast< jstring >(env, argsAdapter[0]);
+
+        jhobject jhTask = env->NewObject(s_clssendMessageTask, s_midsendMessageTask,
+                    jhObject.get(), 
+                    jhquery.get(),
                     static_cast<jobject>(result));
 
         run(env, jhTask.get(), result, rho::apiGenerator::NOT_FORCE_THREAD);

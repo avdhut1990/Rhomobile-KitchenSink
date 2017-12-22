@@ -19,6 +19,9 @@ rho::String js_s_Chat_enumerate(const rho::String& strObjID, rho::json::CJSONArr
 rho::String js_Chat_init(const rho::String& strObjID, rho::json::CJSONArray& argv, const rho::String& strCallbackID, const rho::String& strJsVmID, const rho::String& strCallbackParam);
 rho::String js_s_Chat_def_init(const rho::String& strObjID, rho::json::CJSONArray& argv, const rho::String& strCallbackID, const rho::String& strJsVmID, const rho::String& strCallbackParam);
 
+rho::String js_Chat_sendMessage(const rho::String& strObjID, rho::json::CJSONArray& argv, const rho::String& strCallbackID, const rho::String& strJsVmID, const rho::String& strCallbackParam);
+rho::String js_s_Chat_def_sendMessage(const rho::String& strObjID, rho::json::CJSONArray& argv, const rho::String& strCallbackID, const rho::String& strJsVmID, const rho::String& strCallbackParam);
+
 rho::String js_Chat_getProperty(const rho::String& strObjID, rho::json::CJSONArray& argv, const rho::String& strCallbackID, const rho::String& strJsVmID, const rho::String& strCallbackParam);
 rho::String js_s_Chat_def_getProperty(const rho::String& strObjID, rho::json::CJSONArray& argv, const rho::String& strCallbackID, const rho::String& strJsVmID, const rho::String& strCallbackParam);
 
@@ -72,6 +75,10 @@ namespace {
 
     defineInstanceMethod("init", js_Chat_init);
     //  should define static method !     defineStaticMethod("def_init", js_s_Chat_def_init);;
+
+
+    defineInstanceMethod("sendMessage", js_Chat_sendMessage);
+    //  should define static method !     defineStaticMethod("def_sendMessage", js_s_Chat_def_sendMessage);;
 
 
     defineInstanceMethod("getProperty", js_Chat_getProperty);

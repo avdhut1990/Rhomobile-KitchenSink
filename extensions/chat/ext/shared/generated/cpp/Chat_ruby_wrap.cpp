@@ -450,6 +450,81 @@ VALUE rb_s_Chat_def_init(int argc, VALUE *argv)
 }
 
 
+static VALUE _api_generator_Chat_sendMessage(int argc, VALUE *argv, rho::IChat* pObj)
+{
+    rho::apiGenerator::CMethodResult oRes;
+
+    oRes.setRequestedType(CMethodResult::eString);
+    rho::common::CInstanceClassFunctorBase<rho::apiGenerator::CMethodResult>* pFunctor = 0;
+    bool bUseCallback = false;
+    int nCallbackArg = 0;
+    nCallbackArg = 1;
+    if ( argc == 0 )
+    {
+        oRes.setArgError("Wrong number of arguments: " + convertToStringA(argc) + " instead of " + convertToStringA(1) );
+        return oRes.toRuby();
+    }
+    rho::String arg0 = "";
+    if ( argc > 0 )
+    {
+        if ( rho_ruby_is_string(argv[0]) )
+        {
+            arg0 = getStringObjectFromValue(argv[0]);
+        }
+        else if (!rho_ruby_is_NIL(argv[0]))
+        {
+            oRes.setArgError("Type error: argument " "0" " should be " "string" );
+            return oRes.toRuby();
+        }
+    }
+
+    if ( argc > nCallbackArg )
+    {
+
+        oRes.setArgError("Wrong number of arguments: " + convertToStringA(argc) + " instead of " + convertToStringA(1) );
+        return oRes.toRuby();
+    }
+    if ( bUseCallback )
+    {
+        pFunctor = rho_makeInstanceClassFunctor2( pObj, &rho::IChat::sendMessage, arg0,  oRes );
+        rho::CChatFactoryBase::getChatSingletonS()->addCommandToQueue( pFunctor );
+    }
+    else 
+    {
+
+        pObj->sendMessage( arg0,  oRes );
+    }
+    
+    return oRes.toRuby();
+}
+
+
+
+VALUE rb_Chat_sendMessage(int argc, VALUE *argv, VALUE obj)
+{
+    const char* szID = rho_ruby_get_object_id( obj );
+    if (!szID)
+        rho_ruby_raise_runtime("Object was deleted.");
+
+    VALUE res = 0;
+    rho::IChat* pObj =  rho::CChatFactoryBase::getInstance()->getModuleByID(szID);
+
+    res = _api_generator_Chat_sendMessage(argc, argv, pObj);
+
+    return res;
+}
+
+
+
+VALUE rb_s_Chat_def_sendMessage(int argc, VALUE *argv)
+{
+    rho::String strDefaultID = rho::CChatFactoryBase::getChatSingletonS()->getDefaultID();
+    rho::IChat* pObj = rho::CChatFactoryBase::getInstance()->getModuleByID(strDefaultID);
+
+    return _api_generator_Chat_sendMessage(argc, argv, pObj);
+}
+
+
 static VALUE _api_generator_Chat_getProperty(int argc, VALUE *argv, rho::IChat* pObj)
 {
     rho::apiGenerator::CMethodResult oRes;

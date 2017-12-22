@@ -36,6 +36,11 @@ namespace ChatImpl
         {
             // implement this method in C# here
         }
+
+        public override void sendMessage(string query, IMethodResult oResult)
+        {
+            // implement this method in C# here
+        }
     }
 
     public class ChatSingleton : ChatSingletonBase
