@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9FF066F01FEEED1E00345A2C /* FirebaseAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FF066E91FEEED1E00345A2C /* FirebaseAnalytics.framework */; };
+		9FF066F11FEEED1E00345A2C /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FF066EA1FEEED1E00345A2C /* FirebaseCore.framework */; };
+		9FF066F21FEEED1E00345A2C /* FirebaseCoreDiagnostics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FF066EB1FEEED1E00345A2C /* FirebaseCoreDiagnostics.framework */; };
+		9FF066F31FEEED1E00345A2C /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FF066EC1FEEED1E00345A2C /* FirebaseInstanceID.framework */; };
+		9FF066F41FEEED1E00345A2C /* FirebaseNanoPB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FF066ED1FEEED1E00345A2C /* FirebaseNanoPB.framework */; };
+		9FF066F51FEEED1E00345A2C /* GoogleToolboxForMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FF066EE1FEEED1E00345A2C /* GoogleToolboxForMac.framework */; };
+		9FF066F61FEEED1E00345A2C /* nanopb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FF066EF1FEEED1E00345A2C /* nanopb.framework */; };
+		9FF066F91FEEED7300345A2C /* FirebaseAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FF066F71FEEED7300345A2C /* FirebaseAuth.framework */; };
+		9FF066FA1FEEED7300345A2C /* GTMSessionFetcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FF066F81FEEED7300345A2C /* GTMSessionFetcher.framework */; };
+		9FF067031FEEEDB200345A2C /* FirebaseCrash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FF066FB1FEEEDB200345A2C /* FirebaseCrash.framework */; };
+		9FF067041FEEEDB200345A2C /* Protobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FF066FC1FEEEDB200345A2C /* Protobuf.framework */; };
+		9FF067071FEEEDBF00345A2C /* FirebaseMessaging.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FF067051FEEEDBF00345A2C /* FirebaseMessaging.framework */; };
+		9FF0670C1FEEEDCF00345A2C /* FirebaseABTesting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FF067091FEEEDCF00345A2C /* FirebaseABTesting.framework */; };
+		9FF0670D1FEEEDCF00345A2C /* FirebaseRemoteConfig.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FF0670A1FEEEDCF00345A2C /* FirebaseRemoteConfig.framework */; };
 		FA3E1F211779EFAA00F5E33A /* Chat.h in Headers */ = {isa = PBXBuildFile; fileRef = FA3E1F1B1779EFAA00F5E33A /* Chat.h */; };
 		FA3E1F221779EFAA00F5E33A /* Chat.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3E1F1C1779EFAA00F5E33A /* Chat.m */; };
 		FA3E1F231779EFAA00F5E33A /* ChatFactorySingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3E1F1D1779EFAA00F5E33A /* ChatFactorySingleton.m */; };
@@ -31,6 +45,26 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9FF066E91FEEED1E00345A2C /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAnalytics.framework; path = impl/Firebase/Analytics/FirebaseAnalytics.framework; sourceTree = "<group>"; };
+		9FF066EA1FEEED1E00345A2C /* FirebaseCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseCore.framework; path = impl/Firebase/Analytics/FirebaseCore.framework; sourceTree = "<group>"; };
+		9FF066EB1FEEED1E00345A2C /* FirebaseCoreDiagnostics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseCoreDiagnostics.framework; path = impl/Firebase/Analytics/FirebaseCoreDiagnostics.framework; sourceTree = "<group>"; };
+		9FF066EC1FEEED1E00345A2C /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseInstanceID.framework; path = impl/Firebase/Analytics/FirebaseInstanceID.framework; sourceTree = "<group>"; };
+		9FF066ED1FEEED1E00345A2C /* FirebaseNanoPB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseNanoPB.framework; path = impl/Firebase/Analytics/FirebaseNanoPB.framework; sourceTree = "<group>"; };
+		9FF066EE1FEEED1E00345A2C /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleToolboxForMac.framework; path = impl/Firebase/Analytics/GoogleToolboxForMac.framework; sourceTree = "<group>"; };
+		9FF066EF1FEEED1E00345A2C /* nanopb.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = nanopb.framework; path = impl/Firebase/Analytics/nanopb.framework; sourceTree = "<group>"; };
+		9FF066F71FEEED7300345A2C /* FirebaseAuth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAuth.framework; path = impl/Firebase/Auth/FirebaseAuth.framework; sourceTree = "<group>"; };
+		9FF066F81FEEED7300345A2C /* GTMSessionFetcher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GTMSessionFetcher.framework; path = impl/Firebase/Auth/GTMSessionFetcher.framework; sourceTree = "<group>"; };
+		9FF066FB1FEEEDB200345A2C /* FirebaseCrash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseCrash.framework; path = impl/Firebase/Crash/FirebaseCrash.framework; sourceTree = "<group>"; };
+		9FF066FC1FEEEDB200345A2C /* Protobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Protobuf.framework; path = impl/Firebase/Crash/Protobuf.framework; sourceTree = "<group>"; };
+		9FF066FD1FEEEDB200345A2C /* batch-upload */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = "batch-upload"; path = "impl/Firebase/Crash/batch-upload"; sourceTree = "<group>"; };
+		9FF066FE1FEEEDB200345A2C /* dump_syms */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = dump_syms; path = impl/Firebase/Crash/dump_syms; sourceTree = "<group>"; };
+		9FF066FF1FEEEDB200345A2C /* extract-keys */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = "extract-keys"; path = "impl/Firebase/Crash/extract-keys"; sourceTree = "<group>"; };
+		9FF067001FEEEDB200345A2C /* upload-sym */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = "upload-sym"; path = "impl/Firebase/Crash/upload-sym"; sourceTree = "<group>"; };
+		9FF067011FEEEDB200345A2C /* upload-sym-util.bash */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "upload-sym-util.bash"; path = "impl/Firebase/Crash/upload-sym-util.bash"; sourceTree = "<group>"; };
+		9FF067021FEEEDB200345A2C /* upload-sym.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = "upload-sym.sh"; path = "impl/Firebase/Crash/upload-sym.sh"; sourceTree = "<group>"; };
+		9FF067051FEEEDBF00345A2C /* FirebaseMessaging.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseMessaging.framework; path = impl/Firebase/Messaging/FirebaseMessaging.framework; sourceTree = "<group>"; };
+		9FF067091FEEEDCF00345A2C /* FirebaseABTesting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseABTesting.framework; path = impl/Firebase/RemoteConfig/FirebaseABTesting.framework; sourceTree = "<group>"; };
+		9FF0670A1FEEEDCF00345A2C /* FirebaseRemoteConfig.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseRemoteConfig.framework; path = impl/Firebase/RemoteConfig/FirebaseRemoteConfig.framework; sourceTree = "<group>"; };
 		AACBBE490F95108600F1A2B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		FA3E1F1B1779EFAA00F5E33A /* Chat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Chat.h; path = impl/Chat.h; sourceTree = "<group>"; };
 		FA3E1F1C1779EFAA00F5E33A /* Chat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Chat.m; path = impl/Chat.m; sourceTree = "<group>"; };
@@ -60,8 +94,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FF066F11FEEED1E00345A2C /* FirebaseCore.framework in Frameworks */,
+				9FF066FA1FEEED7300345A2C /* GTMSessionFetcher.framework in Frameworks */,
+				9FF066F31FEEED1E00345A2C /* FirebaseInstanceID.framework in Frameworks */,
 				FAC155EE145855CF0016F3BD /* Foundation.framework in Frameworks */,
+				9FF066F21FEEED1E00345A2C /* FirebaseCoreDiagnostics.framework in Frameworks */,
+				9FF0670D1FEEEDCF00345A2C /* FirebaseRemoteConfig.framework in Frameworks */,
+				9FF067031FEEEDB200345A2C /* FirebaseCrash.framework in Frameworks */,
+				9FF066F61FEEED1E00345A2C /* nanopb.framework in Frameworks */,
 				FAC155EF145855CF0016F3BD /* UIKit.framework in Frameworks */,
+				9FF0670C1FEEEDCF00345A2C /* FirebaseABTesting.framework in Frameworks */,
+				9FF067071FEEEDBF00345A2C /* FirebaseMessaging.framework in Frameworks */,
+				9FF066F51FEEED1E00345A2C /* GoogleToolboxForMac.framework in Frameworks */,
+				9FF066F91FEEED7300345A2C /* FirebaseAuth.framework in Frameworks */,
+				9FF067041FEEEDB200345A2C /* Protobuf.framework in Frameworks */,
+				9FF066F41FEEED1E00345A2C /* FirebaseNanoPB.framework in Frameworks */,
+				9FF066F01FEEED1E00345A2C /* FirebaseAnalytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +131,26 @@
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				0867D69AFE84028FC02AAC07 /* Frameworks */,
 				034768DFFF38A50411DB9C8B /* Products */,
+				9FF066FD1FEEEDB200345A2C /* batch-upload */,
+				9FF066FE1FEEEDB200345A2C /* dump_syms */,
+				9FF066FF1FEEEDB200345A2C /* extract-keys */,
+				9FF067001FEEEDB200345A2C /* upload-sym */,
+				9FF067011FEEEDB200345A2C /* upload-sym-util.bash */,
+				9FF067021FEEEDB200345A2C /* upload-sym.sh */,
+				9FF066FB1FEEEDB200345A2C /* FirebaseCrash.framework */,
+				9FF066FC1FEEEDB200345A2C /* Protobuf.framework */,
+				9FF066E91FEEED1E00345A2C /* FirebaseAnalytics.framework */,
+				9FF066EA1FEEED1E00345A2C /* FirebaseCore.framework */,
+				9FF066EB1FEEED1E00345A2C /* FirebaseCoreDiagnostics.framework */,
+				9FF066EC1FEEED1E00345A2C /* FirebaseInstanceID.framework */,
+				9FF066ED1FEEED1E00345A2C /* FirebaseNanoPB.framework */,
+				9FF066EE1FEEED1E00345A2C /* GoogleToolboxForMac.framework */,
+				9FF066EF1FEEED1E00345A2C /* nanopb.framework */,
+				9FF067091FEEEDCF00345A2C /* FirebaseABTesting.framework */,
+				9FF0670A1FEEEDCF00345A2C /* FirebaseRemoteConfig.framework */,
+				9FF067051FEEEDBF00345A2C /* FirebaseMessaging.framework */,
+				9FF066F71FEEED7300345A2C /* FirebaseAuth.framework */,
+				9FF066F81FEEED7300345A2C /* GTMSessionFetcher.framework */,
 			);
 			name = Chat;
 			sourceTree = "<group>";
@@ -219,6 +287,8 @@
 /* Begin PBXProject section */
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+			};
 			buildConfigurationList = 1DEB922208733DC00010E9CD /* Build configuration list for PBXProject "Chat" */;
 			compatibilityVersion = "Xcode 3.1";
 			developmentRegion = English;
@@ -278,6 +348,7 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
 				SDKROOT = iphonesimulator4.1;
 				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = static;
@@ -299,6 +370,7 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
 				SDKROOT = iphonesimulator4.1;
 				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = static;
@@ -311,6 +383,14 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/Chat.dst;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/impl/Firebase/Analytics",
+					"$(PROJECT_DIR)/impl/Firebase/Auth",
+					"$(PROJECT_DIR)/impl/Firebase/Crash",
+					"$(PROJECT_DIR)/impl/Firebase/Messaging",
+					"$(PROJECT_DIR)/impl/Firebase/RemoteConfig",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -330,6 +410,14 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				DSTROOT = /tmp/Chat.dst;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/impl/Firebase/Analytics",
+					"$(PROJECT_DIR)/impl/Firebase/Auth",
+					"$(PROJECT_DIR)/impl/Firebase/Crash",
+					"$(PROJECT_DIR)/impl/Firebase/Messaging",
+					"$(PROJECT_DIR)/impl/Firebase/RemoteConfig",
+				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Chat_Prefix.pch;

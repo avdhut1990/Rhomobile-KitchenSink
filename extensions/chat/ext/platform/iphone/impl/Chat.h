@@ -1,6 +1,8 @@
 #import "IChat.h"
 #import "ChatBase.h"
 
+#import "Firebase.h"
+
 @interface Chat : ChatBase<IChat> {
 }
 

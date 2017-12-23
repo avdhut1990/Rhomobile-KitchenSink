@@ -4,7 +4,6 @@ using System.Net;
 using Windows.UI.Core;
 using System.Threading.Tasks;
 using rhoruntime;
-using rhodes;
 
 namespace rho {
 
@@ -21,14 +20,7 @@ namespace ChatImpl
         {
             _strID = id;
             _runtime = new ChatRuntimeComponent(this);
-            try{dispatcher = MainPage.getDispatcher();
-            }catch(Exception e){deb("Can't get access to dispatcher");}
-        }
-
-        public static void deb(String s, [System.Runtime.CompilerServices.CallerMemberName] string memberName = "")
-        {
-            if (memberName.Length != 0) {memberName = memberName + " : ";}
-            System.Diagnostics.Debug.WriteLine(memberName + s);
+            dispatcher = Windows.UI.Core.CoreWindow.GetForCurrentThread().Dispatcher;
         }
 
         public long getNativeImpl()
@@ -42,7 +34,7 @@ namespace ChatImpl
             _nativeImpl = native;
         }
 
-        public void dispatchInvoke(Action a)
+        public void DispatchInvoke(Action a)
         {
             if (dispatcher != null) {
               var ignore = dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
@@ -77,9 +69,8 @@ namespace ChatImpl
 
         abstract public void getSimpleStringProperty(IMethodResult oResult);
         abstract public void setSimpleStringProperty(string simpleStringProperty, IMethodResult oResult);
-        abstract public void getPlatformName(IMethodResult oResult);
-        abstract public void calcSumm(int a, int b, IMethodResult oResult);
-        abstract public void joinStrings(string a, string b, IMethodResult oResult);
+        abstract public void init(string google_api_key, string google_app_id, string gcm_sender_id, string google_project_id, string google_storage_bucket, string dialogflow_client_access_token, string dialogflow_language, IMethodResult oResult);
+        abstract public void sendMessage(string query, IMethodResult oResult);
     }
 
     abstract public class ChatSingletonBase : IChatSingletonImpl
@@ -105,26 +96,8 @@ namespace ChatImpl
 
         public ChatSingletonBase()
         {
-              try{dispatcher = MainPage.getDispatcher();
-              }catch(Exception e){deb("Can't get access to dispatcher");}
-              _runtime = new ChatSingletonComponent(this);
+            _runtime = new ChatSingletonComponent(this);
         }
-
-        public static void deb(String s, [System.Runtime.CompilerServices.CallerMemberName] string memberName = "")
-        {
-            if (memberName.Length != 0) {memberName = memberName + " : ";}
-            System.Diagnostics.Debug.WriteLine(memberName + s);
-        }
-
-        public void dispatchInvoke(Action a)
-        {
-            if (dispatcher != null) {
-              var ignore = dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-              {try{a();} catch (Exception ex) {System.Diagnostics.Debug.WriteLine("Invoke in UI Thread exception");} });
-            }else{a();}
-        }
-        protected CoreDispatcher dispatcher = null;
-
 
         abstract public void enumerate(IMethodResult oResult);
     }

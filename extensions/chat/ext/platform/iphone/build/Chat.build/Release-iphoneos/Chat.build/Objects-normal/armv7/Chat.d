@@ -4,4 +4,52 @@ dependencies: \
   /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Chat.h \
   /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/generated/IChat.h \
   /Users/C2lBiz/.rvm/gems/ruby-1.9.3-p551/gems/rhodes-5.5.0.55/platform/shared/api_generator/iphone/IMethodResult.h \
-  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/generated/base_impl/ChatBase.h
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/generated/base_impl/ChatBase.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Analytics/FirebaseAnalytics.framework/Headers/FirebaseAnalytics.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Analytics/FirebaseAnalytics.framework/Headers/FIRAnalyticsConfiguration.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Analytics/FirebaseCore.framework/Headers/FIRAnalyticsConfiguration.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Analytics/FirebaseAnalytics.framework/Headers/FIRApp.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Analytics/FirebaseCore.framework/Headers/FIRApp.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Analytics/FirebaseAnalytics.framework/Headers/FIRConfiguration.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Analytics/FirebaseCore.framework/Headers/FIRConfiguration.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Analytics/FirebaseCore.framework/Headers/FIRLoggerLevel.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Analytics/FirebaseAnalytics.framework/Headers/FIROptions.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Analytics/FirebaseCore.framework/Headers/FIROptions.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Analytics/FirebaseAnalytics.framework/Headers/FIRAnalytics+AppDelegate.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Analytics/FirebaseAnalytics.framework/Headers/FIRAnalytics.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Analytics/FirebaseAnalytics.framework/Headers/FIRAnalyticsSwiftNameSupport.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Analytics/FirebaseAnalytics.framework/Headers/FIREventNames.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Analytics/FirebaseAnalytics.framework/Headers/FIRParameterNames.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Analytics/FirebaseAnalytics.framework/Headers/FIRUserPropertyNames.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Analytics/FirebaseCore.framework/Headers/FirebaseCore.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Auth/FirebaseAuth.framework/Headers/FirebaseAuth.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Auth/FirebaseAuth.framework/Headers/FirebaseAuthVersion.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Auth/FirebaseAuth.framework/Headers/FIRActionCodeSettings.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Auth/FirebaseAuth.framework/Headers/FIRAdditionalUserInfo.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Auth/FirebaseAuth.framework/Headers/FIRAuth.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Auth/FirebaseAuth.framework/Headers/FIRAuthErrors.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Auth/FirebaseAuth.framework/Headers/FIRAuthAPNSTokenType.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Auth/FirebaseAuth.framework/Headers/FIRAuthCredential.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Auth/FirebaseAuth.framework/Headers/FIRAuthDataResult.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Auth/FirebaseAuth.framework/Headers/FIRAuthUIDelegate.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Auth/FirebaseAuth.framework/Headers/FIREmailAuthProvider.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Auth/FirebaseAuth.framework/Headers/FIRFacebookAuthProvider.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Auth/FirebaseAuth.framework/Headers/FIRGitHubAuthProvider.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Auth/FirebaseAuth.framework/Headers/FIRGoogleAuthProvider.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Auth/FirebaseAuth.framework/Headers/FIROAuthProvider.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Auth/FirebaseAuth.framework/Headers/FIRPhoneAuthCredential.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Auth/FirebaseAuth.framework/Headers/FIRPhoneAuthProvider.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Auth/FirebaseAuth.framework/Headers/FIRTwitterAuthProvider.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Auth/FirebaseAuth.framework/Headers/FIRUser.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Auth/FirebaseAuth.framework/Headers/FIRUserInfo.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Auth/FirebaseAuth.framework/Headers/FIRUserMetadata.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Crash/FirebaseCrash.framework/Headers/FirebaseCrash.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Crash/FirebaseCrash.framework/Headers/FIRCrash.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Crash/FirebaseCrash.framework/Headers/FIRCrashLog.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Analytics/FirebaseInstanceID.framework/Headers/FirebaseInstanceID.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Analytics/FirebaseInstanceID.framework/Headers/FIRInstanceID.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Messaging/FirebaseMessaging.framework/Headers/FirebaseMessaging.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/Messaging/FirebaseMessaging.framework/Headers/FIRMessaging.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/RemoteConfig/FirebaseRemoteConfig.framework/Headers/FirebaseRemoteConfig.h \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/impl/Firebase/RemoteConfig/FirebaseRemoteConfig.framework/Headers/FIRRemoteConfig.h
