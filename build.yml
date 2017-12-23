@@ -1,5 +1,5 @@
 ## Note: sdk is full path to Rhodes root. If not defined - automatically find latest installed Rhodes gem
-sdk: "C:/RhoMobileSuite6.0.19/ruby/lib/ruby/gems/1.9.1/gems/rhodes-5.5.0.55"
+sdk: "/Users/C2lBiz/.rvm/gems/ruby-1.9.3-p551/gems/rhodes-5.5.0.55"
 sdkversion: 6.0.0
 name: KitchenSink
 version: 1.0
@@ -63,7 +63,7 @@ iphone:
   ## Note: sdk can be 3 predefined value : latest, latest_simulator, latest_device
   ## simulator or device detect by rake command for "rake run:iphone" is simulator, for "rake device:iphone:production" is device
   ## sdk also can be defined exactly like:  iphonesimulator10.2 or iphoneos10.2
-  sdk: latest
+  sdk: iphoneos10.3
   ## Note: Provisioning
   ## There are two provisioning type for modern XCode: Automatic and Manual
   ## development_team must be configured for any type provisioning
@@ -78,10 +78,10 @@ iphone:
   ##
   ## Note: This is Manual provisioning configuration:
   ## provisionprofile can be defined as name or UUID - if you defined provisionprofile then codesignidentity defined automatically if you not defined it in this build.yml
-  #provisionprofile: "Current WildCart 05"
-  #provisioning_style: Manual
-  #development_team: "PNQRMU3LPM"
-  #codesignidentity: "iPhone Developer"
+  provisionprofile: 399890d4-7ba6-4c5a-8f90-709a64f1a2f1
+  provisioning_style: Manual
+  development_team: "LCQ6BLQ6EV"
+  codesignidentity: "iPhone Developer: c2lbiz mac2 (GZ7XUX4V3C)"
   ##
   #entitlements:
   BundleIdentifier: com.rhomobile.kitchensink

@@ -1,0 +1,23 @@
+dependencies: \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/platform/iphone/Chat_Prefix.pch \
+  /Users/C2lBiz/Downloads/Avdhut/Rhomobile-KitchenSink/extensions/chat/ext/shared/generated/chat_js_api.cpp \
+  /Users/C2lBiz/.rvm/gems/ruby-1.9.3-p551/gems/rhodes-5.5.0.55/platform/shared/api_generator/js_helpers.h \
+  /Users/C2lBiz/.rvm/gems/ruby-1.9.3-p551/gems/rhodes-5.5.0.55/platform/shared/json/JSONIterator.h \
+  /Users/C2lBiz/.rvm/gems/ruby-1.9.3-p551/gems/rhodes-5.5.0.55/platform/shared/common/RhoStd.h \
+  /Users/C2lBiz/.rvm/gems/ruby-1.9.3-p551/gems/rhodes-5.5.0.55/platform/shared/common/RhoPort.h \
+  /Users/C2lBiz/.rvm/gems/ruby-1.9.3-p551/gems/rhodes-5.5.0.55/platform/shared/common/RhoDefs.h \
+  /Users/C2lBiz/.rvm/gems/ruby-1.9.3-p551/gems/rhodes-5.5.0.55/platform/shared/common/app_build_capabilities.h \
+  /Users/C2lBiz/.rvm/gems/ruby-1.9.3-p551/gems/rhodes-5.5.0.55/platform/shared/common/app_build_configs.h \
+  /Users/C2lBiz/.rvm/gems/ruby-1.9.3-p551/gems/rhodes-5.5.0.55/platform/shared/common/stat.h \
+  /Users/C2lBiz/.rvm/gems/ruby-1.9.3-p551/gems/rhodes-5.5.0.55/platform/shared/api_generator/Api.h \
+  /Users/C2lBiz/.rvm/gems/ruby-1.9.3-p551/gems/rhodes-5.5.0.55/platform/shared/logging/RhoLog.h \
+  /Users/C2lBiz/.rvm/gems/ruby-1.9.3-p551/gems/rhodes-5.5.0.55/platform/shared/logging/RhoLogConf.h \
+  /Users/C2lBiz/.rvm/gems/ruby-1.9.3-p551/gems/rhodes-5.5.0.55/platform/shared/common/RhoMutexLock.h \
+  /Users/C2lBiz/.rvm/gems/ruby-1.9.3-p551/gems/rhodes-5.5.0.55/platform/shared/common/RhoTime.h \
+  /Users/C2lBiz/.rvm/gems/ruby-1.9.3-p551/gems/rhodes-5.5.0.55/platform/shared/common/RhoThread.h \
+  /Users/C2lBiz/.rvm/gems/ruby-1.9.3-p551/gems/rhodes-5.5.0.55/platform/shared/common/IRhoThreadImpl.h \
+  /Users/C2lBiz/.rvm/gems/ruby-1.9.3-p551/gems/rhodes-5.5.0.55/platform/shared/common/AutoPointer.h \
+  /Users/C2lBiz/.rvm/gems/ruby-1.9.3-p551/gems/rhodes-5.5.0.55/platform/shared/common/RhoSystem.h \
+  /Users/C2lBiz/.rvm/gems/ruby-1.9.3-p551/gems/rhodes-5.5.0.55/platform/shared/common/StringConverter.h \
+  /Users/C2lBiz/.rvm/gems/ruby-1.9.3-p551/gems/rhodes-5.5.0.55/platform/shared/logging/RhoLogCat.h \
+  /Users/C2lBiz/.rvm/gems/ruby-1.9.3-p551/gems/rhodes-5.5.0.55/platform/shared/common/RhoFatalError.h
