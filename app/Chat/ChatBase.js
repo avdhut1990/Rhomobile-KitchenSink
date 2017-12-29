@@ -1,13 +1,26 @@
 var useAndroidAPI = false;
-var sessionId = Math.floor(Math.random() * 1000000);
-var lang = "en";
-var accessToken ="2e5449618aeb4756a64a09f413a16f87";
+
+var firebaseAPIKey = null;
+var dialogflowSessionId = null;
+var dialogflowLang = null;
+var dialogflowAccessToken = null;
+var dialogflowBaseUrl = null;
+
+var firebaseUserIdToken = null;
+var firebaseUserLocalId = null;
+var firebaseUserRefreshToken = null;
+
 
 $(document).ready(function(){
 	if ($("#simulatorFl").val() != "true" && $("#platformName").val() == "ANDROID") {
 		useAndroidAPI = true;
 	}
-})
+	else {
+		initChat();
+		signInUser("avdhut.vaidya@c2lbiz.com", "password");
+	}
+});
+
 
 $(document).on('click', '.panel-heading span.icon_minim', function (e) {
 	updateMessageTimeStamp();
@@ -28,6 +41,142 @@ $(document).on('keypress', '#chat-input', function (event) {
 		sendMessage();
 	}
 });
+
+
+function initChat(){
+	firebaseAPIKey = "AIzaSyCX46VXOfHjjVSU-3-8zfeDx7VQAxmku5s";
+	dialogflowSessionId = Math.floor(Math.random() * 1000000);
+	dialogflowLang = "en";
+	dialogflowAccessToken ="2e5449618aeb4756a64a09f413a16f87";
+	dialogflowBaseUrl = "https://api.dialogflow.com/v1/";
+}
+
+
+function signInUser(email, password){
+	$.ajax({
+		type: "POST",
+		url: "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key="+firebaseAPIKey,
+		contentType: "application/json; charset=utf-8",
+		dataType: "json",
+		data: JSON.stringify({ email: email, password: password, returnSecureToken: true }),
+		success: function(data) {
+			firebaseUserIdToken = data.idToken;
+			firebaseUserLocalId = data.localId;
+			firebaseUserRefreshToken = data.refreshToken;
+			setTimeout(function(){ signInUser(email, password); }, Number(data.expiresIn)*1000);
+			setupUser(email);
+			refreshGroupChat("underwriters");
+		},
+		error: function(data) {
+			var errorCode = data.responseJSON.error.message;
+			console.log(errorCode);
+			if (errorCode == "EMAIL_NOT_FOUND"){
+				signUpUser(email, password);
+			}
+		}
+	});
+}
+
+
+function signUpUser(email, password){
+	$.ajax({
+		type: "POST",
+		url: "https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key="+firebaseAPIKey,
+		contentType: "application/json; charset=utf-8",
+		dataType: "json",
+		data: JSON.stringify({ email: email, password: password, returnSecureToken: true }),
+		success: function(data) {
+			firebaseUserIdToken = data.idToken;
+			firebaseUserLocalId = data.localId;
+			firebaseUserRefreshToken = data.refreshToken;
+			setTimeout(function(){ signInUser(email, password); }, Number(data.expiresIn)*1000);
+			setupUser(email);
+			refreshGroupChat("underwriters");
+		},
+		error: function(data) {
+			var errorCode = data.responseJSON.error.message;
+			console.log(errorCode);
+		}
+	});
+}
+
+
+function refreshGroupChat(groupId){
+	$.ajax({
+		type: "GET",
+		url: "https://kitchensink-1718a.firebaseio.com/members.json?print=pretty&auth="+firebaseUserIdToken,
+		contentType: "application/json; charset=utf-8",
+		dataType: "json",
+		success: function(data) {
+			if(data == null){
+				jsonString = '{"'+groupId+'":{"'+firebaseUserLocalId+'":true}}';
+				$.ajax({
+					type: "PUT",
+					url: "https://kitchensink-1718a.firebaseio.com/members.json?auth="+firebaseUserIdToken,
+					contentType: "application/json; charset=utf-8",
+					dataType: "json",
+					data: jsonString,
+					success: function(data) {
+						console.log(data);
+					},
+					error: function(data) {
+						console.log(data);
+					}
+				});
+			}
+			else {
+				jsonString = '{"'+groupId+'":{"'+firebaseUserLocalId+'":true}}';
+				$.ajax({
+					type: "PATCH",
+					url: "https://kitchensink-1718a.firebaseio.com/members.json?auth="+firebaseUserIdToken,
+					contentType: "application/json; charset=utf-8",
+					dataType: "json",
+					data: jsonString,
+					success: function(data) {
+						console.log(data);
+					},
+					error: function(data) {
+						console.log(data);
+					}
+				});
+			}
+		},
+		error: function(data) {
+			console.log(data);
+		}
+	});	
+}
+
+
+function openSingleChat(targetUserId){
+
+}
+
+
+function setupUser(email){
+	$.ajax({
+		type: "PUT",
+		url: "https://kitchensink-1718a.firebaseio.com/users/"+firebaseUserLocalId+".json?auth="+firebaseUserIdToken,
+		contentType: "application/json; charset=utf-8",
+		dataType: "json",
+		data: JSON.stringify({
+			"email": email
+		}),
+		success: function(data) {
+			// firebaseUserIdToken = data.idToken;
+			// firebaseUserLocalId = data.localId;
+			// firebaseUserRefreshToken = data.refreshToken;
+			// setTimeout(function(){ signInUser(email, password); }, Number(data.expiresIn)*1000);
+		},
+		error: function(data) {
+			// var errorCode = data.responseJSON.error.message;
+			// console.log(errorCode);
+			// if (errorCode == "EMAIL_NOT_FOUND"){
+			// 	signUpUser(email, password);
+			// }
+		}
+	});
+}
 
 
 function toggleChatBox(switchButton){
@@ -104,16 +253,15 @@ function androidAPI(sentMessage, init) {
 
 
 function genericAPI(sentMessage) {
-	var baseUrl = "https://api.dialogflow.com/v1/";
 	$.ajax({
 		type: "POST",
-		url: baseUrl + "query?v=20150910",
+		url: dialogflowBaseUrl + "query?v=20150910",
 		contentType: "application/json; charset=utf-8",
 		dataType: "json",
 		headers: {
-			"Authorization": "Bearer " + accessToken
+			"Authorization": "Bearer " + dialogflowAccessToken
 		},
-		data: JSON.stringify({ query: sentMessage, lang: lang, sessionId: sessionId }),
+		data: JSON.stringify({ query: sentMessage, lang: dialogflowLang, sessionId: dialogflowSessionId }),
 		success: function(data) {
 			var receivedMessage = data.result.fulfillment.speech;
 			setResponse(receivedMessage);
