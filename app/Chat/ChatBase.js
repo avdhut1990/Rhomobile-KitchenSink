@@ -9,6 +9,7 @@ var dialogflowBaseUrl = null;
 var firebaseUserIdToken = null;
 var firebaseUserLocalId = null;
 var firebaseUserRefreshToken = null;
+var chatType = "#ai";
 
 
 $(document).ready(function(){
@@ -17,8 +18,10 @@ $(document).ready(function(){
 	}
 	else {
 		initChat();
-		signInUser("avdhut.vaidya@c2lbiz.com", "password");
 	}
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+		chatType = e.target.hash;
+	})
 });
 
 
@@ -190,6 +193,9 @@ function toggleChatBox(switchButton){
 		if (useAndroidAPI) {
 			androidAPI("", true);
 		}
+		else {
+			signInUser("avdhut.vaidya@c2lbiz.com", "password");
+		}
 		switchButton.parents('.panel').find('.panel-body').slideDown();
 		switchButton.parents('.panel').find('.panel-footer').slideDown();
 		switchButton.removeClass('panel-collapsed');
@@ -215,8 +221,8 @@ function sendMessage(){
 	sentMessageHTML += '</div>';
 	sentMessageHTML += '</div>';
 
-	$(".panel-body").append(sentMessageHTML);
-	$(".panel-body").stop().animate({ scrollTop: $(".panel-body").prop("scrollHeight") }, 1000);
+	$(".panel-body "+chatType).append(sentMessageHTML);
+	$(".panel-body "+chatType).stop().animate({ scrollTop: $(".panel-body "+chatType).prop("scrollHeight") }, 1000);
 
 	if (useAndroidAPI) {
 		androidAPI(sentMessage, false);
@@ -287,8 +293,8 @@ function setResponse(receivedMessage) {
 	receivedMessageHTML += '</div>';
 	receivedMessageHTML += '</div>';
 
-	$(".panel-body").append(receivedMessageHTML);
-	$(".panel-body").stop().animate({ scrollTop: $(".panel-body").prop("scrollHeight") }, 1000);
+	$(".panel-body "+chatType).append(receivedMessageHTML);
+	$(".panel-body "+chatType).stop().animate({ scrollTop: $(".panel-body "+chatType).prop("scrollHeight") }, 1000);
 }
 
 
