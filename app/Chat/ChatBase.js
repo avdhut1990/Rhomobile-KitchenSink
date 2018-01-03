@@ -9,6 +9,8 @@ var dialogflowBaseUrl = null;
 var firebaseUserIdToken = null;
 var firebaseUserLocalId = null;
 var firebaseUserRefreshToken = null;
+var chatRefreshLastTimestamp = 0;
+var blockRefreshChatFl = false;
 var chatType = "#ai";
 
 var name = "";
@@ -87,7 +89,7 @@ function toggleChatBox(switchButton){
 	}
 	else {
 		if(useAndroidAPI && chatType == "#ai") {
-			androidAPI("", true);
+			androidDFAPI("", true);
 		}
 		switchButton.parents('.panel').find('.panel-body').slideDown();
 		switchButton.parents('.panel').find('.panel-footer').slideDown();
@@ -137,10 +139,10 @@ function sendAIMessage(){
 	$(".panel-body").stop().animate({ scrollTop: $(".panel-body").prop("scrollHeight") }, 1000);
 
 	if (useAndroidAPI) {
-		androidAPI(sentMessage, false);
+		androidDFAPI(sentMessage, false);
 	}
 	else {
-		genericAPI(sentMessage);
+		genericDFAPI(sentMessage);
 	}
 }
 
@@ -164,7 +166,7 @@ function setResponse(receivedMessage) {
 }
 
 
-function androidAPI(sentMessage, init) {
+function androidDFAPI(sentMessage, init) {
 	if(init) {
 		$.ajax({
 			url: "/app/Chat/init",
@@ -189,7 +191,7 @@ function androidAPI(sentMessage, init) {
 }
 
 
-function genericAPI(sentMessage) {
+function genericDFAPI(sentMessage) {
 	$.ajax({
 		type: "POST",
 		url: dialogflowBaseUrl + "query?v=20150910",
@@ -324,6 +326,7 @@ function updateUserData(userJSON){
 
 
 function sendGroupMessage(groupId){
+	blockRefreshChatFl = true;
 	var sentDt = new Date();
 	sentMessage = $("#chat-input").val();
 	$("#chat-input").val("");
@@ -336,6 +339,7 @@ function sendGroupMessage(groupId){
 		dataType: "json",
 		data: jsonString,
 		success: function(data) {
+			blockRefreshChatFl = false;
 			updateChatGroupMeta(groupId);
 			refreshGroupChat(groupId);
 			console.log("Message posted to chat group: "+groupId+" successfully.");
@@ -384,57 +388,62 @@ function updateChatGroupMeta(groupId){
 
 
 function refreshGroupChat(groupId){
-	$.ajax({
-		type: "GET",
-		url: "https://kitchensink-1718a.firebaseio.com/chatMessages/"+groupId+".json?orderBy=\"$key\"&print=pretty&auth="+firebaseUserIdToken,
-		contentType: "application/json; charset=utf-8",
-		dataType: "json",
-		success: function(data) {
-			if(data != null){
-				var messageHTML = '';
-				$.each(data, function(timestamp, messageObject) {
-					if(messageObject["userLocalId"] == firebaseUserLocalId){
-						messageHTML += '<div class="row msg_container base_sent">';
-						messageHTML += '<div class="col-md-10 col-xs-10">';
-						messageHTML += '<div class="messages msg_sent">';
-						messageHTML += '<p>'+messageObject["message"]+'</p>';
-						messageHTML += '<time datetime="'+timestamp+'">'+messageObject["name"]+' • <span>Just Now</span></time>';
-						messageHTML += '</div>';
-						messageHTML += '</div>';
-						messageHTML += '<div class="col-md-2 col-xs-2 avatar">';
-						messageHTML += '<img src="/public/images/profile-icon.png" alt="" class=" img-responsive">';
-						messageHTML += '</div>';
-						messageHTML += '</div>';
+	if(!blockRefreshChatFl){
+		$.ajax({
+			type: "GET",
+			url: "https://kitchensink-1718a.firebaseio.com/chatMessages/"+groupId+".json?orderBy=\"$key\"&startAt=\""+(chatRefreshLastTimestamp+1)+"\"&print=pretty&auth="+firebaseUserIdToken,
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+			success: function(data) {
+				if(data != null){
+					var messageHTML = '';
+					$.each(data, function(timestamp, messageObject) {
+						if(messageObject["userLocalId"] == firebaseUserLocalId){
+							messageHTML += '<div class="row msg_container base_sent">';
+							messageHTML += '<div class="col-md-10 col-xs-10">';
+							messageHTML += '<div class="messages msg_sent">';
+							messageHTML += '<p>'+messageObject["message"]+'</p>';
+							messageHTML += '<time datetime="'+timestamp+'">'+messageObject["name"]+' • <span>Just Now</span></time>';
+							messageHTML += '</div>';
+							messageHTML += '</div>';
+							messageHTML += '<div class="col-md-2 col-xs-2 avatar">';
+							messageHTML += '<img src="/public/images/profile-icon.png" alt="" class=" img-responsive">';
+							messageHTML += '</div>';
+							messageHTML += '</div>';
+						}
+						else{
+							messageHTML += '<div class="row msg_container base_receive">';
+							messageHTML += '<div class="col-md-2 col-xs-2 avatar">';
+							messageHTML += '<img src="/public/images/profile-icon.png" alt="" class=" img-responsive ">';
+							messageHTML += '</div>';
+							messageHTML += '<div class="col-md-10 col-xs-10">';
+							messageHTML += '<div class="messages msg_receive">';
+							messageHTML += '<p>'+messageObject["message"]+'</p>';
+							messageHTML += '<time datetime="'+timestamp+'">'+messageObject["name"]+' • <span>Just Now</span></time>';
+							messageHTML += '</div>';
+							messageHTML += '</div>';
+							messageHTML += '</div>';
+						}
+						chatRefreshLastTimestamp = Number(timestamp);
+					});
+					if(messageHTML != ""){
+						$(".panel-body "+chatType).append(messageHTML);
+						$(".panel-body").stop().animate({ scrollTop: $(".panel-body").prop("scrollHeight") }, 1000);
+						updateMessageTimeStamp();
 					}
-					else{
-						messageHTML += '<div class="row msg_container base_receive">';
-						messageHTML += '<div class="col-md-2 col-xs-2 avatar">';
-						messageHTML += '<img src="/public/images/profile-icon.png" alt="" class=" img-responsive ">';
-						messageHTML += '</div>';
-						messageHTML += '<div class="col-md-10 col-xs-10">';
-						messageHTML += '<div class="messages msg_receive">';
-						messageHTML += '<p>'+messageObject["message"]+'</p>';
-						messageHTML += '<time datetime="'+timestamp+'">'+messageObject["name"]+' • <span>Just Now</span></time>';
-						messageHTML += '</div>';
-						messageHTML += '</div>';
-						messageHTML += '</div>';
-					}
-				});
-				$(".panel-body "+chatType).html(messageHTML);
-				$(".panel-body").stop().animate({ scrollTop: $(".panel-body").prop("scrollHeight") }, 1000);
-				updateMessageTimeStamp();
-				console.log("Chat group: "+groupId+" refreshed successfully.");
+					console.log("Chat group: "+groupId+" refreshed successfully.");
+				}
+				else {
+					console.log("No messages in chat group: "+groupId);				
+				}
+				setTimeout(function(){ refreshGroupChat(groupId); }, 1000);
+			},
+			error: function(data) {
+				console.log("Refresh for chat group: "+groupId+" failed.");
+				setTimeout(function(){ refreshGroupChat(groupId); }, 1000);
 			}
-			else {
-				console.log("No messages in chat group: "+groupId);				
-			}
-			setTimeout(function(){ refreshGroupChat(groupId); }, 1000);
-		},
-		error: function(data) {
-			console.log("Refresh for chat group: "+groupId+" failed.");
-			setTimeout(function(){ refreshGroupChat(groupId); }, 1000);
-		}
-	});
+		});
+	}
 }
 
 
