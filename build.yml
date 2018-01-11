@@ -1,6 +1,6 @@
 ## Note: sdk is full path to Rhodes root. If not defined - automatically find latest installed Rhodes gem
-# sdk: "/Users/C2lBiz/.rvm/gems/ruby-1.9.3-p551/gems/rhodes-5.5.0.55"
-sdk: "C:/RhoMobileSuite6.0.19/ruby/lib/ruby/gems/1.9.1/gems/rhodes-5.5.0.55"
+sdk: "/Users/C2lBiz/.rvm/gems/ruby-1.9.3-p551/gems/rhodes-5.5.0.55"
+# sdk: "C:/RhoMobileSuite6.0.19/ruby/lib/ruby/gems/1.9.1/gems/rhodes-5.5.0.55"
 sdkversion: 6.0.0
 name: KitchenSink
 version: 1.0

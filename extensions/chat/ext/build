@@ -8,6 +8,10 @@ rake --trace
 
 elif [ "$RHO_PLATFORM" = "iphone" ]; then
 
+echo "Performing framework injection in Xcode Project"
+chmod +x xcode_mod.sh
+./xcode_mod.sh
+
 cd platform/iphone
 rake --trace
 

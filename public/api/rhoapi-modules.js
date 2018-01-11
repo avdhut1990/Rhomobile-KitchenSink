@@ -1132,19 +1132,19 @@ var Rho = Rho || (function ($) {
 })('undefined' == typeof jQuery ? undefined : jQuery);
 
 var EB = Rho;
-// Module Rho.Application
+// Module Rho.Push
 
 
 (function ($, rho, rhoUtil) {
     'use strict';
 
-    var moduleNS = 'Rho.Application';
+    var moduleNS = 'Rho.Push';
     var apiReq = rhoUtil.apiReqFor(moduleNS);
 
 
-    // === Application class definition ===
+    // === Push class definition ===
 
-    function Application() {
+    function Push() {
         var id = null;
         this.getId = function () {return id;};
 
@@ -1160,1078 +1160,237 @@ var EB = Rho;
         }
     };
 
-    // === Application instance properties ===
+    // === Push instance properties ===
 
-    rhoUtil.createPropsProxy(Application.prototype, [
+    rhoUtil.createPropsProxy(Push.prototype, [
+        { propName: 'type', propAccess: 'r' }
+      , { propName: 'userNotifyMode', propAccess: 'rw' }
+      , { propName: 'pushServer', propAccess: 'r' }
+      , { propName: 'pushAppName', propAccess: 'r' }
     ], apiReq, function(){ return this.getId(); });
 
-    // === Application instance methods ===
+    // === Push instance methods ===
 
-    rhoUtil.createMethodsProxy(Application.prototype, [
-    
-    ], apiReq, function(){ return this.getId(); });
-
-    
-
-    rhoUtil.createRawPropsProxy(Application.prototype, [
-    ]);
-
-    // === Application constants ===
-
-    
-            Application.APP_EVENT_ACTIVATED = 'Activated'; 
-    
-            Application.APP_EVENT_CONFIGCONFLICT = 'ConfigConflict'; 
-    
-            Application.APP_EVENT_DBMIGRATESOURCE = 'DBMigrateSource'; 
-    
-            Application.APP_EVENT_DEACTIVATED = 'Deactivated'; 
-    
-            Application.APP_EVENT_SCREEN_OFF = 'ScreenOff'; 
-    
-            Application.APP_EVENT_SCREEN_ON = 'ScreenOn'; 
-    
-            Application.APP_EVENT_SYNCUSERCHANGED = 'SyncUserChanged'; 
-    
-            Application.APP_EVENT_UICREATED = 'UICreated'; 
-    
-            Application.APP_EVENT_UIDESTROYED = 'UIDestroyed'; 
-    
-
-
-
-    // === Application static properties ===
-
-    rhoUtil.createPropsProxy(Application, [
-        { propName: 'appBundleFolder', propAccess: 'r' }
-      , { propName: 'appsBundleFolder', propAccess: 'r' }
-      , { propName: 'bundleFolder', propAccess: 'r' }
-      , { propName: 'userFolder', propAccess: 'r' }
-      , { propName: 'configPath', propAccess: 'r' }
-      , { propName: 'modelsManifestPath', propAccess: 'r' }
-      , { propName: 'databaseBlobFolder', propAccess: 'r' }
-      , { propName: 'publicFolder', propAccess: 'r' }
-      , { propName: 'startURI', propAccess: 'rw' }
-      , { propName: 'settingsPageURI', propAccess: 'rw' }
-      , { propName: 'splash', propAccess: 'r' }
-      , { propName: 'version', propAccess: 'r' }
-      , { propName: 'title', propAccess: 'rw' }
-      , { propName: 'appName', propAccess: 'r' }
-      , { propName: 'locale', propAccess: 'r' }
-      , { propName: 'country', propAccess: 'r' }
-      , { propName: 'nativeMenu', propAccess: 'rw' }
-      , { propName: 'defaultNativeMenu', propAccess: 'r' }
-      , { propName: 'securityTokenNotPassed', propAccess: 'r' }
-      , { propName: 'invalidSecurityTokenStartPath', propAccess: 'r' }
-      , { propName: 'rhoPlatformVersion', propAccess: 'r' }
-      , { propName: 'badLinkURI', propAccess: 'r' }
-    ], apiReq);
-
-    // === Application static methods ===
-
-    rhoUtil.createMethodsProxy(Application, [
-    
-          // function(/* const rho::String& */ name, /* optional function */ oResult)
-          { methodName: 'modelFolderPath', nativeName: 'modelFolderPath', valueCallbackIndex: 1 }
-    
-          // function(/* const rho::String& */ partitionName, /* optional function */ oResult)
-        , { methodName: 'databaseFilePath', nativeName: 'databaseFilePath', valueCallbackIndex: 1 }
-    
-          // function(/* const rho::String& */ relativePath, /* optional function */ oResult)
-        , { methodName: 'expandDatabaseBlobFilePath', nativeName: 'expandDatabaseBlobFilePath', valueCallbackIndex: 1 }
-    
-          // function(/* const rho::String& */ absolutePath, /* optional function */ oResult)
-        , { methodName: 'relativeDatabaseBlobFilePath', nativeName: 'relativeDatabaseBlobFilePath', valueCallbackIndex: 1 }
+    rhoUtil.createMethodsProxy(Push.prototype, [
     
           // function(/* optional function */ oResult)
-        , { methodName: 'quit', nativeName: 'quit', valueCallbackIndex: 0 }
+          { methodName: 'getDeviceId', nativeName: 'getDeviceId', persistentCallbackIndex: 0, valueCallbackIndex: 2 }
     
           // function(/* optional function */ oResult)
-        , { methodName: 'minimize', nativeName: 'minimize', valueCallbackIndex: 0 }
+        , { methodName: 'startNotifications', nativeName: 'startNotifications', persistentCallbackIndex: 0, valueCallbackIndex: 2 }
     
           // function(/* optional function */ oResult)
-        , { methodName: 'restore', nativeName: 'restore', valueCallbackIndex: 0 }
+        , { methodName: 'stopNotifications', nativeName: 'stopNotifications', valueCallbackIndex: 0 }
+    
+          // function(/* const rho::String& */ propertyName, /* optional function */ oResult)
+        , { methodName: 'getProperty', nativeName: 'getProperty', persistentCallbackIndex: 1, valueCallbackIndex: 3 }
+    
+          // function(/* const rho::Vector<rho::String>& */ arrayofNames, /* optional function */ oResult)
+        , { methodName: 'getProperties', nativeName: 'getProperties', persistentCallbackIndex: 1, valueCallbackIndex: 3 }
     
           // function(/* optional function */ oResult)
-        , { methodName: 'setApplicationNotify', nativeName: 'setApplicationNotify', persistentCallbackIndex: 0, valueCallbackIndex: 2 }
+        , { methodName: 'getAllProperties', nativeName: 'getAllProperties', persistentCallbackIndex: 0, valueCallbackIndex: 2 }
     
-    ], apiReq);
-
-    // === Application default instance support ===
-    
-
-    rhoUtil.namespace(moduleNS, Application);
-
-    
-
-    
-
-})(Rho.jQuery, Rho, Rho.util);
-// Module Rho.Config
-
-
-(function ($, rho, rhoUtil) {
-    'use strict';
-
-    var moduleNS = 'Rho.Config';
-    var apiReq = rhoUtil.apiReqFor(moduleNS);
-
-
-    // === Config class definition ===
-
-    function Config() {
-        var id = null;
-        this.getId = function () {return id;};
-
-        if (1 == arguments.length && arguments[0][rhoUtil.rhoIdParam()]) {
-            if (moduleNS != arguments[0][rhoUtil.rhoClassParam()]) {
-                throw "Wrong class instantiation!";
-            }
-            id = arguments[0][rhoUtil.rhoIdParam()];
-        } else {
-            id = rhoUtil.nextId();
-            // constructor methods are following:
-            
-        }
-    };
-
-    // === Config instance properties ===
-
-    rhoUtil.createPropsProxy(Config.prototype, [
-    ], apiReq, function(){ return this.getId(); });
-
-    // === Config instance methods ===
-
-    rhoUtil.createMethodsProxy(Config.prototype, [
-    
-    ], apiReq, function(){ return this.getId(); });
-
-    
-
-    rhoUtil.createRawPropsProxy(Config.prototype, [
-    ]);
-
-    // === Config constants ===
-
-    
-
-
-
-    // === Config static properties ===
-
-    rhoUtil.createPropsProxy(Config, [
-        { propName: 'configPath', propAccess: 'rw' }
-    ], apiReq);
-
-    // === Config static methods ===
-
-    rhoUtil.createMethodsProxy(Config, [
-    
-          // function(/* const rho::String& */ name, /* optional function */ oResult)
-          { methodName: 'getPropertyString', nativeName: 'getPropertyString', valueCallbackIndex: 1 }
-    
-          // function(/* const rho::String& */ name, /* const rho::String& */ value, /* bool */ saveToFile, /* optional function */ oResult)
-        , { methodName: 'setPropertyString', nativeName: 'setPropertyString', valueCallbackIndex: 3 }
-    
-          // function(/* const rho::String& */ name, /* optional function */ oResult)
-        , { methodName: 'getPropertyInt', nativeName: 'getPropertyInt', valueCallbackIndex: 1 }
-    
-          // function(/* const rho::String& */ name, /* int */ value, /* bool */ saveToFile, /* optional function */ oResult)
-        , { methodName: 'setPropertyInt', nativeName: 'setPropertyInt', valueCallbackIndex: 3 }
-    
-          // function(/* const rho::String& */ name, /* optional function */ oResult)
-        , { methodName: 'getPropertyBool', nativeName: 'getPropertyBool', valueCallbackIndex: 1 }
-    
-          // function(/* const rho::String& */ name, /* bool */ value, /* bool */ saveToFile, /* optional function */ oResult)
-        , { methodName: 'setPropertyBool', nativeName: 'setPropertyBool', valueCallbackIndex: 3 }
-    
-          // function(/* const rho::String& */ name, /* optional function */ oResult)
-        , { methodName: 'isPropertyExists', nativeName: 'isPropertyExists', valueCallbackIndex: 1 }
-    
-          // function(/* const rho::String& */ name, /* bool */ saveToFile, /* optional function */ oResult)
-        , { methodName: 'removeProperty', nativeName: 'removeProperty', valueCallbackIndex: 2 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'loadFromFile', nativeName: 'loadFromFile', valueCallbackIndex: 0 }
-    
-    ], apiReq);
-
-    // === Config default instance support ===
-    
-
-    rhoUtil.namespace(moduleNS, Config);
-
-    
-
-    
-
-})(Rho.jQuery, Rho, Rho.util);
-// Module Rho.Database
-
-
-(function ($, rho, rhoUtil) {
-    'use strict';
-
-    var moduleNS = 'Rho.Database';
-    var apiReq = rhoUtil.apiReqFor(moduleNS);
-
-
-    // === Database class definition ===
-
-    function Database() {
-        var id = null;
-        this.getId = function () {return id;};
-
-        if (1 == arguments.length && arguments[0][rhoUtil.rhoIdParam()]) {
-            if (moduleNS != arguments[0][rhoUtil.rhoClassParam()]) {
-                throw "Wrong class instantiation!";
-            }
-            id = arguments[0][rhoUtil.rhoIdParam()];
-        } else {
-            id = rhoUtil.nextId();
-            // constructor methods are following:
-            
-        }
-    };
-
-    // === Database instance properties ===
-
-    rhoUtil.createPropsProxy(Database.prototype, [
-    ], apiReq, function(){ return this.getId(); });
-
-    // === Database instance methods ===
-
-    rhoUtil.createMethodsProxy(Database.prototype, [
-    
-    ], apiReq, function(){ return this.getId(); });
-
-    
-
-    rhoUtil.createRawPropsProxy(Database.prototype, [
-    ]);
-
-    // === Database constants ===
-
-    
-
-
-
-    // === Database static properties ===
-
-    rhoUtil.createPropsProxy(Database, [
-    ], apiReq);
-
-    // === Database static methods ===
-
-    rhoUtil.createMethodsProxy(Database, [
-    
-    ], apiReq);
-
-    // === Database default instance support ===
-    
-
-    rhoUtil.namespace(moduleNS, Database);
-
-    
-
-    
-
-})(Rho.jQuery, Rho, Rho.util);
-// Module Rho.Database.SQLite3
-
-
-(function ($, rho, rhoUtil) {
-    'use strict';
-
-    var moduleNS = 'Rho.Database.SQLite3';
-    var apiReq = rhoUtil.apiReqFor(moduleNS);
-
-
-    // === SQLite3 class definition ===
-
-    function SQLite3() {
-        var id = null;
-        this.getId = function () {return id;};
-
-        if (1 == arguments.length && arguments[0][rhoUtil.rhoIdParam()]) {
-            if (moduleNS != arguments[0][rhoUtil.rhoClassParam()]) {
-                throw "Wrong class instantiation!";
-            }
-            id = arguments[0][rhoUtil.rhoIdParam()];
-        } else {
-            id = rhoUtil.nextId();
-            // constructor methods are following:
-            
-                this.open.apply(this, arguments);
-            
-        }
-    };
-
-    // === SQLite3 instance properties ===
-
-    rhoUtil.createPropsProxy(SQLite3.prototype, [
-    ], apiReq, function(){ return this.getId(); });
-
-    // === SQLite3 instance methods ===
-
-    rhoUtil.createMethodsProxy(SQLite3.prototype, [
-    
-          // function(/* const rho::String& */ dbPath, /* const rho::String& */ dbPartition, /* optional function */ oResult)
-          { methodName: 'open', nativeName: 'open', valueCallbackIndex: 2 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'close', nativeName: 'close', valueCallbackIndex: 0 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'startTransaction', nativeName: 'startTransaction', valueCallbackIndex: 0 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'commitTransaction', nativeName: 'commitTransaction', valueCallbackIndex: 0 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'rollbackTransaction', nativeName: 'rollbackTransaction', valueCallbackIndex: 0 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'lockDb', nativeName: 'lockDb', valueCallbackIndex: 0 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'unlockDb', nativeName: 'unlockDb', valueCallbackIndex: 0 }
-    
-          // function(/* const rho::Vector<rho::String>& */ include, /* const rho::Vector<rho::String>& */ exclude, /* optional function */ oResult)
-        , { methodName: 'destroyTables', nativeName: 'destroyTables', valueCallbackIndex: 2 }
-    
-          // function(/* const rho::String& */ tableName, /* optional function */ oResult)
-        , { methodName: 'isTableExist', nativeName: 'isTableExist', valueCallbackIndex: 1 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'isUiWaitForDb', nativeName: 'isUiWaitForDb', valueCallbackIndex: 0 }
-    
-          // function(/* const rho::String& */ sqlStmt, /* bool */ isBatch, /* const rho::Vector<rho::String>& */ args, /* optional function */ oResult)
-        , { methodName: 'execute', nativeName: 'execute', valueCallbackIndex: 3 }
-    
-    ], apiReq, function(){ return this.getId(); });
-
-    
-
-    rhoUtil.createRawPropsProxy(SQLite3.prototype, [
-    ]);
-
-    // === SQLite3 constants ===
-
-    
-
-
-
-    // === SQLite3 static properties ===
-
-    rhoUtil.createPropsProxy(SQLite3, [
-    ], apiReq);
-
-    // === SQLite3 static methods ===
-
-    rhoUtil.createMethodsProxy(SQLite3, [
-    
-          // function(/* const rho::String& */ partition, /* int */ sourceID, /* const rho::String& */ attrName, /* optional function */ oResult)
-          { methodName: 'isBlobAttr', nativeName: 'isBlobAttr', valueCallbackIndex: 3 }
-    
-    ], apiReq);
-
-    // === SQLite3 default instance support ===
-    
-
-    rhoUtil.namespace(moduleNS, SQLite3);
-
-    
-
-    
-
-})(Rho.jQuery, Rho, Rho.util);
-// Module Rho.Intent
-
-
-(function ($, rho, rhoUtil) {
-    'use strict';
-
-    var moduleNS = 'Rho.Intent';
-    var apiReq = rhoUtil.apiReqFor(moduleNS);
-
-
-    // === Intent class definition ===
-
-    function Intent() {
-        var id = null;
-        this.getId = function () {return id;};
-
-        if (1 == arguments.length && arguments[0][rhoUtil.rhoIdParam()]) {
-            if (moduleNS != arguments[0][rhoUtil.rhoClassParam()]) {
-                throw "Wrong class instantiation!";
-            }
-            id = arguments[0][rhoUtil.rhoIdParam()];
-        } else {
-            id = rhoUtil.nextId();
-            // constructor methods are following:
-            
-        }
-    };
-
-    // === Intent instance properties ===
-
-    rhoUtil.createPropsProxy(Intent.prototype, [
-    ], apiReq, function(){ return this.getId(); });
-
-    // === Intent instance methods ===
-
-    rhoUtil.createMethodsProxy(Intent.prototype, [
-    
-    ], apiReq, function(){ return this.getId(); });
-
-    
-
-    rhoUtil.createRawPropsProxy(Intent.prototype, [
-    ]);
-
-    // === Intent constants ===
-
-    
-            Intent.BROADCAST = 'broadcast'; 
-    
-            Intent.START_ACTIVITY = 'startActivity'; 
-    
-            Intent.START_SERVICE = 'startService'; 
-    
-
-
-
-    // === Intent static properties ===
-
-    rhoUtil.createPropsProxy(Intent, [
-    ], apiReq);
-
-    // === Intent static methods ===
-
-    rhoUtil.createMethodsProxy(Intent, [
-    
-          // function(/* const rho::Hashtable<rho::String, rho::String>& */ params, /* optional function */ oResult)
-          { methodName: 'send', nativeName: 'send', persistentCallbackIndex: 1, valueCallbackIndex: 3 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'startListening', nativeName: 'startListening', persistentCallbackIndex: 0, valueCallbackIndex: 2 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'stopListening', nativeName: 'stopListening', valueCallbackIndex: 0 }
-    
-    ], apiReq);
-
-    // === Intent default instance support ===
-    
-
-    rhoUtil.namespace(moduleNS, Intent);
-
-    
-
-    
-
-})(Rho.jQuery, Rho, Rho.util);
-// Module Rho.Log
-
-
-(function ($, rho, rhoUtil) {
-    'use strict';
-
-    var moduleNS = 'Rho.Log';
-    var apiReq = rhoUtil.apiReqFor(moduleNS);
-
-
-    // === Log class definition ===
-
-    function Log() {
-        var id = null;
-        this.getId = function () {return id;};
-
-        if (1 == arguments.length && arguments[0][rhoUtil.rhoIdParam()]) {
-            if (moduleNS != arguments[0][rhoUtil.rhoClassParam()]) {
-                throw "Wrong class instantiation!";
-            }
-            id = arguments[0][rhoUtil.rhoIdParam()];
-        } else {
-            id = rhoUtil.nextId();
-            // constructor methods are following:
-            
-        }
-    };
-
-    // === Log instance properties ===
-
-    rhoUtil.createPropsProxy(Log.prototype, [
-    ], apiReq, function(){ return this.getId(); });
-
-    // === Log instance methods ===
-
-    rhoUtil.createMethodsProxy(Log.prototype, [
-    
-    ], apiReq, function(){ return this.getId(); });
-
-    
-
-    rhoUtil.createRawPropsProxy(Log.prototype, [
-    ]);
-
-    // === Log constants ===
-
-    
-            Log.DEST_FILE = 'file'; 
-    
-            Log.DEST_OUTPUT = 'stdio'; 
-    
-            Log.DEST_URI = 'uri'; 
-    
-            Log.LEVEL_ERROR = 3;
-    
-            Log.LEVEL_FATAL = 4;
-    
-            Log.LEVEL_INFO = 1;
-    
-            Log.LEVEL_TRACE = 0;
-    
-            Log.LEVEL_WARNING = 2;
-    
-
-
-
-    // === Log static properties ===
-
-    rhoUtil.createPropsProxy(Log, [
-        { propName: 'level', propAccess: 'rw' }
-      , { propName: 'destination', propAccess: 'rw' }
-      , { propName: 'includeCategories', propAccess: 'rw' }
-      , { propName: 'excludeCategories', propAccess: 'rw' }
-      , { propName: 'fileSize', propAccess: 'rw' }
-      , { propName: 'filePath', propAccess: 'rw' }
-      , { propName: 'memoryPeriod', propAccess: 'rw' }
-      , { propName: 'netTrace', propAccess: 'rw' }
-      , { propName: 'skipPost', propAccess: 'rw' }
-      , { propName: 'excludeFilter', propAccess: 'rw' }
-      , { propName: 'destinationURI', propAccess: 'rw' }
-    ], apiReq);
-
-    // === Log static methods ===
-
-    rhoUtil.createMethodsProxy(Log, [
-    
-          // function(/* const rho::String& */ message, /* const rho::String& */ category, /* optional function */ oResult)
-          { methodName: 'trace', nativeName: 'trace', valueCallbackIndex: 2 }
-    
-          // function(/* const rho::String& */ message, /* const rho::String& */ category, /* optional function */ oResult)
-        , { methodName: 'info', nativeName: 'info', valueCallbackIndex: 2 }
-    
-          // function(/* const rho::String& */ message, /* const rho::String& */ category, /* optional function */ oResult)
-        , { methodName: 'warning', nativeName: 'warning', valueCallbackIndex: 2 }
-    
-          // function(/* const rho::String& */ message, /* const rho::String& */ category, /* optional function */ oResult)
-        , { methodName: 'error', nativeName: 'error', valueCallbackIndex: 2 }
-    
-          // function(/* const rho::String& */ message, /* const rho::String& */ category, /* optional function */ oResult)
-        , { methodName: 'fatalError', nativeName: 'fatalError', valueCallbackIndex: 2 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'sendLogFile', nativeName: 'sendLogFile', persistentCallbackIndex: 0, valueCallbackIndex: 2 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'showLog', nativeName: 'showLog', valueCallbackIndex: 0 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'cleanLogFile', nativeName: 'cleanLogFile', valueCallbackIndex: 0 }
-    
-          // function(/* int */ limit, /* optional function */ oResult)
-        , { methodName: 'readLogFile', nativeName: 'readLogFile', valueCallbackIndex: 1 }
-    
-    ], apiReq);
-
-    // === Log default instance support ===
-    
-
-    rhoUtil.namespace(moduleNS, Log);
-
-    
-
-    
-
-})(Rho.jQuery, Rho, Rho.util);
-// Module Rho.NativeMenubar
-
-
-(function ($, rho, rhoUtil) {
-    'use strict';
-
-    var moduleNS = 'Rho.NativeMenubar';
-    var apiReq = rhoUtil.apiReqFor(moduleNS);
-
-
-    // === NativeMenubar class definition ===
-
-    function NativeMenubar() {
-        var id = null;
-        this.getId = function () {return id;};
-
-        if (1 == arguments.length && arguments[0][rhoUtil.rhoIdParam()]) {
-            if (moduleNS != arguments[0][rhoUtil.rhoClassParam()]) {
-                throw "Wrong class instantiation!";
-            }
-            id = arguments[0][rhoUtil.rhoIdParam()];
-        } else {
-            id = rhoUtil.nextId();
-            // constructor methods are following:
-            
-        }
-    };
-
-    // === NativeMenubar instance properties ===
-
-    rhoUtil.createPropsProxy(NativeMenubar.prototype, [
-    ], apiReq, function(){ return this.getId(); });
-
-    // === NativeMenubar instance methods ===
-
-    rhoUtil.createMethodsProxy(NativeMenubar.prototype, [
-    
-    ], apiReq, function(){ return this.getId(); });
-
-    
-
-    rhoUtil.createRawPropsProxy(NativeMenubar.prototype, [
-    ]);
-
-    // === NativeMenubar constants ===
-
-    
-
-
-
-    // === NativeMenubar static properties ===
-
-    rhoUtil.createPropsProxy(NativeMenubar, [
-        { propName: 'mainMenu', propAccess: 'rw' }
-      , { propName: 'extraMenu', propAccess: 'rw' }
-      , { propName: 'mainButton', propAccess: 'rw' }
-      , { propName: 'extraButton', propAccess: 'rw' }
-      , { propName: 'defaultMainMenu', propAccess: 'r' }
-    ], apiReq);
-
-    // === NativeMenubar static methods ===
-
-    rhoUtil.createMethodsProxy(NativeMenubar, [
-    
-    ], apiReq);
-
-    // === NativeMenubar default instance support ===
-    
-
-    rhoUtil.namespace(moduleNS, NativeMenubar);
-
-    
-
-    
-
-})(Rho.jQuery, Rho, Rho.util);
-// Module Rho.NativeTabbar
-
-
-(function ($, rho, rhoUtil) {
-    'use strict';
-
-    var moduleNS = 'Rho.NativeTabbar';
-    var apiReq = rhoUtil.apiReqFor(moduleNS);
-
-
-    // === NativeTabbar class definition ===
-
-    function NativeTabbar() {
-        var id = null;
-        this.getId = function () {return id;};
-
-        if (1 == arguments.length && arguments[0][rhoUtil.rhoIdParam()]) {
-            if (moduleNS != arguments[0][rhoUtil.rhoClassParam()]) {
-                throw "Wrong class instantiation!";
-            }
-            id = arguments[0][rhoUtil.rhoIdParam()];
-        } else {
-            id = rhoUtil.nextId();
-            // constructor methods are following:
-            
-        }
-    };
-
-    // === NativeTabbar instance properties ===
-
-    rhoUtil.createPropsProxy(NativeTabbar.prototype, [
-    ], apiReq, function(){ return this.getId(); });
-
-    // === NativeTabbar instance methods ===
-
-    rhoUtil.createMethodsProxy(NativeTabbar.prototype, [
-    
-    ], apiReq, function(){ return this.getId(); });
-
-    
-
-    rhoUtil.createRawPropsProxy(NativeTabbar.prototype, [
-    ]);
-
-    // === NativeTabbar constants ===
-
-    
-            NativeTabbar.ON_TAB_FOCUS = 'onTabFocus'; 
-    
-            NativeTabbar.ON_TAB_NEW_ERROR = 'onTabNewError'; 
-    
-
-
-
-    // === NativeTabbar static properties ===
-
-    rhoUtil.createPropsProxy(NativeTabbar, [
-    ], apiReq);
-
-    // === NativeTabbar static methods ===
-
-    rhoUtil.createMethodsProxy(NativeTabbar, [
-    
-          // function(/* const rho::Vector<rho::String>& */ tabElements, /* const rho::Hashtable<rho::String, rho::String>& */ tabBarProperties, /* optional function */ oResult)
-          { methodName: 'create', nativeName: 'create', persistentCallbackIndex: 2, valueCallbackIndex: 4 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'currentTabIndex', nativeName: 'currentTabIndex', valueCallbackIndex: 0 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'remove', nativeName: 'remove', valueCallbackIndex: 0 }
-    
-          // function(/* int */ tabIndex, /* optional function */ oResult)
-        , { methodName: 'removeTab', nativeName: 'removeTab', valueCallbackIndex: 1 }
-    
-          // function(/* int */ tabIndex, /* const rho::String& */ badge, /* optional function */ oResult)
-        , { methodName: 'setTabBadge', nativeName: 'setTabBadge', valueCallbackIndex: 2 }
-    
-          // function(/* int */ tabIndex, /* optional function */ oResult)
-        , { methodName: 'switchTab', nativeName: 'switchTab', valueCallbackIndex: 1 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'isCreated', nativeName: 'isCreated', valueCallbackIndex: 0 }
-    
-    ], apiReq);
-
-    // === NativeTabbar default instance support ===
-    
-
-    rhoUtil.namespace(moduleNS, NativeTabbar);
-
-    
-
-    
-
-})(Rho.jQuery, Rho, Rho.util);
-// Module Rho.NativeToolbar
-
-
-(function ($, rho, rhoUtil) {
-    'use strict';
-
-    var moduleNS = 'Rho.NativeToolbar';
-    var apiReq = rhoUtil.apiReqFor(moduleNS);
-
-
-    // === NativeToolbar class definition ===
-
-    function NativeToolbar() {
-        var id = null;
-        this.getId = function () {return id;};
-
-        if (1 == arguments.length && arguments[0][rhoUtil.rhoIdParam()]) {
-            if (moduleNS != arguments[0][rhoUtil.rhoClassParam()]) {
-                throw "Wrong class instantiation!";
-            }
-            id = arguments[0][rhoUtil.rhoIdParam()];
-        } else {
-            id = rhoUtil.nextId();
-            // constructor methods are following:
-            
-        }
-    };
-
-    // === NativeToolbar instance properties ===
-
-    rhoUtil.createPropsProxy(NativeToolbar.prototype, [
-    ], apiReq, function(){ return this.getId(); });
-
-    // === NativeToolbar instance methods ===
-
-    rhoUtil.createMethodsProxy(NativeToolbar.prototype, [
-    
-    ], apiReq, function(){ return this.getId(); });
-
-    
-
-    rhoUtil.createRawPropsProxy(NativeToolbar.prototype, [
-    ]);
-
-    // === NativeToolbar constants ===
-
-    
-            NativeToolbar.BACK = 'back'; 
-    
-            NativeToolbar.CLOSE = 'close'; 
-    
-            NativeToolbar.EXIT = 'exit'; 
-    
-            NativeToolbar.FULLSCREEN = 'fullscreen'; 
-    
-            NativeToolbar.HOME = 'home'; 
-    
-            NativeToolbar.LOG = 'log'; 
-    
-            NativeToolbar.MINIMIZE = 'minimize'; 
-    
-            NativeToolbar.OPTIONS = 'options'; 
-    
-            NativeToolbar.REFRESH = 'refresh'; 
-    
-            NativeToolbar.SEPARATOR = 'separator'; 
-    
-            NativeToolbar.SIP = 'SIP'; 
-    
-            NativeToolbar.SYNC = 'sync'; 
-    
-
-
-
-    // === NativeToolbar static properties ===
-
-    rhoUtil.createPropsProxy(NativeToolbar, [
-    ], apiReq);
-
-    // === NativeToolbar static methods ===
-
-    rhoUtil.createMethodsProxy(NativeToolbar, [
-    
-          // function(/* const rho::Vector<rho::String>& */ toolbarElements, /* const rho::Hashtable<rho::String, rho::String>& */ toolBarProperties, /* optional function */ oResult)
-          { methodName: 'create', nativeName: 'create', valueCallbackIndex: 2 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'remove', nativeName: 'remove', valueCallbackIndex: 0 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'isCreated', nativeName: 'isCreated', valueCallbackIndex: 0 }
-    
-    ], apiReq);
-
-    // === NativeToolbar default instance support ===
-    
-
-    rhoUtil.namespace(moduleNS, NativeToolbar);
-
-    
-
-    
-
-})(Rho.jQuery, Rho, Rho.util);
-// Module Rho.Navbar
-
-
-(function ($, rho, rhoUtil) {
-    'use strict';
-
-    var moduleNS = 'Rho.Navbar';
-    var apiReq = rhoUtil.apiReqFor(moduleNS);
-
-
-    // === Navbar class definition ===
-
-    function Navbar() {
-        var id = null;
-        this.getId = function () {return id;};
-
-        if (1 == arguments.length && arguments[0][rhoUtil.rhoIdParam()]) {
-            if (moduleNS != arguments[0][rhoUtil.rhoClassParam()]) {
-                throw "Wrong class instantiation!";
-            }
-            id = arguments[0][rhoUtil.rhoIdParam()];
-        } else {
-            id = rhoUtil.nextId();
-            // constructor methods are following:
-            
-        }
-    };
-
-    // === Navbar instance properties ===
-
-    rhoUtil.createPropsProxy(Navbar.prototype, [
-    ], apiReq, function(){ return this.getId(); });
-
-    // === Navbar instance methods ===
-
-    rhoUtil.createMethodsProxy(Navbar.prototype, [
-    
-    ], apiReq, function(){ return this.getId(); });
-
-    
-
-    rhoUtil.createRawPropsProxy(Navbar.prototype, [
-    ]);
-
-    // === Navbar constants ===
-
-    
-
-
-
-    // === Navbar static properties ===
-
-    rhoUtil.createPropsProxy(Navbar, [
-    ], apiReq);
-
-    // === Navbar static methods ===
-
-    rhoUtil.createMethodsProxy(Navbar, [
-    
-          // function(/* const rho::Hashtable<rho::String, rho::String>& */ navBarProperties, /* optional function */ oResult)
-          { methodName: 'create', nativeName: 'create', valueCallbackIndex: 1 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'remove', nativeName: 'remove', valueCallbackIndex: 0 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'started', nativeName: 'started', valueCallbackIndex: 0 }
-    
-    ], apiReq);
-
-    // === Navbar default instance support ===
-    
-
-    rhoUtil.namespace(moduleNS, Navbar);
-
-    
-
-    
-
-})(Rho.jQuery, Rho, Rho.util);
-// Module Rho.Network
-
-
-(function ($, rho, rhoUtil) {
-    'use strict';
-
-    var moduleNS = 'Rho.Network';
-    var apiReq = rhoUtil.apiReqFor(moduleNS);
-
-
-    // === Network class definition ===
-
-    function Network() {
-        var id = null;
-        this.getId = function () {return id;};
-
-        if (1 == arguments.length && arguments[0][rhoUtil.rhoIdParam()]) {
-            if (moduleNS != arguments[0][rhoUtil.rhoClassParam()]) {
-                throw "Wrong class instantiation!";
-            }
-            id = arguments[0][rhoUtil.rhoIdParam()];
-        } else {
-            id = rhoUtil.nextId();
-            // constructor methods are following:
-            
-        }
-    };
-
-    // === Network instance properties ===
-
-    rhoUtil.createPropsProxy(Network.prototype, [
-    ], apiReq, function(){ return this.getId(); });
-
-    // === Network instance methods ===
-
-    rhoUtil.createMethodsProxy(Network.prototype, [
-    
-    ], apiReq, function(){ return this.getId(); });
-
-    
-
-    rhoUtil.createRawPropsProxy(Network.prototype, [
-    ]);
-
-    // === Network constants ===
-
-    
-            Network.AUTH_BASIC = 'basic'; 
-    
-            Network.AUTH_DIGEST = 'digest'; 
-    
-
-
-
-    // === Network static properties ===
-
-    rhoUtil.createPropsProxy(Network, [
-        { propName: 'url', propAccess: 'rw' }
-      , { propName: 'authType', propAccess: 'rw' }
-      , { propName: 'authUser', propAccess: 'rw' }
-      , { propName: 'authPassword', propAccess: 'rw' }
-      , { propName: 'verifyPeerCertificate', propAccess: 'rw' }
-      , { propName: 'httpVerb', propAccess: 'rw' }
-      , { propName: 'headers', propAccess: 'rw' }
-      , { propName: 'responseTimeout', propAccess: 'rw' }
-    ], apiReq);
-
-    // === Network static methods ===
-
-    rhoUtil.createMethodsProxy(Network, [
-    
-          // function(/* optional function */ oResult)
-          { methodName: 'cancel', nativeName: 'cancel', persistentCallbackIndex: 0, valueCallbackIndex: 2 }
+          // function(/* const rho::String& */ propertyName, /* const rho::String& */ propertyValue, /* optional function */ oResult)
+        , { methodName: 'setProperty', nativeName: 'setProperty', valueCallbackIndex: 2 }
     
           // function(/* const rho::Hashtable<rho::String, rho::String>& */ propertyMap, /* optional function */ oResult)
-        , { methodName: 'downloadFile', nativeName: 'downloadFile', persistentCallbackIndex: 1, valueCallbackIndex: 3 }
+        , { methodName: 'setProperties', nativeName: 'setProperties', valueCallbackIndex: 1 }
     
-          // function(/* const rho::Hashtable<rho::String, rho::String>& */ propertyMap, /* optional function */ oResult)
-        , { methodName: 'get', nativeName: 'get', persistentCallbackIndex: 1, valueCallbackIndex: 3 }
+    ], apiReq, function(){ return this.getId(); });
+
     
-          // function(/* const rho::Hashtable<rho::String, rho::String>& */ propertyMap, /* optional function */ oResult)
-        , { methodName: 'post', nativeName: 'post', persistentCallbackIndex: 1, valueCallbackIndex: 3 }
+
+    rhoUtil.createRawPropsProxy(Push.prototype, [
+    ]);
+
+    // === Push constants ===
+
     
-          // function(/* const rho::Hashtable<rho::String, rho::String>& */ propertyMap, /* optional function */ oResult)
-        , { methodName: 'uploadFile', nativeName: 'uploadFile', persistentCallbackIndex: 1, valueCallbackIndex: 3 }
+            Push.PUSH_NOTIFY_ALERTS = 'alert'; 
+    
+            Push.PUSH_NOTIFY_NONE = 'none'; 
+    
+            Push.PUSH_NOTIFY_NOTIFICATIONS = 'notification'; 
+    
+            Push.PUSH_NOTIFY_NOTIFICATIONS_AND_ALERTS = 'backgroundNotifications'; 
+    
+            Push.PUSH_TYPE_NATIVE = 'native-push'; 
+    
+            Push.PUSH_TYPE_RHOCONNECT = 'rhoconnect-push'; 
+    
+
+
+
+    // === Push static properties ===
+
+    rhoUtil.createPropsProxy(Push, [
+    ], apiReq);
+
+    // === Push static methods ===
+
+    rhoUtil.createMethodsProxy(Push, [
     
           // function(/* optional function */ oResult)
-        , { methodName: 'hasNetwork', nativeName: 'hasNetwork', valueCallbackIndex: 0 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'hasWifiNetwork', nativeName: 'hasWifiNetwork', valueCallbackIndex: 0 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'hasCellNetwork', nativeName: 'hasCellNetwork', valueCallbackIndex: 0 }
-    
-          // function(/* int */ pollInterval, /* optional function */ oResult)
-        , { methodName: 'startStatusNotify', nativeName: 'startStatusNotify', persistentCallbackIndex: 1, valueCallbackIndex: 3 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'stopStatusNotify', nativeName: 'stopStatusNotify', valueCallbackIndex: 0 }
-    
-          // function(/* const rho::Hashtable<rho::String, rho::String>& */ propertyMap, /* optional function */ oResult)
-        , { methodName: 'detectConnection', nativeName: 'detectConnection', persistentCallbackIndex: 1, valueCallbackIndex: 3 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'stopDetectingConnection', nativeName: 'stopDetectingConnection', persistentCallbackIndex: 0, valueCallbackIndex: 2 }
-    
-          // function(/* const rho::String& */ connectionDestination, /* optional function */ oResult)
-        , { methodName: 'connectWan', nativeName: 'connectWan', persistentCallbackIndex: 1, valueCallbackIndex: 3 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'disconnectWan', nativeName: 'disconnectWan', valueCallbackIndex: 0 }
+          { methodName: 'enumerate', nativeName: 'enumerate', persistentCallbackIndex: 0, valueCallbackIndex: 2 }
     
     ], apiReq);
 
-    // === Network default instance support ===
+    // === Push default instance support ===
     
 
-    rhoUtil.namespace(moduleNS, Network);
+        rhoUtil.createPropsProxy(Push, [
+            { propName: 'defaultInstance:getDefault:setDefault', propAccess: 'rw', customSet: function(obj) { if(!obj || 'function' != typeof obj.getId){ throw 'Default object should provide getId method!' }; Push.setDefaultID(obj.getId()); } }
+          , { propName: 'defaultID:getDefaultID:setDefaultID', propAccess: 'rw' }
+        ], apiReq);
+
+        Push.getId = function() {
+            return Push.getDefaultID();
+        }
+
+        // === Push default instance properties ===
+
+        rhoUtil.createPropsProxy(Push, [
+            { propName: 'type', propAccess: 'r' }
+          , { propName: 'userNotifyMode', propAccess: 'rw' }
+          , { propName: 'pushServer', propAccess: 'r' }
+          , { propName: 'pushAppName', propAccess: 'r' }
+        ], apiReq, function(){ return this.getId(); });
+
+        // === Push default instance methods ===
+
+        rhoUtil.createMethodsProxy(Push, [
+        
+              // function(/* optional function */ oResult)
+              { methodName: 'getDeviceId', nativeName: 'getDeviceId', persistentCallbackIndex: 0, valueCallbackIndex: 2 }
+        
+              // function(/* optional function */ oResult)
+            , { methodName: 'startNotifications', nativeName: 'startNotifications', persistentCallbackIndex: 0, valueCallbackIndex: 2 }
+        
+              // function(/* optional function */ oResult)
+            , { methodName: 'stopNotifications', nativeName: 'stopNotifications', valueCallbackIndex: 0 }
+        
+              // function(/* const rho::String& */ propertyName, /* optional function */ oResult)
+            , { methodName: 'getProperty', nativeName: 'getProperty', persistentCallbackIndex: 1, valueCallbackIndex: 3 }
+        
+              // function(/* const rho::Vector<rho::String>& */ arrayofNames, /* optional function */ oResult)
+            , { methodName: 'getProperties', nativeName: 'getProperties', persistentCallbackIndex: 1, valueCallbackIndex: 3 }
+        
+              // function(/* optional function */ oResult)
+            , { methodName: 'getAllProperties', nativeName: 'getAllProperties', persistentCallbackIndex: 0, valueCallbackIndex: 2 }
+        
+              // function(/* const rho::String& */ propertyName, /* const rho::String& */ propertyValue, /* optional function */ oResult)
+            , { methodName: 'setProperty', nativeName: 'setProperty', valueCallbackIndex: 2 }
+        
+              // function(/* const rho::Hashtable<rho::String, rho::String>& */ propertyMap, /* optional function */ oResult)
+            , { methodName: 'setProperties', nativeName: 'setProperties', valueCallbackIndex: 1 }
+        
+        ], apiReq, function(){ return this.getId(); });
+
+        // will reuse already defined methods
+        rhoUtil.createRawPropsProxy(Push, [
+        ]);
+
+    
+
+    rhoUtil.namespace(moduleNS, Push);
+
+    
+
+    
+
+})(Rho.jQuery, Rho, Rho.util);
+// Module Rho.Notification
+
+
+(function ($, rho, rhoUtil) {
+    'use strict';
+
+    var moduleNS = 'Rho.Notification';
+    var apiReq = rhoUtil.apiReqFor(moduleNS);
+
+
+    // === Notification class definition ===
+
+    function Notification() {
+        var id = null;
+        this.getId = function () {return id;};
+
+        if (1 == arguments.length && arguments[0][rhoUtil.rhoIdParam()]) {
+            if (moduleNS != arguments[0][rhoUtil.rhoClassParam()]) {
+                throw "Wrong class instantiation!";
+            }
+            id = arguments[0][rhoUtil.rhoIdParam()];
+        } else {
+            id = rhoUtil.nextId();
+            // constructor methods are following:
+            
+        }
+    };
+
+    // === Notification instance properties ===
+
+    rhoUtil.createPropsProxy(Notification.prototype, [
+    ], apiReq, function(){ return this.getId(); });
+
+    // === Notification instance methods ===
+
+    rhoUtil.createMethodsProxy(Notification.prototype, [
+    
+    ], apiReq, function(){ return this.getId(); });
+
+    
+
+    rhoUtil.createRawPropsProxy(Notification.prototype, [
+    ]);
+
+    // === Notification constants ===
+
+    
+            Notification.TYPE_DIALOG = 'dialog'; 
+    
+            Notification.TYPE_NOTIFICATION = 'notification'; 
+    
+            Notification.TYPE_NOTIFICATION_DIALOG = 'notificationDialog'; 
+    
+            Notification.TYPE_TOAST = 'toast'; 
+    
+
+
+
+    // === Notification static properties ===
+
+    rhoUtil.createPropsProxy(Notification, [
+    ], apiReq);
+
+    // === Notification static methods ===
+
+    rhoUtil.createMethodsProxy(Notification, [
+    
+          // function(/* const rho::Hashtable<rho::String, rho::String>& */ propertyMap, /* optional function */ oResult)
+          { methodName: 'showPopup', nativeName: 'showPopup', persistentCallbackIndex: 1, valueCallbackIndex: 3 }
+    
+          // function(/* optional function */ oResult)
+        , { methodName: 'hidePopup', nativeName: 'hidePopup', valueCallbackIndex: 0 }
+    
+          // function(/* const rho::String& */ title, /* const rho::String& */ status_text, /* const rho::String& */ hide_button_label, /* optional function */ oResult)
+        , { methodName: 'showStatus', nativeName: 'showStatus', valueCallbackIndex: 3 }
+    
+          // function(/* const rho::String& */ path, /* const rho::String& */ media_type, /* optional function */ oResult)
+        , { methodName: 'playFile', nativeName: 'playFile', valueCallbackIndex: 2 }
+    
+          // function(/* const rho::Hashtable<rho::String, rho::String>& */ propertyMap, /* optional function */ oResult)
+        , { methodName: 'beep', nativeName: 'beep', valueCallbackIndex: 1 }
+    
+          // function(/* int */ duration, /* optional function */ oResult)
+        , { methodName: 'vibrate', nativeName: 'vibrate', valueCallbackIndex: 1 }
+    
+    ], apiReq);
+
+    // === Notification default instance support ===
+    
+
+    rhoUtil.namespace(moduleNS, Notification);
 
     
 
@@ -2615,19 +1774,19 @@ var EB = Rho;
     
 
 })(Rho.jQuery, Rho, Rho.util);
-// Module Rho.Notification
+// Module Rho.Application
 
 
 (function ($, rho, rhoUtil) {
     'use strict';
 
-    var moduleNS = 'Rho.Notification';
+    var moduleNS = 'Rho.Application';
     var apiReq = rhoUtil.apiReqFor(moduleNS);
 
 
-    // === Notification class definition ===
+    // === Application class definition ===
 
-    function Notification() {
+    function Application() {
         var id = null;
         this.getId = function () {return id;};
 
@@ -2643,88 +1802,126 @@ var EB = Rho;
         }
     };
 
-    // === Notification instance properties ===
+    // === Application instance properties ===
 
-    rhoUtil.createPropsProxy(Notification.prototype, [
+    rhoUtil.createPropsProxy(Application.prototype, [
     ], apiReq, function(){ return this.getId(); });
 
-    // === Notification instance methods ===
+    // === Application instance methods ===
 
-    rhoUtil.createMethodsProxy(Notification.prototype, [
+    rhoUtil.createMethodsProxy(Application.prototype, [
     
     ], apiReq, function(){ return this.getId(); });
 
     
 
-    rhoUtil.createRawPropsProxy(Notification.prototype, [
+    rhoUtil.createRawPropsProxy(Application.prototype, [
     ]);
 
-    // === Notification constants ===
+    // === Application constants ===
 
     
-            Notification.TYPE_DIALOG = 'dialog'; 
+            Application.APP_EVENT_ACTIVATED = 'Activated'; 
     
-            Notification.TYPE_NOTIFICATION = 'notification'; 
+            Application.APP_EVENT_CONFIGCONFLICT = 'ConfigConflict'; 
     
-            Notification.TYPE_NOTIFICATION_DIALOG = 'notificationDialog'; 
+            Application.APP_EVENT_DBMIGRATESOURCE = 'DBMigrateSource'; 
     
-            Notification.TYPE_TOAST = 'toast'; 
+            Application.APP_EVENT_DEACTIVATED = 'Deactivated'; 
+    
+            Application.APP_EVENT_SCREEN_OFF = 'ScreenOff'; 
+    
+            Application.APP_EVENT_SCREEN_ON = 'ScreenOn'; 
+    
+            Application.APP_EVENT_SYNCUSERCHANGED = 'SyncUserChanged'; 
+    
+            Application.APP_EVENT_UICREATED = 'UICreated'; 
+    
+            Application.APP_EVENT_UIDESTROYED = 'UIDestroyed'; 
     
 
 
 
-    // === Notification static properties ===
+    // === Application static properties ===
 
-    rhoUtil.createPropsProxy(Notification, [
+    rhoUtil.createPropsProxy(Application, [
+        { propName: 'appBundleFolder', propAccess: 'r' }
+      , { propName: 'appsBundleFolder', propAccess: 'r' }
+      , { propName: 'bundleFolder', propAccess: 'r' }
+      , { propName: 'userFolder', propAccess: 'r' }
+      , { propName: 'configPath', propAccess: 'r' }
+      , { propName: 'modelsManifestPath', propAccess: 'r' }
+      , { propName: 'databaseBlobFolder', propAccess: 'r' }
+      , { propName: 'publicFolder', propAccess: 'r' }
+      , { propName: 'startURI', propAccess: 'rw' }
+      , { propName: 'settingsPageURI', propAccess: 'rw' }
+      , { propName: 'splash', propAccess: 'r' }
+      , { propName: 'version', propAccess: 'r' }
+      , { propName: 'title', propAccess: 'rw' }
+      , { propName: 'appName', propAccess: 'r' }
+      , { propName: 'locale', propAccess: 'r' }
+      , { propName: 'country', propAccess: 'r' }
+      , { propName: 'nativeMenu', propAccess: 'rw' }
+      , { propName: 'defaultNativeMenu', propAccess: 'r' }
+      , { propName: 'securityTokenNotPassed', propAccess: 'r' }
+      , { propName: 'invalidSecurityTokenStartPath', propAccess: 'r' }
+      , { propName: 'rhoPlatformVersion', propAccess: 'r' }
+      , { propName: 'badLinkURI', propAccess: 'r' }
     ], apiReq);
 
-    // === Notification static methods ===
+    // === Application static methods ===
 
-    rhoUtil.createMethodsProxy(Notification, [
+    rhoUtil.createMethodsProxy(Application, [
     
-          // function(/* const rho::Hashtable<rho::String, rho::String>& */ propertyMap, /* optional function */ oResult)
-          { methodName: 'showPopup', nativeName: 'showPopup', persistentCallbackIndex: 1, valueCallbackIndex: 3 }
+          // function(/* const rho::String& */ name, /* optional function */ oResult)
+          { methodName: 'modelFolderPath', nativeName: 'modelFolderPath', valueCallbackIndex: 1 }
+    
+          // function(/* const rho::String& */ partitionName, /* optional function */ oResult)
+        , { methodName: 'databaseFilePath', nativeName: 'databaseFilePath', valueCallbackIndex: 1 }
+    
+          // function(/* const rho::String& */ relativePath, /* optional function */ oResult)
+        , { methodName: 'expandDatabaseBlobFilePath', nativeName: 'expandDatabaseBlobFilePath', valueCallbackIndex: 1 }
+    
+          // function(/* const rho::String& */ absolutePath, /* optional function */ oResult)
+        , { methodName: 'relativeDatabaseBlobFilePath', nativeName: 'relativeDatabaseBlobFilePath', valueCallbackIndex: 1 }
     
           // function(/* optional function */ oResult)
-        , { methodName: 'hidePopup', nativeName: 'hidePopup', valueCallbackIndex: 0 }
+        , { methodName: 'quit', nativeName: 'quit', valueCallbackIndex: 0 }
     
-          // function(/* const rho::String& */ title, /* const rho::String& */ status_text, /* const rho::String& */ hide_button_label, /* optional function */ oResult)
-        , { methodName: 'showStatus', nativeName: 'showStatus', valueCallbackIndex: 3 }
+          // function(/* optional function */ oResult)
+        , { methodName: 'minimize', nativeName: 'minimize', valueCallbackIndex: 0 }
     
-          // function(/* const rho::String& */ path, /* const rho::String& */ media_type, /* optional function */ oResult)
-        , { methodName: 'playFile', nativeName: 'playFile', valueCallbackIndex: 2 }
+          // function(/* optional function */ oResult)
+        , { methodName: 'restore', nativeName: 'restore', valueCallbackIndex: 0 }
     
-          // function(/* const rho::Hashtable<rho::String, rho::String>& */ propertyMap, /* optional function */ oResult)
-        , { methodName: 'beep', nativeName: 'beep', valueCallbackIndex: 1 }
-    
-          // function(/* int */ duration, /* optional function */ oResult)
-        , { methodName: 'vibrate', nativeName: 'vibrate', valueCallbackIndex: 1 }
+          // function(/* optional function */ oResult)
+        , { methodName: 'setApplicationNotify', nativeName: 'setApplicationNotify', persistentCallbackIndex: 0, valueCallbackIndex: 2 }
     
     ], apiReq);
 
-    // === Notification default instance support ===
+    // === Application default instance support ===
     
 
-    rhoUtil.namespace(moduleNS, Notification);
+    rhoUtil.namespace(moduleNS, Application);
 
     
 
     
 
 })(Rho.jQuery, Rho, Rho.util);
-// Module Rho.Push
+// Module Rho.NativeToolbar
 
 
 (function ($, rho, rhoUtil) {
     'use strict';
 
-    var moduleNS = 'Rho.Push';
+    var moduleNS = 'Rho.NativeToolbar';
     var apiReq = rhoUtil.apiReqFor(moduleNS);
 
 
-    // === Push class definition ===
+    // === NativeToolbar class definition ===
 
-    function Push() {
+    function NativeToolbar() {
         var id = null;
         this.getId = function () {return id;};
 
@@ -2740,159 +1937,95 @@ var EB = Rho;
         }
     };
 
-    // === Push instance properties ===
+    // === NativeToolbar instance properties ===
 
-    rhoUtil.createPropsProxy(Push.prototype, [
-        { propName: 'type', propAccess: 'r' }
-      , { propName: 'userNotifyMode', propAccess: 'rw' }
-      , { propName: 'pushServer', propAccess: 'r' }
-      , { propName: 'pushAppName', propAccess: 'r' }
+    rhoUtil.createPropsProxy(NativeToolbar.prototype, [
     ], apiReq, function(){ return this.getId(); });
 
-    // === Push instance methods ===
+    // === NativeToolbar instance methods ===
 
-    rhoUtil.createMethodsProxy(Push.prototype, [
-    
-          // function(/* optional function */ oResult)
-          { methodName: 'getDeviceId', nativeName: 'getDeviceId', persistentCallbackIndex: 0, valueCallbackIndex: 2 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'startNotifications', nativeName: 'startNotifications', persistentCallbackIndex: 0, valueCallbackIndex: 2 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'stopNotifications', nativeName: 'stopNotifications', valueCallbackIndex: 0 }
-    
-          // function(/* const rho::String& */ propertyName, /* optional function */ oResult)
-        , { methodName: 'getProperty', nativeName: 'getProperty', persistentCallbackIndex: 1, valueCallbackIndex: 3 }
-    
-          // function(/* const rho::Vector<rho::String>& */ arrayofNames, /* optional function */ oResult)
-        , { methodName: 'getProperties', nativeName: 'getProperties', persistentCallbackIndex: 1, valueCallbackIndex: 3 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'getAllProperties', nativeName: 'getAllProperties', persistentCallbackIndex: 0, valueCallbackIndex: 2 }
-    
-          // function(/* const rho::String& */ propertyName, /* const rho::String& */ propertyValue, /* optional function */ oResult)
-        , { methodName: 'setProperty', nativeName: 'setProperty', valueCallbackIndex: 2 }
-    
-          // function(/* const rho::Hashtable<rho::String, rho::String>& */ propertyMap, /* optional function */ oResult)
-        , { methodName: 'setProperties', nativeName: 'setProperties', valueCallbackIndex: 1 }
+    rhoUtil.createMethodsProxy(NativeToolbar.prototype, [
     
     ], apiReq, function(){ return this.getId(); });
 
     
 
-    rhoUtil.createRawPropsProxy(Push.prototype, [
+    rhoUtil.createRawPropsProxy(NativeToolbar.prototype, [
     ]);
 
-    // === Push constants ===
+    // === NativeToolbar constants ===
 
     
-            Push.PUSH_NOTIFY_ALERTS = 'alert'; 
+            NativeToolbar.BACK = 'back'; 
     
-            Push.PUSH_NOTIFY_NONE = 'none'; 
+            NativeToolbar.CLOSE = 'close'; 
     
-            Push.PUSH_NOTIFY_NOTIFICATIONS = 'notification'; 
+            NativeToolbar.EXIT = 'exit'; 
     
-            Push.PUSH_NOTIFY_NOTIFICATIONS_AND_ALERTS = 'backgroundNotifications'; 
+            NativeToolbar.FULLSCREEN = 'fullscreen'; 
     
-            Push.PUSH_TYPE_NATIVE = 'native-push'; 
+            NativeToolbar.HOME = 'home'; 
     
-            Push.PUSH_TYPE_RHOCONNECT = 'rhoconnect-push'; 
+            NativeToolbar.LOG = 'log'; 
+    
+            NativeToolbar.MINIMIZE = 'minimize'; 
+    
+            NativeToolbar.OPTIONS = 'options'; 
+    
+            NativeToolbar.REFRESH = 'refresh'; 
+    
+            NativeToolbar.SEPARATOR = 'separator'; 
+    
+            NativeToolbar.SIP = 'SIP'; 
+    
+            NativeToolbar.SYNC = 'sync'; 
     
 
 
 
-    // === Push static properties ===
+    // === NativeToolbar static properties ===
 
-    rhoUtil.createPropsProxy(Push, [
+    rhoUtil.createPropsProxy(NativeToolbar, [
     ], apiReq);
 
-    // === Push static methods ===
+    // === NativeToolbar static methods ===
 
-    rhoUtil.createMethodsProxy(Push, [
+    rhoUtil.createMethodsProxy(NativeToolbar, [
+    
+          // function(/* const rho::Vector<rho::String>& */ toolbarElements, /* const rho::Hashtable<rho::String, rho::String>& */ toolBarProperties, /* optional function */ oResult)
+          { methodName: 'create', nativeName: 'create', valueCallbackIndex: 2 }
     
           // function(/* optional function */ oResult)
-          { methodName: 'enumerate', nativeName: 'enumerate', persistentCallbackIndex: 0, valueCallbackIndex: 2 }
+        , { methodName: 'remove', nativeName: 'remove', valueCallbackIndex: 0 }
+    
+          // function(/* optional function */ oResult)
+        , { methodName: 'isCreated', nativeName: 'isCreated', valueCallbackIndex: 0 }
     
     ], apiReq);
 
-    // === Push default instance support ===
+    // === NativeToolbar default instance support ===
     
 
-        rhoUtil.createPropsProxy(Push, [
-            { propName: 'defaultInstance:getDefault:setDefault', propAccess: 'rw', customSet: function(obj) { if(!obj || 'function' != typeof obj.getId){ throw 'Default object should provide getId method!' }; Push.setDefaultID(obj.getId()); } }
-          , { propName: 'defaultID:getDefaultID:setDefaultID', propAccess: 'rw' }
-        ], apiReq);
-
-        Push.getId = function() {
-            return Push.getDefaultID();
-        }
-
-        // === Push default instance properties ===
-
-        rhoUtil.createPropsProxy(Push, [
-            { propName: 'type', propAccess: 'r' }
-          , { propName: 'userNotifyMode', propAccess: 'rw' }
-          , { propName: 'pushServer', propAccess: 'r' }
-          , { propName: 'pushAppName', propAccess: 'r' }
-        ], apiReq, function(){ return this.getId(); });
-
-        // === Push default instance methods ===
-
-        rhoUtil.createMethodsProxy(Push, [
-        
-              // function(/* optional function */ oResult)
-              { methodName: 'getDeviceId', nativeName: 'getDeviceId', persistentCallbackIndex: 0, valueCallbackIndex: 2 }
-        
-              // function(/* optional function */ oResult)
-            , { methodName: 'startNotifications', nativeName: 'startNotifications', persistentCallbackIndex: 0, valueCallbackIndex: 2 }
-        
-              // function(/* optional function */ oResult)
-            , { methodName: 'stopNotifications', nativeName: 'stopNotifications', valueCallbackIndex: 0 }
-        
-              // function(/* const rho::String& */ propertyName, /* optional function */ oResult)
-            , { methodName: 'getProperty', nativeName: 'getProperty', persistentCallbackIndex: 1, valueCallbackIndex: 3 }
-        
-              // function(/* const rho::Vector<rho::String>& */ arrayofNames, /* optional function */ oResult)
-            , { methodName: 'getProperties', nativeName: 'getProperties', persistentCallbackIndex: 1, valueCallbackIndex: 3 }
-        
-              // function(/* optional function */ oResult)
-            , { methodName: 'getAllProperties', nativeName: 'getAllProperties', persistentCallbackIndex: 0, valueCallbackIndex: 2 }
-        
-              // function(/* const rho::String& */ propertyName, /* const rho::String& */ propertyValue, /* optional function */ oResult)
-            , { methodName: 'setProperty', nativeName: 'setProperty', valueCallbackIndex: 2 }
-        
-              // function(/* const rho::Hashtable<rho::String, rho::String>& */ propertyMap, /* optional function */ oResult)
-            , { methodName: 'setProperties', nativeName: 'setProperties', valueCallbackIndex: 1 }
-        
-        ], apiReq, function(){ return this.getId(); });
-
-        // will reuse already defined methods
-        rhoUtil.createRawPropsProxy(Push, [
-        ]);
-
-    
-
-    rhoUtil.namespace(moduleNS, Push);
+    rhoUtil.namespace(moduleNS, NativeToolbar);
 
     
 
     
 
 })(Rho.jQuery, Rho, Rho.util);
-// Module Rho.RhoFile
+// Module Rho.WebView
 
 
 (function ($, rho, rhoUtil) {
     'use strict';
 
-    var moduleNS = 'Rho.RhoFile';
+    var moduleNS = 'Rho.WebView';
     var apiReq = rhoUtil.apiReqFor(moduleNS);
 
 
-    // === RhoFile class definition ===
+    // === WebView class definition ===
 
-    function RhoFile() {
+    function WebView() {
         var id = null;
         this.getId = function () {return id;};
 
@@ -2905,131 +2038,471 @@ var EB = Rho;
             id = rhoUtil.nextId();
             // constructor methods are following:
             
-                this.open.apply(this, arguments);
+        }
+    };
+
+    // === WebView instance properties ===
+
+    rhoUtil.createPropsProxy(WebView.prototype, [
+    ], apiReq, function(){ return this.getId(); });
+
+    // === WebView instance methods ===
+
+    rhoUtil.createMethodsProxy(WebView.prototype, [
+    
+    ], apiReq, function(){ return this.getId(); });
+
+    
+
+    rhoUtil.createRawPropsProxy(WebView.prototype, [
+    ]);
+
+    // === WebView constants ===
+
+    
+            WebView.SAVE_FORMAT_JPEG = 'jpeg'; 
+    
+            WebView.SCROLL_FINGER = 'FingerScroll'; 
+    
+            WebView.SCROLL_NONE = 'None'; 
+    
+            WebView.SCROLL_SCROLLBARS = 'Scrollbars'; 
+    
+
+
+
+    // === WebView static properties ===
+
+    rhoUtil.createPropsProxy(WebView, [
+        { propName: 'framework', propAccess: 'r' }
+      , { propName: 'fullScreen', propAccess: 'rw' }
+      , { propName: 'enableZoom', propAccess: 'r' }
+      , { propName: 'enablePageLoadingIndication', propAccess: 'r' }
+      , { propName: 'enableWebPlugins', propAccess: 'r' }
+      , { propName: 'keyboardDisplayRequiresUserAction', propAccess: 'rw' }
+      , { propName: 'navigationTimeout', propAccess: 'rw' }
+      , { propName: 'scrollTechnique', propAccess: 'r' }
+      , { propName: 'fontFamily', propAccess: 'r' }
+      , { propName: 'userAgent', propAccess: 'r' }
+      , { propName: 'viewportEnabled', propAccess: 'r' }
+      , { propName: 'viewportWidth', propAccess: 'r' }
+      , { propName: 'cacheSize', propAccess: 'r' }
+      , { propName: 'enableCache', propAccess: 'r' }
+      , { propName: 'acceptLanguage', propAccess: 'rw' }
+      , { propName: 'zoomPage', propAccess: 'rw' }
+      , { propName: 'textZoomLevel', propAccess: 'rw' }
+      , { propName: 'activeTab', propAccess: 'r' }
+    ], apiReq);
+
+    // === WebView static methods ===
+
+    rhoUtil.createMethodsProxy(WebView, [
+    
+          // function(/* int */ tabIndex, /* optional function */ oResult)
+          { methodName: 'refresh', nativeName: 'refresh', valueCallbackIndex: 1 }
+    
+          // function(/* const rho::String& */ url, /* int */ tabIndex, /* optional function */ oResult)
+        , { methodName: 'navigate', nativeName: 'navigate', valueCallbackIndex: 2 }
+    
+          // function(/* int */ tabIndex, /* optional function */ oResult)
+        , { methodName: 'navigateBack', nativeName: 'navigateBack', valueCallbackIndex: 1 }
+    
+          // function(/* int */ tabIndex, /* optional function */ oResult)
+        , { methodName: 'currentLocation', nativeName: 'currentLocation', valueCallbackIndex: 1 }
+    
+          // function(/* int */ tabIndex, /* optional function */ oResult)
+        , { methodName: 'currentURL', nativeName: 'currentURL', valueCallbackIndex: 1 }
+    
+          // function(/* const rho::String& */ javascriptText, /* int */ tabIndex, /* optional function */ oResult)
+        , { methodName: 'executeJavascript', nativeName: 'executeJavascript', valueCallbackIndex: 2 }
+    
+          // function(/* const rho::String& */ url, /* const rho::String& */ cookie, /* optional function */ oResult)
+        , { methodName: 'setCookie', nativeName: 'setCookie', valueCallbackIndex: 2 }
+    
+          // function(/* const rho::String& */ format, /* const rho::String& */ path, /* int */ tabIndex, /* optional function */ oResult)
+        , { methodName: 'save', nativeName: 'save', valueCallbackIndex: 3 }
+    
+    ], apiReq);
+
+    // === WebView default instance support ===
+    
+
+    rhoUtil.namespace(moduleNS, WebView);
+
+    
+
+    
+
+})(Rho.jQuery, Rho, Rho.util);
+// Module Rho.Network
+
+
+(function ($, rho, rhoUtil) {
+    'use strict';
+
+    var moduleNS = 'Rho.Network';
+    var apiReq = rhoUtil.apiReqFor(moduleNS);
+
+
+    // === Network class definition ===
+
+    function Network() {
+        var id = null;
+        this.getId = function () {return id;};
+
+        if (1 == arguments.length && arguments[0][rhoUtil.rhoIdParam()]) {
+            if (moduleNS != arguments[0][rhoUtil.rhoClassParam()]) {
+                throw "Wrong class instantiation!";
+            }
+            id = arguments[0][rhoUtil.rhoIdParam()];
+        } else {
+            id = rhoUtil.nextId();
+            // constructor methods are following:
             
         }
     };
 
-    // === RhoFile instance properties ===
+    // === Network instance properties ===
 
-    rhoUtil.createPropsProxy(RhoFile.prototype, [
+    rhoUtil.createPropsProxy(Network.prototype, [
     ], apiReq, function(){ return this.getId(); });
 
-    // === RhoFile instance methods ===
+    // === Network instance methods ===
 
-    rhoUtil.createMethodsProxy(RhoFile.prototype, [
-    
-          // function(/* const rho::String& */ path, /* int */ mode, /* optional function */ oResult)
-          { methodName: 'open', nativeName: 'open', valueCallbackIndex: 2 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'close', nativeName: 'close', valueCallbackIndex: 0 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'isOpened', nativeName: 'isOpened', valueCallbackIndex: 0 }
-    
-          // function(/* int */ size, /* optional function */ oResult)
-        , { methodName: 'read', nativeName: 'read', valueCallbackIndex: 1 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'readAll', nativeName: 'readAll', valueCallbackIndex: 0 }
-    
-          // function(/* const rho::String& */ val, /* optional function */ oResult)
-        , { methodName: 'write', nativeName: 'write', valueCallbackIndex: 1 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'flush', nativeName: 'flush', valueCallbackIndex: 0 }
-    
-          // function(/* int */ pos, /* optional function */ oResult)
-        , { methodName: 'seek', nativeName: 'seek', valueCallbackIndex: 1 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'size', nativeName: 'size', valueCallbackIndex: 0 }
+    rhoUtil.createMethodsProxy(Network.prototype, [
     
     ], apiReq, function(){ return this.getId(); });
 
     
 
-    rhoUtil.createRawPropsProxy(RhoFile.prototype, [
+    rhoUtil.createRawPropsProxy(Network.prototype, [
     ]);
 
-    // === RhoFile constants ===
+    // === Network constants ===
 
     
-            RhoFile.OPEN_FOR_APPEND = 1;
+            Network.AUTH_BASIC = 'basic'; 
     
-            RhoFile.OPEN_FOR_READ = 2;
-    
-            RhoFile.OPEN_FOR_READ_WRITE = 4;
-    
-            RhoFile.OPEN_FOR_WRITE = 3;
+            Network.AUTH_DIGEST = 'digest'; 
     
 
 
 
-    // === RhoFile static properties ===
+    // === Network static properties ===
 
-    rhoUtil.createPropsProxy(RhoFile, [
+    rhoUtil.createPropsProxy(Network, [
+        { propName: 'url', propAccess: 'rw' }
+      , { propName: 'authType', propAccess: 'rw' }
+      , { propName: 'authUser', propAccess: 'rw' }
+      , { propName: 'authPassword', propAccess: 'rw' }
+      , { propName: 'verifyPeerCertificate', propAccess: 'rw' }
+      , { propName: 'httpVerb', propAccess: 'rw' }
+      , { propName: 'headers', propAccess: 'rw' }
+      , { propName: 'responseTimeout', propAccess: 'rw' }
     ], apiReq);
 
-    // === RhoFile static methods ===
+    // === Network static methods ===
 
-    rhoUtil.createMethodsProxy(RhoFile, [
+    rhoUtil.createMethodsProxy(Network, [
     
-          // function(/* const rho::String& */ from, /* const rho::String& */ to, /* optional function */ oResult)
-          { methodName: 'copy', nativeName: 'copy', valueCallbackIndex: 2 }
+          // function(/* optional function */ oResult)
+          { methodName: 'cancel', nativeName: 'cancel', persistentCallbackIndex: 0, valueCallbackIndex: 2 }
     
-          // function(/* const rho::String& */ from, /* const rho::String& */ to, /* optional function */ oResult)
-        , { methodName: 'rename', nativeName: 'rename', valueCallbackIndex: 2 }
+          // function(/* const rho::Hashtable<rho::String, rho::String>& */ propertyMap, /* optional function */ oResult)
+        , { methodName: 'downloadFile', nativeName: 'downloadFile', persistentCallbackIndex: 1, valueCallbackIndex: 3 }
     
-          // function(/* const rho::String& */ path, /* optional function */ oResult)
-        , { methodName: 'makeDir', nativeName: 'makeDir', valueCallbackIndex: 1 }
+          // function(/* const rho::Hashtable<rho::String, rho::String>& */ propertyMap, /* optional function */ oResult)
+        , { methodName: 'get', nativeName: 'get', persistentCallbackIndex: 1, valueCallbackIndex: 3 }
     
-          // function(/* const rho::String& */ path, /* optional function */ oResult)
-        , { methodName: 'exists', nativeName: 'exists', valueCallbackIndex: 1 }
+          // function(/* const rho::Hashtable<rho::String, rho::String>& */ propertyMap, /* optional function */ oResult)
+        , { methodName: 'post', nativeName: 'post', persistentCallbackIndex: 1, valueCallbackIndex: 3 }
     
-          // function(/* const rho::String& */ path, /* optional function */ oResult)
-        , { methodName: 'getFileSize', nativeName: 'getFileSize', valueCallbackIndex: 1 }
+          // function(/* const rho::Hashtable<rho::String, rho::String>& */ propertyMap, /* optional function */ oResult)
+        , { methodName: 'uploadFile', nativeName: 'uploadFile', persistentCallbackIndex: 1, valueCallbackIndex: 3 }
     
-          // function(/* const rho::String& */ path, /* optional function */ oResult)
-        , { methodName: 'isDir', nativeName: 'isDir', valueCallbackIndex: 1 }
+          // function(/* optional function */ oResult)
+        , { methodName: 'hasNetwork', nativeName: 'hasNetwork', valueCallbackIndex: 0 }
     
-          // function(/* const rho::String& */ path, /* optional function */ oResult)
-        , { methodName: 'isFile', nativeName: 'isFile', valueCallbackIndex: 1 }
+          // function(/* optional function */ oResult)
+        , { methodName: 'hasWifiNetwork', nativeName: 'hasWifiNetwork', valueCallbackIndex: 0 }
     
-          // function(/* const rho::String& */ path, /* optional function */ oResult)
-        , { methodName: 'deleteFile', nativeName: 'deleteFile', valueCallbackIndex: 1 }
+          // function(/* optional function */ oResult)
+        , { methodName: 'hasCellNetwork', nativeName: 'hasCellNetwork', valueCallbackIndex: 0 }
     
-          // function(/* const rho::String& */ path, /* optional function */ oResult)
-        , { methodName: 'deleteDir', nativeName: 'deleteDir', valueCallbackIndex: 1 }
+          // function(/* int */ pollInterval, /* optional function */ oResult)
+        , { methodName: 'startStatusNotify', nativeName: 'startStatusNotify', persistentCallbackIndex: 1, valueCallbackIndex: 3 }
     
-          // function(/* const rho::String& */ path, /* optional function */ oResult)
-        , { methodName: 'makeDirs', nativeName: 'makeDirs', valueCallbackIndex: 1 }
+          // function(/* optional function */ oResult)
+        , { methodName: 'stopStatusNotify', nativeName: 'stopStatusNotify', valueCallbackIndex: 0 }
     
-          // function(/* const rho::String& */ path, /* bool */ leaveRoot, /* optional function */ oResult)
-        , { methodName: 'deleteRecursive', nativeName: 'deleteRecursive', valueCallbackIndex: 2 }
+          // function(/* const rho::Hashtable<rho::String, rho::String>& */ propertyMap, /* optional function */ oResult)
+        , { methodName: 'detectConnection', nativeName: 'detectConnection', persistentCallbackIndex: 1, valueCallbackIndex: 3 }
     
-          // function(/* const rho::String& */ path, /* optional function */ oResult)
-        , { methodName: 'listDir', nativeName: 'listDir', valueCallbackIndex: 1 }
+          // function(/* optional function */ oResult)
+        , { methodName: 'stopDetectingConnection', nativeName: 'stopDetectingConnection', persistentCallbackIndex: 0, valueCallbackIndex: 2 }
     
-          // function(/* const rho::String& */ path, /* optional function */ oResult)
-        , { methodName: 'basename', nativeName: 'basename', valueCallbackIndex: 1 }
+          // function(/* const rho::String& */ connectionDestination, /* optional function */ oResult)
+        , { methodName: 'connectWan', nativeName: 'connectWan', persistentCallbackIndex: 1, valueCallbackIndex: 3 }
     
-          // function(/* const rho::String& */ path, /* optional function */ oResult)
-        , { methodName: 'dirname', nativeName: 'dirname', valueCallbackIndex: 1 }
-    
-          // function(/* const rho::String& */ p1, /* const rho::String& */ p2, /* optional function */ oResult)
-        , { methodName: 'join', nativeName: 'join', valueCallbackIndex: 2 }
-    
-          // function(/* const rho::String& */ path, /* optional function */ oResult)
-        , { methodName: 'read', nativeName: 'read', valueCallbackIndex: 1 }
+          // function(/* optional function */ oResult)
+        , { methodName: 'disconnectWan', nativeName: 'disconnectWan', valueCallbackIndex: 0 }
     
     ], apiReq);
 
-    // === RhoFile default instance support ===
+    // === Network default instance support ===
     
 
-    rhoUtil.namespace(moduleNS, RhoFile);
+    rhoUtil.namespace(moduleNS, Network);
+
+    
+
+    
+
+})(Rho.jQuery, Rho, Rho.util);
+// Module Rho.Database
+
+
+(function ($, rho, rhoUtil) {
+    'use strict';
+
+    var moduleNS = 'Rho.Database';
+    var apiReq = rhoUtil.apiReqFor(moduleNS);
+
+
+    // === Database class definition ===
+
+    function Database() {
+        var id = null;
+        this.getId = function () {return id;};
+
+        if (1 == arguments.length && arguments[0][rhoUtil.rhoIdParam()]) {
+            if (moduleNS != arguments[0][rhoUtil.rhoClassParam()]) {
+                throw "Wrong class instantiation!";
+            }
+            id = arguments[0][rhoUtil.rhoIdParam()];
+        } else {
+            id = rhoUtil.nextId();
+            // constructor methods are following:
+            
+        }
+    };
+
+    // === Database instance properties ===
+
+    rhoUtil.createPropsProxy(Database.prototype, [
+    ], apiReq, function(){ return this.getId(); });
+
+    // === Database instance methods ===
+
+    rhoUtil.createMethodsProxy(Database.prototype, [
+    
+    ], apiReq, function(){ return this.getId(); });
+
+    
+
+    rhoUtil.createRawPropsProxy(Database.prototype, [
+    ]);
+
+    // === Database constants ===
+
+    
+
+
+
+    // === Database static properties ===
+
+    rhoUtil.createPropsProxy(Database, [
+    ], apiReq);
+
+    // === Database static methods ===
+
+    rhoUtil.createMethodsProxy(Database, [
+    
+    ], apiReq);
+
+    // === Database default instance support ===
+    
+
+    rhoUtil.namespace(moduleNS, Database);
+
+    
+
+    
+
+})(Rho.jQuery, Rho, Rho.util);
+// Module Rho.System.Process
+
+
+(function ($, rho, rhoUtil) {
+    'use strict';
+
+    var moduleNS = 'Rho.System.Process';
+    var apiReq = rhoUtil.apiReqFor(moduleNS);
+
+
+    // === Process class definition ===
+
+    function Process() {
+        var id = null;
+        this.getId = function () {return id;};
+
+        if (1 == arguments.length && arguments[0][rhoUtil.rhoIdParam()]) {
+            if (moduleNS != arguments[0][rhoUtil.rhoClassParam()]) {
+                throw "Wrong class instantiation!";
+            }
+            id = arguments[0][rhoUtil.rhoIdParam()];
+        } else {
+            id = rhoUtil.nextId();
+            // constructor methods are following:
+            
+        }
+    };
+
+    // === Process instance properties ===
+
+    rhoUtil.createPropsProxy(Process.prototype, [
+    ], apiReq, function(){ return this.getId(); });
+
+    // === Process instance methods ===
+
+    rhoUtil.createMethodsProxy(Process.prototype, [
+    
+          // function(/* optional function */ oResult)
+          { methodName: 'waitForApplication', nativeName: 'waitForApplication', valueCallbackIndex: 0 }
+    
+          // function(/* optional function */ oResult)
+        , { methodName: 'closeHandle', nativeName: 'closeHandle', valueCallbackIndex: 0 }
+    
+          // function(/* optional function */ oResult)
+        , { methodName: 'getProcessExitCode', nativeName: 'getProcessExitCode', valueCallbackIndex: 0 }
+    
+    ], apiReq, function(){ return this.getId(); });
+
+    
+
+    rhoUtil.createRawPropsProxy(Process.prototype, [
+    ]);
+
+    // === Process constants ===
+
+    
+
+
+
+    // === Process static properties ===
+
+    rhoUtil.createPropsProxy(Process, [
+    ], apiReq);
+
+    // === Process static methods ===
+
+    rhoUtil.createMethodsProxy(Process, [
+    
+          // function(/* const rho::String& */ appName, /* const rho::String& */ params, /* bool */ blockingCall, /* optional function */ oResult)
+          { methodName: 'runApplication', nativeName: 'runApplication', valueCallbackIndex: 3 }
+    
+    ], apiReq);
+
+    // === Process default instance support ===
+    
+
+    rhoUtil.namespace(moduleNS, Process);
+
+    
+
+    
+
+})(Rho.jQuery, Rho, Rho.util);
+// Module Rho.NativeTabbar
+
+
+(function ($, rho, rhoUtil) {
+    'use strict';
+
+    var moduleNS = 'Rho.NativeTabbar';
+    var apiReq = rhoUtil.apiReqFor(moduleNS);
+
+
+    // === NativeTabbar class definition ===
+
+    function NativeTabbar() {
+        var id = null;
+        this.getId = function () {return id;};
+
+        if (1 == arguments.length && arguments[0][rhoUtil.rhoIdParam()]) {
+            if (moduleNS != arguments[0][rhoUtil.rhoClassParam()]) {
+                throw "Wrong class instantiation!";
+            }
+            id = arguments[0][rhoUtil.rhoIdParam()];
+        } else {
+            id = rhoUtil.nextId();
+            // constructor methods are following:
+            
+        }
+    };
+
+    // === NativeTabbar instance properties ===
+
+    rhoUtil.createPropsProxy(NativeTabbar.prototype, [
+    ], apiReq, function(){ return this.getId(); });
+
+    // === NativeTabbar instance methods ===
+
+    rhoUtil.createMethodsProxy(NativeTabbar.prototype, [
+    
+    ], apiReq, function(){ return this.getId(); });
+
+    
+
+    rhoUtil.createRawPropsProxy(NativeTabbar.prototype, [
+    ]);
+
+    // === NativeTabbar constants ===
+
+    
+            NativeTabbar.ON_TAB_FOCUS = 'onTabFocus'; 
+    
+            NativeTabbar.ON_TAB_NEW_ERROR = 'onTabNewError'; 
+    
+
+
+
+    // === NativeTabbar static properties ===
+
+    rhoUtil.createPropsProxy(NativeTabbar, [
+    ], apiReq);
+
+    // === NativeTabbar static methods ===
+
+    rhoUtil.createMethodsProxy(NativeTabbar, [
+    
+          // function(/* const rho::Vector<rho::String>& */ tabElements, /* const rho::Hashtable<rho::String, rho::String>& */ tabBarProperties, /* optional function */ oResult)
+          { methodName: 'create', nativeName: 'create', persistentCallbackIndex: 2, valueCallbackIndex: 4 }
+    
+          // function(/* optional function */ oResult)
+        , { methodName: 'currentTabIndex', nativeName: 'currentTabIndex', valueCallbackIndex: 0 }
+    
+          // function(/* optional function */ oResult)
+        , { methodName: 'remove', nativeName: 'remove', valueCallbackIndex: 0 }
+    
+          // function(/* int */ tabIndex, /* optional function */ oResult)
+        , { methodName: 'removeTab', nativeName: 'removeTab', valueCallbackIndex: 1 }
+    
+          // function(/* int */ tabIndex, /* const rho::String& */ badge, /* optional function */ oResult)
+        , { methodName: 'setTabBadge', nativeName: 'setTabBadge', valueCallbackIndex: 2 }
+    
+          // function(/* int */ tabIndex, /* optional function */ oResult)
+        , { methodName: 'switchTab', nativeName: 'switchTab', valueCallbackIndex: 1 }
+    
+          // function(/* optional function */ oResult)
+        , { methodName: 'isCreated', nativeName: 'isCreated', valueCallbackIndex: 0 }
+    
+    ], apiReq);
+
+    // === NativeTabbar default instance support ===
+    
+
+    rhoUtil.namespace(moduleNS, NativeTabbar);
 
     
 
@@ -3247,19 +2720,19 @@ var EB = Rho;
     
 
 })(Rho.jQuery, Rho, Rho.util);
-// Module Rho.System.Process
+// Module Rho.Intent
 
 
 (function ($, rho, rhoUtil) {
     'use strict';
 
-    var moduleNS = 'Rho.System.Process';
+    var moduleNS = 'Rho.Intent';
     var apiReq = rhoUtil.apiReqFor(moduleNS);
 
 
-    // === Process class definition ===
+    // === Intent class definition ===
 
-    function Process() {
+    function Intent() {
         var id = null;
         this.getId = function () {return id;};
 
@@ -3275,55 +2748,514 @@ var EB = Rho;
         }
     };
 
-    // === Process instance properties ===
+    // === Intent instance properties ===
 
-    rhoUtil.createPropsProxy(Process.prototype, [
+    rhoUtil.createPropsProxy(Intent.prototype, [
     ], apiReq, function(){ return this.getId(); });
 
-    // === Process instance methods ===
+    // === Intent instance methods ===
 
-    rhoUtil.createMethodsProxy(Process.prototype, [
-    
-          // function(/* optional function */ oResult)
-          { methodName: 'waitForApplication', nativeName: 'waitForApplication', valueCallbackIndex: 0 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'closeHandle', nativeName: 'closeHandle', valueCallbackIndex: 0 }
-    
-          // function(/* optional function */ oResult)
-        , { methodName: 'getProcessExitCode', nativeName: 'getProcessExitCode', valueCallbackIndex: 0 }
+    rhoUtil.createMethodsProxy(Intent.prototype, [
     
     ], apiReq, function(){ return this.getId(); });
 
     
 
-    rhoUtil.createRawPropsProxy(Process.prototype, [
+    rhoUtil.createRawPropsProxy(Intent.prototype, [
     ]);
 
-    // === Process constants ===
+    // === Intent constants ===
 
+    
+            Intent.BROADCAST = 'broadcast'; 
+    
+            Intent.START_ACTIVITY = 'startActivity'; 
+    
+            Intent.START_SERVICE = 'startService'; 
     
 
 
 
-    // === Process static properties ===
+    // === Intent static properties ===
 
-    rhoUtil.createPropsProxy(Process, [
+    rhoUtil.createPropsProxy(Intent, [
     ], apiReq);
 
-    // === Process static methods ===
+    // === Intent static methods ===
 
-    rhoUtil.createMethodsProxy(Process, [
+    rhoUtil.createMethodsProxy(Intent, [
     
-          // function(/* const rho::String& */ appName, /* const rho::String& */ params, /* bool */ blockingCall, /* optional function */ oResult)
-          { methodName: 'runApplication', nativeName: 'runApplication', valueCallbackIndex: 3 }
+          // function(/* const rho::Hashtable<rho::String, rho::String>& */ params, /* optional function */ oResult)
+          { methodName: 'send', nativeName: 'send', persistentCallbackIndex: 1, valueCallbackIndex: 3 }
+    
+          // function(/* optional function */ oResult)
+        , { methodName: 'startListening', nativeName: 'startListening', persistentCallbackIndex: 0, valueCallbackIndex: 2 }
+    
+          // function(/* optional function */ oResult)
+        , { methodName: 'stopListening', nativeName: 'stopListening', valueCallbackIndex: 0 }
     
     ], apiReq);
 
-    // === Process default instance support ===
+    // === Intent default instance support ===
     
 
-    rhoUtil.namespace(moduleNS, Process);
+    rhoUtil.namespace(moduleNS, Intent);
+
+    
+
+    
+
+})(Rho.jQuery, Rho, Rho.util);
+// Module Rho.Log
+
+
+(function ($, rho, rhoUtil) {
+    'use strict';
+
+    var moduleNS = 'Rho.Log';
+    var apiReq = rhoUtil.apiReqFor(moduleNS);
+
+
+    // === Log class definition ===
+
+    function Log() {
+        var id = null;
+        this.getId = function () {return id;};
+
+        if (1 == arguments.length && arguments[0][rhoUtil.rhoIdParam()]) {
+            if (moduleNS != arguments[0][rhoUtil.rhoClassParam()]) {
+                throw "Wrong class instantiation!";
+            }
+            id = arguments[0][rhoUtil.rhoIdParam()];
+        } else {
+            id = rhoUtil.nextId();
+            // constructor methods are following:
+            
+        }
+    };
+
+    // === Log instance properties ===
+
+    rhoUtil.createPropsProxy(Log.prototype, [
+    ], apiReq, function(){ return this.getId(); });
+
+    // === Log instance methods ===
+
+    rhoUtil.createMethodsProxy(Log.prototype, [
+    
+    ], apiReq, function(){ return this.getId(); });
+
+    
+
+    rhoUtil.createRawPropsProxy(Log.prototype, [
+    ]);
+
+    // === Log constants ===
+
+    
+            Log.DEST_FILE = 'file'; 
+    
+            Log.DEST_OUTPUT = 'stdio'; 
+    
+            Log.DEST_URI = 'uri'; 
+    
+            Log.LEVEL_ERROR = 3;
+    
+            Log.LEVEL_FATAL = 4;
+    
+            Log.LEVEL_INFO = 1;
+    
+            Log.LEVEL_TRACE = 0;
+    
+            Log.LEVEL_WARNING = 2;
+    
+
+
+
+    // === Log static properties ===
+
+    rhoUtil.createPropsProxy(Log, [
+        { propName: 'level', propAccess: 'rw' }
+      , { propName: 'destination', propAccess: 'rw' }
+      , { propName: 'includeCategories', propAccess: 'rw' }
+      , { propName: 'excludeCategories', propAccess: 'rw' }
+      , { propName: 'fileSize', propAccess: 'rw' }
+      , { propName: 'filePath', propAccess: 'rw' }
+      , { propName: 'memoryPeriod', propAccess: 'rw' }
+      , { propName: 'netTrace', propAccess: 'rw' }
+      , { propName: 'skipPost', propAccess: 'rw' }
+      , { propName: 'excludeFilter', propAccess: 'rw' }
+      , { propName: 'destinationURI', propAccess: 'rw' }
+    ], apiReq);
+
+    // === Log static methods ===
+
+    rhoUtil.createMethodsProxy(Log, [
+    
+          // function(/* const rho::String& */ message, /* const rho::String& */ category, /* optional function */ oResult)
+          { methodName: 'trace', nativeName: 'trace', valueCallbackIndex: 2 }
+    
+          // function(/* const rho::String& */ message, /* const rho::String& */ category, /* optional function */ oResult)
+        , { methodName: 'info', nativeName: 'info', valueCallbackIndex: 2 }
+    
+          // function(/* const rho::String& */ message, /* const rho::String& */ category, /* optional function */ oResult)
+        , { methodName: 'warning', nativeName: 'warning', valueCallbackIndex: 2 }
+    
+          // function(/* const rho::String& */ message, /* const rho::String& */ category, /* optional function */ oResult)
+        , { methodName: 'error', nativeName: 'error', valueCallbackIndex: 2 }
+    
+          // function(/* const rho::String& */ message, /* const rho::String& */ category, /* optional function */ oResult)
+        , { methodName: 'fatalError', nativeName: 'fatalError', valueCallbackIndex: 2 }
+    
+          // function(/* optional function */ oResult)
+        , { methodName: 'sendLogFile', nativeName: 'sendLogFile', persistentCallbackIndex: 0, valueCallbackIndex: 2 }
+    
+          // function(/* optional function */ oResult)
+        , { methodName: 'showLog', nativeName: 'showLog', valueCallbackIndex: 0 }
+    
+          // function(/* optional function */ oResult)
+        , { methodName: 'cleanLogFile', nativeName: 'cleanLogFile', valueCallbackIndex: 0 }
+    
+          // function(/* int */ limit, /* optional function */ oResult)
+        , { methodName: 'readLogFile', nativeName: 'readLogFile', valueCallbackIndex: 1 }
+    
+    ], apiReq);
+
+    // === Log default instance support ===
+    
+
+    rhoUtil.namespace(moduleNS, Log);
+
+    
+
+    
+
+})(Rho.jQuery, Rho, Rho.util);
+// Module Rho.RhoFile
+
+
+(function ($, rho, rhoUtil) {
+    'use strict';
+
+    var moduleNS = 'Rho.RhoFile';
+    var apiReq = rhoUtil.apiReqFor(moduleNS);
+
+
+    // === RhoFile class definition ===
+
+    function RhoFile() {
+        var id = null;
+        this.getId = function () {return id;};
+
+        if (1 == arguments.length && arguments[0][rhoUtil.rhoIdParam()]) {
+            if (moduleNS != arguments[0][rhoUtil.rhoClassParam()]) {
+                throw "Wrong class instantiation!";
+            }
+            id = arguments[0][rhoUtil.rhoIdParam()];
+        } else {
+            id = rhoUtil.nextId();
+            // constructor methods are following:
+            
+                this.open.apply(this, arguments);
+            
+        }
+    };
+
+    // === RhoFile instance properties ===
+
+    rhoUtil.createPropsProxy(RhoFile.prototype, [
+    ], apiReq, function(){ return this.getId(); });
+
+    // === RhoFile instance methods ===
+
+    rhoUtil.createMethodsProxy(RhoFile.prototype, [
+    
+          // function(/* const rho::String& */ path, /* int */ mode, /* optional function */ oResult)
+          { methodName: 'open', nativeName: 'open', valueCallbackIndex: 2 }
+    
+          // function(/* optional function */ oResult)
+        , { methodName: 'close', nativeName: 'close', valueCallbackIndex: 0 }
+    
+          // function(/* optional function */ oResult)
+        , { methodName: 'isOpened', nativeName: 'isOpened', valueCallbackIndex: 0 }
+    
+          // function(/* int */ size, /* optional function */ oResult)
+        , { methodName: 'read', nativeName: 'read', valueCallbackIndex: 1 }
+    
+          // function(/* optional function */ oResult)
+        , { methodName: 'readAll', nativeName: 'readAll', valueCallbackIndex: 0 }
+    
+          // function(/* const rho::String& */ val, /* optional function */ oResult)
+        , { methodName: 'write', nativeName: 'write', valueCallbackIndex: 1 }
+    
+          // function(/* optional function */ oResult)
+        , { methodName: 'flush', nativeName: 'flush', valueCallbackIndex: 0 }
+    
+          // function(/* int */ pos, /* optional function */ oResult)
+        , { methodName: 'seek', nativeName: 'seek', valueCallbackIndex: 1 }
+    
+          // function(/* optional function */ oResult)
+        , { methodName: 'size', nativeName: 'size', valueCallbackIndex: 0 }
+    
+    ], apiReq, function(){ return this.getId(); });
+
+    
+
+    rhoUtil.createRawPropsProxy(RhoFile.prototype, [
+    ]);
+
+    // === RhoFile constants ===
+
+    
+            RhoFile.OPEN_FOR_APPEND = 1;
+    
+            RhoFile.OPEN_FOR_READ = 2;
+    
+            RhoFile.OPEN_FOR_READ_WRITE = 4;
+    
+            RhoFile.OPEN_FOR_WRITE = 3;
+    
+
+
+
+    // === RhoFile static properties ===
+
+    rhoUtil.createPropsProxy(RhoFile, [
+    ], apiReq);
+
+    // === RhoFile static methods ===
+
+    rhoUtil.createMethodsProxy(RhoFile, [
+    
+          // function(/* const rho::String& */ from, /* const rho::String& */ to, /* optional function */ oResult)
+          { methodName: 'copy', nativeName: 'copy', valueCallbackIndex: 2 }
+    
+          // function(/* const rho::String& */ from, /* const rho::String& */ to, /* optional function */ oResult)
+        , { methodName: 'rename', nativeName: 'rename', valueCallbackIndex: 2 }
+    
+          // function(/* const rho::String& */ path, /* optional function */ oResult)
+        , { methodName: 'makeDir', nativeName: 'makeDir', valueCallbackIndex: 1 }
+    
+          // function(/* const rho::String& */ path, /* optional function */ oResult)
+        , { methodName: 'exists', nativeName: 'exists', valueCallbackIndex: 1 }
+    
+          // function(/* const rho::String& */ path, /* optional function */ oResult)
+        , { methodName: 'getFileSize', nativeName: 'getFileSize', valueCallbackIndex: 1 }
+    
+          // function(/* const rho::String& */ path, /* optional function */ oResult)
+        , { methodName: 'isDir', nativeName: 'isDir', valueCallbackIndex: 1 }
+    
+          // function(/* const rho::String& */ path, /* optional function */ oResult)
+        , { methodName: 'isFile', nativeName: 'isFile', valueCallbackIndex: 1 }
+    
+          // function(/* const rho::String& */ path, /* optional function */ oResult)
+        , { methodName: 'deleteFile', nativeName: 'deleteFile', valueCallbackIndex: 1 }
+    
+          // function(/* const rho::String& */ path, /* optional function */ oResult)
+        , { methodName: 'deleteDir', nativeName: 'deleteDir', valueCallbackIndex: 1 }
+    
+          // function(/* const rho::String& */ path, /* optional function */ oResult)
+        , { methodName: 'makeDirs', nativeName: 'makeDirs', valueCallbackIndex: 1 }
+    
+          // function(/* const rho::String& */ path, /* bool */ leaveRoot, /* optional function */ oResult)
+        , { methodName: 'deleteRecursive', nativeName: 'deleteRecursive', valueCallbackIndex: 2 }
+    
+          // function(/* const rho::String& */ path, /* optional function */ oResult)
+        , { methodName: 'listDir', nativeName: 'listDir', valueCallbackIndex: 1 }
+    
+          // function(/* const rho::String& */ path, /* optional function */ oResult)
+        , { methodName: 'basename', nativeName: 'basename', valueCallbackIndex: 1 }
+    
+          // function(/* const rho::String& */ path, /* optional function */ oResult)
+        , { methodName: 'dirname', nativeName: 'dirname', valueCallbackIndex: 1 }
+    
+          // function(/* const rho::String& */ p1, /* const rho::String& */ p2, /* optional function */ oResult)
+        , { methodName: 'join', nativeName: 'join', valueCallbackIndex: 2 }
+    
+          // function(/* const rho::String& */ path, /* optional function */ oResult)
+        , { methodName: 'read', nativeName: 'read', valueCallbackIndex: 1 }
+    
+    ], apiReq);
+
+    // === RhoFile default instance support ===
+    
+
+    rhoUtil.namespace(moduleNS, RhoFile);
+
+    
+
+    
+
+})(Rho.jQuery, Rho, Rho.util);
+// Module Rho.NativeMenubar
+
+
+(function ($, rho, rhoUtil) {
+    'use strict';
+
+    var moduleNS = 'Rho.NativeMenubar';
+    var apiReq = rhoUtil.apiReqFor(moduleNS);
+
+
+    // === NativeMenubar class definition ===
+
+    function NativeMenubar() {
+        var id = null;
+        this.getId = function () {return id;};
+
+        if (1 == arguments.length && arguments[0][rhoUtil.rhoIdParam()]) {
+            if (moduleNS != arguments[0][rhoUtil.rhoClassParam()]) {
+                throw "Wrong class instantiation!";
+            }
+            id = arguments[0][rhoUtil.rhoIdParam()];
+        } else {
+            id = rhoUtil.nextId();
+            // constructor methods are following:
+            
+        }
+    };
+
+    // === NativeMenubar instance properties ===
+
+    rhoUtil.createPropsProxy(NativeMenubar.prototype, [
+    ], apiReq, function(){ return this.getId(); });
+
+    // === NativeMenubar instance methods ===
+
+    rhoUtil.createMethodsProxy(NativeMenubar.prototype, [
+    
+    ], apiReq, function(){ return this.getId(); });
+
+    
+
+    rhoUtil.createRawPropsProxy(NativeMenubar.prototype, [
+    ]);
+
+    // === NativeMenubar constants ===
+
+    
+
+
+
+    // === NativeMenubar static properties ===
+
+    rhoUtil.createPropsProxy(NativeMenubar, [
+        { propName: 'mainMenu', propAccess: 'rw' }
+      , { propName: 'extraMenu', propAccess: 'rw' }
+      , { propName: 'mainButton', propAccess: 'rw' }
+      , { propName: 'extraButton', propAccess: 'rw' }
+      , { propName: 'defaultMainMenu', propAccess: 'r' }
+    ], apiReq);
+
+    // === NativeMenubar static methods ===
+
+    rhoUtil.createMethodsProxy(NativeMenubar, [
+    
+    ], apiReq);
+
+    // === NativeMenubar default instance support ===
+    
+
+    rhoUtil.namespace(moduleNS, NativeMenubar);
+
+    
+
+    
+
+})(Rho.jQuery, Rho, Rho.util);
+// Module Rho.Config
+
+
+(function ($, rho, rhoUtil) {
+    'use strict';
+
+    var moduleNS = 'Rho.Config';
+    var apiReq = rhoUtil.apiReqFor(moduleNS);
+
+
+    // === Config class definition ===
+
+    function Config() {
+        var id = null;
+        this.getId = function () {return id;};
+
+        if (1 == arguments.length && arguments[0][rhoUtil.rhoIdParam()]) {
+            if (moduleNS != arguments[0][rhoUtil.rhoClassParam()]) {
+                throw "Wrong class instantiation!";
+            }
+            id = arguments[0][rhoUtil.rhoIdParam()];
+        } else {
+            id = rhoUtil.nextId();
+            // constructor methods are following:
+            
+        }
+    };
+
+    // === Config instance properties ===
+
+    rhoUtil.createPropsProxy(Config.prototype, [
+    ], apiReq, function(){ return this.getId(); });
+
+    // === Config instance methods ===
+
+    rhoUtil.createMethodsProxy(Config.prototype, [
+    
+    ], apiReq, function(){ return this.getId(); });
+
+    
+
+    rhoUtil.createRawPropsProxy(Config.prototype, [
+    ]);
+
+    // === Config constants ===
+
+    
+
+
+
+    // === Config static properties ===
+
+    rhoUtil.createPropsProxy(Config, [
+        { propName: 'configPath', propAccess: 'rw' }
+    ], apiReq);
+
+    // === Config static methods ===
+
+    rhoUtil.createMethodsProxy(Config, [
+    
+          // function(/* const rho::String& */ name, /* optional function */ oResult)
+          { methodName: 'getPropertyString', nativeName: 'getPropertyString', valueCallbackIndex: 1 }
+    
+          // function(/* const rho::String& */ name, /* const rho::String& */ value, /* bool */ saveToFile, /* optional function */ oResult)
+        , { methodName: 'setPropertyString', nativeName: 'setPropertyString', valueCallbackIndex: 3 }
+    
+          // function(/* const rho::String& */ name, /* optional function */ oResult)
+        , { methodName: 'getPropertyInt', nativeName: 'getPropertyInt', valueCallbackIndex: 1 }
+    
+          // function(/* const rho::String& */ name, /* int */ value, /* bool */ saveToFile, /* optional function */ oResult)
+        , { methodName: 'setPropertyInt', nativeName: 'setPropertyInt', valueCallbackIndex: 3 }
+    
+          // function(/* const rho::String& */ name, /* optional function */ oResult)
+        , { methodName: 'getPropertyBool', nativeName: 'getPropertyBool', valueCallbackIndex: 1 }
+    
+          // function(/* const rho::String& */ name, /* bool */ value, /* bool */ saveToFile, /* optional function */ oResult)
+        , { methodName: 'setPropertyBool', nativeName: 'setPropertyBool', valueCallbackIndex: 3 }
+    
+          // function(/* const rho::String& */ name, /* optional function */ oResult)
+        , { methodName: 'isPropertyExists', nativeName: 'isPropertyExists', valueCallbackIndex: 1 }
+    
+          // function(/* const rho::String& */ name, /* bool */ saveToFile, /* optional function */ oResult)
+        , { methodName: 'removeProperty', nativeName: 'removeProperty', valueCallbackIndex: 2 }
+    
+          // function(/* optional function */ oResult)
+        , { methodName: 'loadFromFile', nativeName: 'loadFromFile', valueCallbackIndex: 0 }
+    
+    ], apiReq);
+
+    // === Config default instance support ===
+    
+
+    rhoUtil.namespace(moduleNS, Config);
 
     
 
@@ -3413,19 +3345,19 @@ var EB = Rho;
     
 
 })(Rho.jQuery, Rho, Rho.util);
-// Module Rho.WebView
+// Module Rho.Navbar
 
 
 (function ($, rho, rhoUtil) {
     'use strict';
 
-    var moduleNS = 'Rho.WebView';
+    var moduleNS = 'Rho.Navbar';
     var apiReq = rhoUtil.apiReqFor(moduleNS);
 
 
-    // === WebView class definition ===
+    // === Navbar class definition ===
 
-    function WebView() {
+    function Navbar() {
         var id = null;
         this.getId = function () {return id;};
 
@@ -3441,93 +3373,161 @@ var EB = Rho;
         }
     };
 
-    // === WebView instance properties ===
+    // === Navbar instance properties ===
 
-    rhoUtil.createPropsProxy(WebView.prototype, [
+    rhoUtil.createPropsProxy(Navbar.prototype, [
     ], apiReq, function(){ return this.getId(); });
 
-    // === WebView instance methods ===
+    // === Navbar instance methods ===
 
-    rhoUtil.createMethodsProxy(WebView.prototype, [
+    rhoUtil.createMethodsProxy(Navbar.prototype, [
     
     ], apiReq, function(){ return this.getId(); });
 
     
 
-    rhoUtil.createRawPropsProxy(WebView.prototype, [
+    rhoUtil.createRawPropsProxy(Navbar.prototype, [
     ]);
 
-    // === WebView constants ===
+    // === Navbar constants ===
 
-    
-            WebView.SAVE_FORMAT_JPEG = 'jpeg'; 
-    
-            WebView.SCROLL_FINGER = 'FingerScroll'; 
-    
-            WebView.SCROLL_NONE = 'None'; 
-    
-            WebView.SCROLL_SCROLLBARS = 'Scrollbars'; 
     
 
 
 
-    // === WebView static properties ===
+    // === Navbar static properties ===
 
-    rhoUtil.createPropsProxy(WebView, [
-        { propName: 'framework', propAccess: 'r' }
-      , { propName: 'fullScreen', propAccess: 'rw' }
-      , { propName: 'enableZoom', propAccess: 'r' }
-      , { propName: 'enablePageLoadingIndication', propAccess: 'r' }
-      , { propName: 'enableWebPlugins', propAccess: 'r' }
-      , { propName: 'keyboardDisplayRequiresUserAction', propAccess: 'rw' }
-      , { propName: 'navigationTimeout', propAccess: 'rw' }
-      , { propName: 'scrollTechnique', propAccess: 'r' }
-      , { propName: 'fontFamily', propAccess: 'r' }
-      , { propName: 'userAgent', propAccess: 'r' }
-      , { propName: 'viewportEnabled', propAccess: 'r' }
-      , { propName: 'viewportWidth', propAccess: 'r' }
-      , { propName: 'cacheSize', propAccess: 'r' }
-      , { propName: 'enableCache', propAccess: 'r' }
-      , { propName: 'acceptLanguage', propAccess: 'rw' }
-      , { propName: 'zoomPage', propAccess: 'rw' }
-      , { propName: 'textZoomLevel', propAccess: 'rw' }
-      , { propName: 'activeTab', propAccess: 'r' }
+    rhoUtil.createPropsProxy(Navbar, [
     ], apiReq);
 
-    // === WebView static methods ===
+    // === Navbar static methods ===
 
-    rhoUtil.createMethodsProxy(WebView, [
+    rhoUtil.createMethodsProxy(Navbar, [
     
-          // function(/* int */ tabIndex, /* optional function */ oResult)
-          { methodName: 'refresh', nativeName: 'refresh', valueCallbackIndex: 1 }
+          // function(/* const rho::Hashtable<rho::String, rho::String>& */ navBarProperties, /* optional function */ oResult)
+          { methodName: 'create', nativeName: 'create', valueCallbackIndex: 1 }
     
-          // function(/* const rho::String& */ url, /* int */ tabIndex, /* optional function */ oResult)
-        , { methodName: 'navigate', nativeName: 'navigate', valueCallbackIndex: 2 }
+          // function(/* optional function */ oResult)
+        , { methodName: 'remove', nativeName: 'remove', valueCallbackIndex: 0 }
     
-          // function(/* int */ tabIndex, /* optional function */ oResult)
-        , { methodName: 'navigateBack', nativeName: 'navigateBack', valueCallbackIndex: 1 }
-    
-          // function(/* int */ tabIndex, /* optional function */ oResult)
-        , { methodName: 'currentLocation', nativeName: 'currentLocation', valueCallbackIndex: 1 }
-    
-          // function(/* int */ tabIndex, /* optional function */ oResult)
-        , { methodName: 'currentURL', nativeName: 'currentURL', valueCallbackIndex: 1 }
-    
-          // function(/* const rho::String& */ javascriptText, /* int */ tabIndex, /* optional function */ oResult)
-        , { methodName: 'executeJavascript', nativeName: 'executeJavascript', valueCallbackIndex: 2 }
-    
-          // function(/* const rho::String& */ url, /* const rho::String& */ cookie, /* optional function */ oResult)
-        , { methodName: 'setCookie', nativeName: 'setCookie', valueCallbackIndex: 2 }
-    
-          // function(/* const rho::String& */ format, /* const rho::String& */ path, /* int */ tabIndex, /* optional function */ oResult)
-        , { methodName: 'save', nativeName: 'save', valueCallbackIndex: 3 }
+          // function(/* optional function */ oResult)
+        , { methodName: 'started', nativeName: 'started', valueCallbackIndex: 0 }
     
     ], apiReq);
 
-    // === WebView default instance support ===
+    // === Navbar default instance support ===
     
 
-    rhoUtil.namespace(moduleNS, WebView);
+    rhoUtil.namespace(moduleNS, Navbar);
+
+    
+
+    
+
+})(Rho.jQuery, Rho, Rho.util);
+// Module Rho.Database.SQLite3
+
+
+(function ($, rho, rhoUtil) {
+    'use strict';
+
+    var moduleNS = 'Rho.Database.SQLite3';
+    var apiReq = rhoUtil.apiReqFor(moduleNS);
+
+
+    // === SQLite3 class definition ===
+
+    function SQLite3() {
+        var id = null;
+        this.getId = function () {return id;};
+
+        if (1 == arguments.length && arguments[0][rhoUtil.rhoIdParam()]) {
+            if (moduleNS != arguments[0][rhoUtil.rhoClassParam()]) {
+                throw "Wrong class instantiation!";
+            }
+            id = arguments[0][rhoUtil.rhoIdParam()];
+        } else {
+            id = rhoUtil.nextId();
+            // constructor methods are following:
+            
+                this.open.apply(this, arguments);
+            
+        }
+    };
+
+    // === SQLite3 instance properties ===
+
+    rhoUtil.createPropsProxy(SQLite3.prototype, [
+    ], apiReq, function(){ return this.getId(); });
+
+    // === SQLite3 instance methods ===
+
+    rhoUtil.createMethodsProxy(SQLite3.prototype, [
+    
+          // function(/* const rho::String& */ dbPath, /* const rho::String& */ dbPartition, /* optional function */ oResult)
+          { methodName: 'open', nativeName: 'open', valueCallbackIndex: 2 }
+    
+          // function(/* optional function */ oResult)
+        , { methodName: 'close', nativeName: 'close', valueCallbackIndex: 0 }
+    
+          // function(/* optional function */ oResult)
+        , { methodName: 'startTransaction', nativeName: 'startTransaction', valueCallbackIndex: 0 }
+    
+          // function(/* optional function */ oResult)
+        , { methodName: 'commitTransaction', nativeName: 'commitTransaction', valueCallbackIndex: 0 }
+    
+          // function(/* optional function */ oResult)
+        , { methodName: 'rollbackTransaction', nativeName: 'rollbackTransaction', valueCallbackIndex: 0 }
+    
+          // function(/* optional function */ oResult)
+        , { methodName: 'lockDb', nativeName: 'lockDb', valueCallbackIndex: 0 }
+    
+          // function(/* optional function */ oResult)
+        , { methodName: 'unlockDb', nativeName: 'unlockDb', valueCallbackIndex: 0 }
+    
+          // function(/* const rho::Vector<rho::String>& */ include, /* const rho::Vector<rho::String>& */ exclude, /* optional function */ oResult)
+        , { methodName: 'destroyTables', nativeName: 'destroyTables', valueCallbackIndex: 2 }
+    
+          // function(/* const rho::String& */ tableName, /* optional function */ oResult)
+        , { methodName: 'isTableExist', nativeName: 'isTableExist', valueCallbackIndex: 1 }
+    
+          // function(/* optional function */ oResult)
+        , { methodName: 'isUiWaitForDb', nativeName: 'isUiWaitForDb', valueCallbackIndex: 0 }
+    
+          // function(/* const rho::String& */ sqlStmt, /* bool */ isBatch, /* const rho::Vector<rho::String>& */ args, /* optional function */ oResult)
+        , { methodName: 'execute', nativeName: 'execute', valueCallbackIndex: 3 }
+    
+    ], apiReq, function(){ return this.getId(); });
+
+    
+
+    rhoUtil.createRawPropsProxy(SQLite3.prototype, [
+    ]);
+
+    // === SQLite3 constants ===
+
+    
+
+
+
+    // === SQLite3 static properties ===
+
+    rhoUtil.createPropsProxy(SQLite3, [
+    ], apiReq);
+
+    // === SQLite3 static methods ===
+
+    rhoUtil.createMethodsProxy(SQLite3, [
+    
+          // function(/* const rho::String& */ partition, /* int */ sourceID, /* const rho::String& */ attrName, /* optional function */ oResult)
+          { methodName: 'isBlobAttr', nativeName: 'isBlobAttr', valueCallbackIndex: 3 }
+    
+    ], apiReq);
+
+    // === SQLite3 default instance support ===
+    
+
+    rhoUtil.namespace(moduleNS, SQLite3);
 
     
 
