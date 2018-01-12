@@ -3,6 +3,7 @@ import os
 
 from glob import glob
 from pbxproj import XcodeProject
+from pbxproj.pbxextensions.ProjectFiles import FileOptions
 
 framework_files = [y for x in os.walk("platform/iphone/impl/Firebase") for y in glob(os.path.join(x[0], '*.framework'))]
 
@@ -14,13 +15,12 @@ print framework_files
 print xcode_project
 
 project = XcodeProject.load(xcode_project)
-frameworkGroup = project.get_or_create_group('Frameworks')
-for framework in framework_files:
-	print "Processing :"+framework
-	project.add_file(framework,
-                     parent=frameworkGroup,
-                     tree='SDKROOT',
-                     weak=True, force=False)
+# frameworkGroup = project.get_or_create_group('Frameworks')
+file_options = FileOptions(weak=True)
+# for framework in framework_files:
+# 	print "Processing :"+framework
+# 	project.add_file(framework, parent=frameworkGroup, tree='SDKROOT', force=False, file_options=file_options)
+project.add_folder("platform/iphone/impl/Firebase",create_groups=False, file_options=file_options)
 project.save()
 
 
